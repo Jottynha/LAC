@@ -28,12 +28,12 @@ vector<vector<tuple<int,int>>> lerArquivo(const string& nomeArquivo, vector<int>
         // O último valor é a classe, então removemos ele da linha de valores
         if (!linhaValores.empty()) {
             classes.push_back(linhaValores.back());
-            linhaValores.pop_back();
-        }
+            linhaValores.pop_back();        
+            }
 
         // Adiciona tuplas contendo o índice e o valor
         for (size_t i = 0; i < linhaValores.size(); ++i) {
-            linhaTuplas.push_back(make_tuple(i, linhaValores[i]));
+            linhaTuplas.push_back(make_tuple(i+1, linhaValores[i]));
         }
 
         tuplas.push_back(linhaTuplas);
@@ -44,13 +44,12 @@ vector<vector<tuple<int,int>>> lerArquivo(const string& nomeArquivo, vector<int>
 }
 
 // Definição da função para criar uma tabela hash a partir do vetor de tuplas
-unordered_map<int, set<int>> criarTabelaHash(const vector<vector<tuple<int, int>>>& tuplas) {
-    unordered_map<int, set<int>> tabelaHash;
+unordered_map<tuple<int, int>, set<int>> criarTabelaHash(const vector<vector<tuple<int, int>>>& tuplas) {
+    unordered_map<tuple<int, int>, set<int>> tabelaHash;
 
     for (size_t i = 0; i < tuplas.size(); ++i) {
         for (const auto& t : tuplas[i]) {
-            int valor = get<1>(t);
-            tabelaHash[valor].insert(i + 1);
+            tabelaHash[t].insert(i + 1);
         }
     }
 
@@ -66,4 +65,15 @@ unordered_map<int, set<int>> criarTabelaHashClasses(const vector<int>& classes) 
     }
 
     return tabelaHashClasses;
+}
+
+set<int> buscarFeature(const unordered_map<tuple<int, int>, set<int>>& tabelaHash, int coluna, int valor) {
+    tuple<int, int> chave = make_tuple(coluna, valor);
+    auto it = tabelaHash.find(chave);
+
+    if (it != tabelaHash.end()) {
+        return it->second; // Retorna o conjunto de linhas onde a chave aparece
+    } else {
+        return {}; // Retorna um conjunto vazio se a chave não for encontrada
+    }
 }
