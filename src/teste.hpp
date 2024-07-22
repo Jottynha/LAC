@@ -4,11 +4,9 @@
 #include <algorithm>
 #include <numeric> 
 
-set<int> intersecao(const set<int>& set1, const set<int>& set2);
-set<int> buscarFeature(const unordered_map<tuple<int, int>, set<int>>& tabelaHash, int coluna, int valor);
-int avaliarCombinacoes(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
-                        const unordered_map<int, set<int>>& tabelaHashClasses,
-                        const vector<tuple<int, int>>& featuresLinha);
+int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
+                  const unordered_map<int, set<int>>& tabelaHashClasses,
+                  const vector<tuple<int, int>>& featuresLinha, int totalLinhas);
 void teste(const string& nomeArquivoTeste);
 
 #endif

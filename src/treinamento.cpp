@@ -4,6 +4,7 @@
 unordered_map<tuple<int, int>, set<int>> tabelaHashTreino;
 unordered_map<int, set<int>> tabelaHashClassesTreino;
 vector<vector<tuple<int, int>>> tuplasTreino;
+int totalLinhas = 0;
 
 // Definição da função para ler valores inteiros de um arquivo
 vector<vector<tuple<int,int>>> lerArquivo(const string& nomeArquivo, vector<int>& classes) {
@@ -30,11 +31,11 @@ vector<vector<tuple<int,int>>> lerArquivo(const string& nomeArquivo, vector<int>
         if (!linhaValores.empty()) {
             classes.push_back(linhaValores.back());
             linhaValores.pop_back();        
-            }
+        }
 
         // Adiciona tuplas contendo o índice e o valor
         for (size_t i = 0; i < linhaValores.size(); ++i) {
-            linhaTuplas.push_back(make_tuple(i+1, linhaValores[i]));
+            linhaTuplas.push_back(make_tuple(i + 1, linhaValores[i]));
         }
 
         tuplas.push_back(linhaTuplas);
@@ -77,6 +78,7 @@ set<int> buscarFeature(const unordered_map<tuple<int, int>, set<int>>& tabelaHas
     } else {
         return {}; // Retorna um conjunto vazio se a chave não for encontrada
     }
+
 }
 
 set<int> buscarClasse(const unordered_map<int, set<int>>& tabelaHashClasses, int classe) {
@@ -93,6 +95,7 @@ void treinamento(string nomeArquivo){
     tuplasTreino = lerArquivo(nomeArquivo, classes);
     tabelaHashTreino = criarTabelaHash(tuplasTreino);
     tabelaHashClassesTreino = criarTabelaHashClasses(classes);
+    totalLinhas = tuplasTreino.size();
     
     // Impressão das tuplas
     for (size_t i = 0; i < tuplasTreino.size(); ++i) {
@@ -122,40 +125,46 @@ void treinamento(string nomeArquivo){
         cout << endl;
     }
 
-    int colunaParaBuscar;
-    int valorParaBuscar;
-    cout << "Digite o número da coluna para buscar (iniciando em 1): ";
-    cin >> colunaParaBuscar;
-    cout << "Digite o valor para buscar: ";
-    cin >> valorParaBuscar;
-    if (colunaParaBuscar < 1) {
-        cerr << "O número da coluna deve ser maior ou igual a 1." << endl;
-    }
-    set<int> linhas = buscarFeature(tabelaHashTreino, colunaParaBuscar, valorParaBuscar); // Buscar na tabela hash
-    cout << "Busca para (Coluna: " << colunaParaBuscar << ", Valor: " << valorParaBuscar << "):" << endl;
-    if (!linhas.empty()) {
-        cout << "Aparece nas linhas: ";
-        for (const auto& linha : linhas) {
-            cout << linha << " ";
+    char C;
+    cout << "\nDeseja fazer uma analise particular no Treinamento? [S/N]: ";
+    cin >> C;
+    if(C == 'S'){
+        int colunaParaBuscar;
+        int valorParaBuscar;
+        cout << "Digite o número da coluna para buscar (iniciando em 1): ";
+        cin >> colunaParaBuscar;
+        cout << "Digite o valor para buscar: ";
+        cin >> valorParaBuscar;
+        if (colunaParaBuscar < 1) {
+            cerr << "O número da coluna deve ser maior ou igual a 1." << endl;
+            return; // Adicione um retorno para evitar continuar a execução
         }
-        cout << endl;
-    } else {
-        cout << "Nenhum resultado encontrado." << endl;
-    }
 
-    int classeParaBuscar;
-    cout << "\nDigite a classe para buscar: ";
-    cin >> classeParaBuscar;
-    set<int> linhasClasse = buscarClasse(tabelaHashClassesTreino, classeParaBuscar); // Buscar na tabela hash de classes
-    cout << "Busca para Classe: " << classeParaBuscar << ":" << endl;
-    if (!linhasClasse.empty()) {
-        cout << "Aparece nas linhas: ";
-        for (const auto& linha : linhasClasse) {
-            cout << linha << " ";
+        set<int> linhas = buscarFeature(tabelaHashTreino, colunaParaBuscar, valorParaBuscar); // Buscar na tabela hash
+        cout << "Busca para (Coluna: " << colunaParaBuscar << ", Valor: " << valorParaBuscar << "):" << endl;
+        if (!linhas.empty()) {
+            cout << "Aparece nas linhas: ";
+            for (const auto& linha : linhas) {
+                cout << linha << " ";
+            }
+            cout << endl;
+        } else {
+            cout << "Nenhum resultado encontrado." << endl;
         }
-        cout << endl;
-    } else {
-        cout << "Nenhum resultado encontrado." << endl;
-    }
 
+        int classeParaBuscar;
+        cout << "\nDigite a classe para buscar: ";
+        cin >> classeParaBuscar;
+        set<int> linhasClasse = buscarClasse(tabelaHashClassesTreino, classeParaBuscar); // Buscar na tabela hash de classes
+        cout << "Busca para Classe: " << classeParaBuscar << ":" << endl;
+        if (!linhasClasse.empty()) {
+            cout << "Aparece nas linhas: ";
+            for (const auto& linha : linhasClasse) {
+                cout << linha << " ";
+            }
+            cout << endl;
+        } else {
+            cout << "Nenhum resultado encontrado." << endl;
+        }
+    }
 }

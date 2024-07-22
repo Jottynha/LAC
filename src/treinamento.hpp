@@ -30,6 +30,7 @@ namespace std { //Estruturando a Hash para aceitar Tuplas
 extern unordered_map<tuple<int, int>, set<int>> tabelaHashTreino;
 extern unordered_map<int, set<int>> tabelaHashClassesTreino;
 extern vector<vector<tuple<int, int>>> tuplasTreino;
+extern int totalLinhas;
 
 vector<vector<tuple<int,int>>> lerArquivo(const string& nomeArquivo, vector<int>& classes);
 unordered_map<tuple<int, int>, set<int>> criarTabelaHash(const vector<vector<tuple<int, int>>>& tuplas);
