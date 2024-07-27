@@ -1,0 +1,4 @@
+Linha 1: Classe Atribuída = 5
+Linha 2: Classe Atribuída = 5
+Total de acertos: 2
+Total de erros: 0
