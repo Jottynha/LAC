@@ -6,7 +6,7 @@ using namespace std;
 
 
 int main() {
-    treinamento("dataset/treinamento.txt");
-    teste("dataset/teste.txt");
+    treinamento("dataset/poker-hand-training.data");
+    teste("dataset/poker-hand-testing.data");
     return 0;
 }
