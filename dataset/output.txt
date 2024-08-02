@@ -1991,3 +1991,7 @@ Linha 1990: Classe Atribuída = 0
 Linha 1991: Classe Atribuída = 0
 Linha 1992: Classe Atribuída = 0
 Linha 1993: Classe Atribuída = 0
+Linha 1994: Classe Atribuída = 0
+Linha 1995: Classe Atribuída = 0
+Linha 1996: Classe Atribuída = 0
+Linha 1997: Classe Atribuída = 0
