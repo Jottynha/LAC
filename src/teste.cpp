@@ -1,4 +1,40 @@
 #include "teste.hpp"
+#include <chrono>
+#include <iomanip>  // Para usar std::setprecision
+
+template <typename T>
+vector<vector<T>> combinacoes(const vector<T>& iterable, int r) {
+    vector<vector<T>> resultado;
+    int n = iterable.size();
+    if (r > n) return resultado; // Se r for maior que o tamanho do vetor, retorna vazio
+    vector<int> indices(r);
+    for (int i = 0; i < r; ++i) {
+        indices[i] = i;
+    }
+    resultado.push_back({});
+    for (int i = 0; i < r; ++i) {
+        resultado.back().push_back(iterable[indices[i]]);
+    }
+    while (true) {
+        int i;
+        for (i = r - 1; i >= 0; --i) {
+            if (indices[i] != i + n - r) {
+                break;
+            }
+        }
+        if (i < 0) {
+            return resultado;
+        }
+        ++indices[i];
+        for (int j = i + 1; j < r; ++j) {
+            indices[j] = indices[j - 1] + 1;
+        }
+        resultado.push_back({});
+        for (int i = 0; i < r; ++i) {
+            resultado.back().push_back(iterable[indices[i]]);
+        }
+    }
+}
 
 // Função para avaliar a classe de uma linha de features
 int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
@@ -21,6 +57,8 @@ int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
     }
 
     int numLinhas = linhas.size();
+    vector<int> indices(numLinhas);
+    iota(indices.begin(), indices.end(), 0);
     
     // Iterações para encontrar interseções de linhas e calcular relevância
     for (int interacao = 1; interacao < 4; interacao++) {
@@ -46,26 +84,28 @@ int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
             }
             case 2: {
                 // Segunda interação: calcula relevância para interseções duplas
-                for (int i = 0; i < numLinhas; i++) {
-                    for (int j = i + 1; j < numLinhas; j++) {
-                        set<int> intersecao12;
-                        // Calcula a interseção entre duas features
-                        set_intersection(linhas[i].begin(), linhas[i].end(),
-                                         linhas[j].begin(), linhas[j].end(),
-                                         inserter(intersecao12, intersecao12.begin()));
+                auto combs = combinacoes(indices, 2);
+                for (const auto& comb : combs) {
+                    int i = comb[0];
+                    int j = comb[1];
+                    
+                    set<int> intersecao12;
+                    // Calcula a interseção entre duas features
+                    set_intersection(linhas[i].begin(), linhas[i].end(),
+                                          linhas[j].begin(), linhas[j].end(),
+                                          std::inserter(intersecao12, intersecao12.begin()));
 
-                        for (const auto& classe : tabelaHashClasses) {
-                            set<int> linhasClasse = classe.second;
-                            set<int> linhasIntersecao;
-                            // Calcula a interseção entre a interseção dupla e linhas da classe
-                            set_intersection(intersecao12.begin(), intersecao12.end(),
-                                             linhasClasse.begin(), linhasClasse.end(),
-                                             inserter(linhasIntersecao, linhasIntersecao.begin()));
-                            if (!linhasIntersecao.empty()) {
-                                // Calcula o suporte e atualiza a relevância da classe
-                                double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
-                                relevanciaClasse[classe.first] += suporte;
-                            }
+                    for (const auto& classe : tabelaHashClasses) {
+                        set<int> linhasClasse = classe.second;
+                        set<int> linhasIntersecao;
+                        // Calcula a interseção entre a interseção dupla e linhas da classe
+                        set_intersection(intersecao12.begin(), intersecao12.end(),
+                                              linhasClasse.begin(), linhasClasse.end(),
+                                              std::inserter(linhasIntersecao, linhasIntersecao.begin()));
+                        if (!linhasIntersecao.empty()) {
+                            // Calcula o suporte e atualiza a relevância da classe
+                            double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
+                            relevanciaClasse[classe.first] += suporte;
                         }
                     }
                 }
@@ -73,34 +113,35 @@ int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
             }
             case 3: {
                 // Terceira interação: calcula relevância para interseções triplas
-                for (int i = 0; i < numLinhas; i++) {
-                    for (int j = i + 1; j < numLinhas; j++) {
-                        set<int> intersecao12;
-                        // Calcula a interseção entre duas features
-                        set_intersection(linhas[i].begin(), linhas[i].end(),
-                                         linhas[j].begin(), linhas[j].end(),
-                                         inserter(intersecao12, intersecao12.begin()));
+                auto combs = combinacoes(indices, 3);
+                for (const auto& comb : combs) {
+                    int i = comb[0];
+                    int j = comb[1];
+                    int k = comb[2];
 
-                        for (int k = j + 1; k < numLinhas; k++) {
-                            set<int> intersecao123;
-                            // Calcula a interseção entre três features
-                            set_intersection(intersecao12.begin(), intersecao12.end(),
-                                             linhas[k].begin(), linhas[k].end(),
-                                             inserter(intersecao123, intersecao123.begin()));
+                    std::set<int> intersecao12;
+                    // Calcula a interseção entre duas features
+                    std::set_intersection(linhas[i].begin(), linhas[i].end(),
+                                          linhas[j].begin(), linhas[j].end(),
+                                          std::inserter(intersecao12, intersecao12.begin()));
 
-                            for (const auto& classe : tabelaHashClasses) {
-                                set<int> linhasClasse = classe.second;
-                                set<int> linhasIntersecao;
-                                // Calcula a interseção entre a interseção tripla e linhas da classe
-                                set_intersection(intersecao123.begin(), intersecao123.end(),
-                                                 linhasClasse.begin(), linhasClasse.end(),
-                                                 inserter(linhasIntersecao, linhasIntersecao.begin()));
-                                if (!linhasIntersecao.empty()) {
-                                    // Calcula o suporte e atualiza a relevância da classe
-                                    double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
-                                    relevanciaClasse[classe.first] += suporte;
-                                }
-                            }
+                    std::set<int> intersecao123;
+                    // Calcula a interseção entre três features
+                    std::set_intersection(intersecao12.begin(), intersecao12.end(),
+                                          linhas[k].begin(), linhas[k].end(),
+                                          std::inserter(intersecao123, intersecao123.begin()));
+
+                    for (const auto& classe : tabelaHashClasses) {
+                        std::set<int> linhasClasse = classe.second;
+                        std::set<int> linhasIntersecao;
+                        // Calcula a interseção entre a interseção tripla e linhas da classe
+                        std::set_intersection(intersecao123.begin(), intersecao123.end(),
+                                              linhasClasse.begin(), linhasClasse.end(),
+                                              std::inserter(linhasIntersecao, linhasIntersecao.begin()));
+                        if (!linhasIntersecao.empty()) {
+                            // Calcula o suporte e atualiza a relevância da classe
+                            double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
+                            relevanciaClasse[classe.first] += suporte;
                         }
                     }
                 }
@@ -125,6 +166,7 @@ int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
 
 // Função para testar o algoritmo com um arquivo de teste
 void teste(const string& nomeArquivoTeste) {
+    auto inicio = chrono::high_resolution_clock::now();
     // Abre o arquivo de teste para leitura
     ifstream arquivoTeste(nomeArquivoTeste);
     // Abre o arquivo de saída para escrita
@@ -196,11 +238,19 @@ void teste(const string& nomeArquivoTeste) {
         }
     }
 
+    // Calcula as porcentagens de acertos e erros
+    double porcentagemAcertos = (static_cast<double>(acertos) / totalLinhasArquivo) * 100.0;
+    double porcentagemErros = (static_cast<double>(erros) / totalLinhasArquivo) * 100.0;
+
     // Escreve o total de acertos e erros no arquivo de saída
-    arquivoSaida << "Total de acertos: " << acertos << endl;
-    arquivoSaida << "Total de erros: " << erros << endl;
+    arquivoSaida << "Total de acertos: " << acertos << " (" << fixed << setprecision(2) << porcentagemAcertos << "%)" << endl;
+    arquivoSaida << "Total de erros: " << erros << " (" << fixed << setprecision(2) << porcentagemErros << "%)" << endl;
 
     // Fecha os arquivos de teste e de saída
     arquivoTeste.close();
     arquivoSaida.close();
+
+    auto fim = chrono::high_resolution_clock::now();
+    chrono::duration<double> duracao = fim - inicio;
+    std::cout << "[ Tempo de execução: " << duracao.count() << " segundos ]" << endl;
 }
