@@ -98,26 +98,5 @@ Linha 97: Classe Atribuída = 1
 Linha 98: Classe Atribuída = 1
 Linha 99: Classe Atribuída = 1
 Linha 100: Classe Atribuída = 1
-Linha 101: Classe Atribuída = 1
-Linha 102: Classe Atribuída = 1
-Linha 103: Classe Atribuída = 1
-Linha 104: Classe Atribuída = 1
-Linha 105: Classe Atribuída = 1
-Linha 106: Classe Atribuída = 1
-Linha 107: Classe Atribuída = 1
-Linha 108: Classe Atribuída = 1
-Linha 109: Classe Atribuída = 1
-Linha 110: Classe Atribuída = 1
-Linha 111: Classe Atribuída = 1
-Linha 112: Classe Atribuída = 1
-Linha 113: Classe Atribuída = 1
-Linha 114: Classe Atribuída = 1
-Linha 115: Classe Atribuída = 1
-Linha 116: Classe Atribuída = 1
-Linha 117: Classe Atribuída = 1
-Linha 118: Classe Atribuída = 1
-Linha 119: Classe Atribuída = 1
-Linha 120: Classe Atribuída = 1
-Linha 121: Classe Atribuída = 1
-Total de acertos: 121 (100.00%)
+Total de acertos: 100 (100.00%)
 Total de erros: 0 (0.00%)

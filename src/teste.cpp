@@ -2,56 +2,118 @@
 #include <chrono>
 #include <iomanip>  // Para usar std::setprecision
 
-template <typename T>
-vector<vector<T>> combinacoes(const vector<T>& iterable, int r) {
-    vector<vector<T>> resultado;
-    int n = iterable.size();
-    if (r > n) return resultado; // Se r for maior que o tamanho do vetor, retorna vazio
-    vector<int> indices(r);
-    for (int i = 0; i < r; ++i) {
-        indices[i] = i;
-    }
-    resultado.push_back({});
-    for (int i = 0; i < r; ++i) {
-        resultado.back().push_back(iterable[indices[i]]);
-    }
-    while (true) {
-        int i;
-        for (i = r - 1; i >= 0; --i) {
-            if (indices[i] != i + n - r) {
-                break;
-            }
-        }
-        if (i < 0) {
-            return resultado;
-        }
-        ++indices[i];
-        for (int j = i + 1; j < r; ++j) {
-            indices[j] = indices[j - 1] + 1;
-        }
-        resultado.push_back({});
-        for (int i = 0; i < r; ++i) {
-            resultado.back().push_back(iterable[indices[i]]);
+const double THRESHOLD_SIMILARIDADE = 0.7;
+
+// Função para calcular similaridade (simples exemplo usando a interseção sobre a união)
+double calcularSimilaridade(const vector<int>& linha1, const vector<int>& linha2) {
+    int intersecao = 0;
+    int uniao = linha1.size();
+
+    for (size_t i = 0; i < linha1.size(); ++i) {
+        if (linha1[i] == linha2[i]) {
+            intersecao++;
         }
     }
+
+    return static_cast<double>(intersecao) / uniao;
 }
 
-// Função para avaliar a classe de uma linha de features
+unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComSimilaridade(const string& nomeArquivoTeste, int& totalLinhas) {
+    ifstream arquivoTeste(nomeArquivoTeste);
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
+    vector<pair<vector<int>, int>> linhas; // Armazena linhas e números das linhas
+    string linha;
+    int bucketIndex = 0;
+    totalLinhas = 0;
+    int numeroLinha = 1;
+
+    // Lê o arquivo de teste e armazena as linhas com seus números
+    while (getline(arquivoTeste, linha)) {
+        stringstream ss(linha);
+        string item;
+        vector<int> linhaValores;
+
+        while (getline(ss, item, ',')) {
+            linhaValores.push_back(stoi(item));
+        }
+
+        linhas.push_back({linhaValores, numeroLinha});
+        totalLinhas++;
+        numeroLinha++;
+    }
+
+    // Organiza as linhas em buckets com base na similaridade
+    for (size_t i = 0; i < linhas.size(); ++i) {
+        bool adicionado = false;
+        for (auto& bucket : buckets) {
+            for (const auto& linhaBucket : bucket.second.first) {
+                if (calcularSimilaridade(linhas[i].first, linhaBucket.first) >= THRESHOLD_SIMILARIDADE) {
+                    bucket.second.first.push_back(linhas[i]);
+                    adicionado = true;
+                    break;
+                }
+            }
+            if (adicionado) break;
+        }
+
+        if (!adicionado) {
+            buckets[bucketIndex] = make_pair(vector<pair<vector<int>, int>>{linhas[i]}, 0.0);
+            bucketIndex++;
+        }
+    }
+
+    // Calcula o suporte para cada bucket
+    for (auto& bucket : buckets) {
+        int totalLinhasBucket = bucket.second.first.size();
+        double suporte = static_cast<double>(totalLinhasBucket) / totalLinhas;
+        bucket.second.second = suporte;
+    }
+
+    // Imprime os buckets e as linhas pertencentes a eles
+    cout << "Buckets e linhas pertencentes a cada um:" << endl;
+    for (const auto& bucket : buckets) {
+        cout << "Bucket " << bucket.first << " (Suporte: " << bucket.second.second << "):" << endl;
+        for (const auto& linha : bucket.second.first) {
+            for (size_t i = 0; i < linha.first.size(); ++i) {
+                cout << linha.first[i] << (i < linha.first.size() - 1 ? "," : "");
+            }
+            cout << " [Linha: " << linha.second << "]" << endl;
+        }
+        cout << endl;
+    }
+
+    return buckets;
+}
+
+vector<vector<int>> combinacoes(const vector<int>& indices, int n) {
+    vector<vector<int>> result;
+    vector<bool> v(indices.size());
+    fill(v.begin(), v.begin() + n, true);
+    do {
+        vector<int> comb;
+        for (long unsigned int i = 0; i < indices.size(); ++i) {
+            if (v[i]) {
+                comb.push_back(indices[i]);
+            }
+        }
+        result.push_back(comb);
+    } while (prev_permutation(v.begin(), v.end()));
+    return result;
+}
+
 int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
                   const unordered_map<int, set<int>>& tabelaHashClasses,
                   const vector<tuple<int, int>>& featuresLinha, int totalLinhas) {
-    // Mapa para armazenar a relevância de cada classe
     unordered_map<int, double> relevanciaClasse;
-    // Vetor para armazenar os conjuntos de linhas para cada feature
     vector<set<int>> linhas;
+    ofstream arquivoSuporte;
+    arquivoSuporte.open("dataset/suporte.txt", ios::app);
 
-    // Itera sobre cada feature da linha
     for (const auto& tupla : featuresLinha) {
         int coluna = get<0>(tupla);
         int valor = get<1>(tupla);
-        // Busca o conjunto de linhas para a feature na tabela hash
         set<int> linhasFeature = buscarFeature(tabelaHash, coluna, valor);
-        if (!linhasFeature.empty()) { // Verifica se o conjunto de linhas não está vazio
+        if (!linhasFeature.empty()) {
             linhas.push_back(linhasFeature);
         }
     }
@@ -59,113 +121,54 @@ int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
     int numLinhas = linhas.size();
     vector<int> indices(numLinhas);
     iota(indices.begin(), indices.end(), 0);
-    
-    // Iterações para encontrar interseções de linhas e calcular relevância
-    for (int interacao = 1; interacao < 4; interacao++) {
-        switch (interacao) {
-            case 1: {
-                // Primeira interação: calcula relevância para interseções simples
-                for (const auto& linhasFeature : linhas) {
-                    for (const auto& classe : tabelaHashClasses) {
-                        set<int> linhasClasse = classe.second;
-                        set<int> linhasIntersecao;
-                        // Calcula a interseção entre linhas da feature e linhas da classe
-                        set_intersection(linhasFeature.begin(), linhasFeature.end(),
-                                         linhasClasse.begin(), linhasClasse.end(),
-                                         inserter(linhasIntersecao, linhasIntersecao.begin()));
-                        if (!linhasIntersecao.empty()) {
-                            // Calcula o suporte e atualiza a relevância da classe
-                            double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
-                            relevanciaClasse[classe.first] += suporte;
-                        }
-                    }
-                }
-                break;
+
+    for (int interacao = 1; interacao <= 3; interacao++) {
+        auto combs = combinacoes(indices, interacao);
+        for (const auto& comb : combs) {
+            set<int> intersecao = linhas[comb[0]];
+            for (long unsigned int idx = 1; idx < comb.size(); ++idx) {
+                set<int> tempIntersecao;
+                set_intersection(intersecao.begin(), intersecao.end(),
+                                 linhas[comb[idx]].begin(), linhas[comb[idx]].end(),
+                                 inserter(tempIntersecao, tempIntersecao.begin()));
+                intersecao = tempIntersecao;
             }
-            case 2: {
-                // Segunda interação: calcula relevância para interseções duplas
-                auto combs = combinacoes(indices, 2);
-                for (const auto& comb : combs) {
-                    int i = comb[0];
-                    int j = comb[1];
-                    
-                    set<int> intersecao12;
-                    // Calcula a interseção entre duas features
-                    set_intersection(linhas[i].begin(), linhas[i].end(),
-                                          linhas[j].begin(), linhas[j].end(),
-                                          std::inserter(intersecao12, intersecao12.begin()));
 
-                    for (const auto& classe : tabelaHashClasses) {
-                        set<int> linhasClasse = classe.second;
-                        set<int> linhasIntersecao;
-                        // Calcula a interseção entre a interseção dupla e linhas da classe
-                        set_intersection(intersecao12.begin(), intersecao12.end(),
-                                              linhasClasse.begin(), linhasClasse.end(),
-                                              std::inserter(linhasIntersecao, linhasIntersecao.begin()));
-                        if (!linhasIntersecao.empty()) {
-                            // Calcula o suporte e atualiza a relevância da classe
-                            double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
-                            relevanciaClasse[classe.first] += suporte;
-                        }
-                    }
+            for (const auto& classe : tabelaHashClasses) {
+                set<int> linhasClasse = classe.second;
+                set<int> linhasIntersecao;
+                set_intersection(intersecao.begin(), intersecao.end(),
+                                 linhasClasse.begin(), linhasClasse.end(),
+                                 inserter(linhasIntersecao, linhasIntersecao.begin()));
+                if (!linhasIntersecao.empty()) {
+                    double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
+                    relevanciaClasse[classe.first] += suporte;
                 }
-                break;
-            }
-            case 3: {
-                // Terceira interação: calcula relevância para interseções triplas
-                auto combs = combinacoes(indices, 3);
-                for (const auto& comb : combs) {
-                    int i = comb[0];
-                    int j = comb[1];
-                    int k = comb[2];
-
-                    std::set<int> intersecao12;
-                    // Calcula a interseção entre duas features
-                    std::set_intersection(linhas[i].begin(), linhas[i].end(),
-                                          linhas[j].begin(), linhas[j].end(),
-                                          std::inserter(intersecao12, intersecao12.begin()));
-
-                    std::set<int> intersecao123;
-                    // Calcula a interseção entre três features
-                    std::set_intersection(intersecao12.begin(), intersecao12.end(),
-                                          linhas[k].begin(), linhas[k].end(),
-                                          std::inserter(intersecao123, intersecao123.begin()));
-
-                    for (const auto& classe : tabelaHashClasses) {
-                        std::set<int> linhasClasse = classe.second;
-                        std::set<int> linhasIntersecao;
-                        // Calcula a interseção entre a interseção tripla e linhas da classe
-                        std::set_intersection(intersecao123.begin(), intersecao123.end(),
-                                              linhasClasse.begin(), linhasClasse.end(),
-                                              std::inserter(linhasIntersecao, linhasIntersecao.begin()));
-                        if (!linhasIntersecao.empty()) {
-                            // Calcula o suporte e atualiza a relevância da classe
-                            double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
-                            relevanciaClasse[classe.first] += suporte;
-                        }
-                    }
-                }
-                break;
             }
         }
     }
 
-    // Vetor de pares para armazenar classes e seus suportes, e ordenar por suporte
     vector<pair<int, double>> suporteClasses(relevanciaClasse.begin(), relevanciaClasse.end());
+    for(long unsigned int a=0;a<suporteClasses.size();a++)
+    {
+        arquivoSuporte << " Classe: " << get<0>(suporteClasses[a]);     
+        arquivoSuporte << " Valor: "<< get<1>(suporteClasses[a]);      
+    }
+    arquivoSuporte << endl;
     sort(suporteClasses.begin(), suporteClasses.end(), [](const pair<int, double>& a, const pair<int, double>& b) {
         return a.second > b.second;
     });
 
     if (!suporteClasses.empty()) {
-        // Retorna a classe com maior suporte
         return suporteClasses.front().first;
     } else {
-        return -1; // Nenhuma classe encontrada
+        return -1;
     }
 }
-
 // Função para testar o algoritmo com um arquivo de teste
 void teste(const string& nomeArquivoTeste) {
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComSimilaridade(nomeArquivoTeste, totalLinhas);
+    ofstream arquivoSuporte("dataset/suporte.txt");
     auto inicio = chrono::high_resolution_clock::now();
     // Abre o arquivo de teste para leitura
     ifstream arquivoTeste(nomeArquivoTeste);
@@ -188,7 +191,9 @@ void teste(const string& nomeArquivoTeste) {
     }
 
     // Lê o arquivo de teste linha por linha
-    while (getline(arquivoTeste, linha)) {
+    int i = 0;
+    while (i<100 && getline(arquivoTeste, linha)) {
+        i++;
         // String stream para processar a linha lida
         stringstream ss(linha);
         // Variável para armazenar cada valor separado por vírgula
@@ -202,7 +207,6 @@ void teste(const string& nomeArquivoTeste) {
         while (getline(ss, item, ',')) {
             linhaValores.push_back(stoi(item));
         }
-
         // Verifica se a linha não está vazia
         if (!linhaValores.empty()) {
             // Extrai a classe original (último valor da linha)
@@ -252,5 +256,5 @@ void teste(const string& nomeArquivoTeste) {
 
     auto fim = chrono::high_resolution_clock::now();
     chrono::duration<double> duracao = fim - inicio;
-    std::cout << "[ Tempo de execução: " << duracao.count() << " segundos ]" << endl;
+    cout << "[ Tempo de execução: " << duracao.count() << " segundos ]" << endl;
 }
