@@ -1,6 +1,19 @@
 #include "teste.hpp"
 #include <chrono>
 #include <iomanip>  // Para usar std::setprecision
+#include <vector>
+#include <unordered_map>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <set>
+#include <tuple>
+#include <utility> // Para std::pair
+#include <numeric> // Para std::iota
+#include <iterator> // Para std::inserter
+
+using namespace std;
 
 const double THRESHOLD_SIMILARIDADE = 0.7;
 
@@ -18,6 +31,7 @@ double calcularSimilaridade(const vector<int>& linha1, const vector<int>& linha2
     return static_cast<double>(intersecao) / uniao;
 }
 
+// Função para criar buckets com base na similaridade
 unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComSimilaridade(const string& nomeArquivoTeste, int& totalLinhas) {
     ifstream arquivoTeste(nomeArquivoTeste);
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
@@ -26,9 +40,11 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
     int bucketIndex = 0;
     totalLinhas = 0;
     int numeroLinha = 1;
+    int a=0;
 
     // Lê o arquivo de teste e armazena as linhas com seus números
-    while (getline(arquivoTeste, linha)) {
+    while (a<100&&getline(arquivoTeste, linha)) {
+        a++;
         stringstream ss(linha);
         string item;
         vector<int> linhaValores;
@@ -72,7 +88,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
     // Imprime os buckets e as linhas pertencentes a eles
     cout << "Buckets e linhas pertencentes a cada um:" << endl;
     for (const auto& bucket : buckets) {
-        cout << "Bucket " << bucket.first << " (Suporte: " << bucket.second.second << "):" << endl;
+        cout << "Bucket " << bucket.first << endl;
         for (const auto& linha : bucket.second.first) {
             for (size_t i = 0; i < linha.first.size(); ++i) {
                 cout << linha.first[i] << (i < linha.first.size() - 1 ? "," : "");
@@ -85,6 +101,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
     return buckets;
 }
 
+// Função para gerar combinações
 vector<vector<int>> combinacoes(const vector<int>& indices, int n) {
     vector<vector<int>> result;
     vector<bool> v(indices.size());
@@ -101,13 +118,13 @@ vector<vector<int>> combinacoes(const vector<int>& indices, int n) {
     return result;
 }
 
-int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
+// Função para avaliar a classe combinatória
+int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
                   const unordered_map<int, set<int>>& tabelaHashClasses,
                   const vector<tuple<int, int>>& featuresLinha, int totalLinhas) {
     unordered_map<int, double> relevanciaClasse;
     vector<set<int>> linhas;
-    ofstream arquivoSuporte;
-    arquivoSuporte.open("dataset/suporte.txt", ios::app);
+    ofstream arquivoSuporte("dataset/suporte.txt", ios::app);
 
     for (const auto& tupla : featuresLinha) {
         int coluna = get<0>(tupla);
@@ -149,12 +166,11 @@ int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
     }
 
     vector<pair<int, double>> suporteClasses(relevanciaClasse.begin(), relevanciaClasse.end());
-    for(long unsigned int a=0;a<suporteClasses.size();a++)
-    {
-        arquivoSuporte << " Classe: " << get<0>(suporteClasses[a]);     
-        arquivoSuporte << " Valor: "<< get<1>(suporteClasses[a]);      
+    for (const auto& classe : suporteClasses) {
+        arquivoSuporte << "Classe: " << classe.first << " Valor: " << classe.second;
     }
-    arquivoSuporte << endl;
+    arquivoSuporte.close();
+
     sort(suporteClasses.begin(), suporteClasses.end(), [](const pair<int, double>& a, const pair<int, double>& b) {
         return a.second > b.second;
     });
@@ -165,58 +181,82 @@ int avaliarClasse(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
         return -1;
     }
 }
+
+// Função para avaliar a classe de uma linha
+int avaliarClasse(const vector<int>& linha, 
+                  const unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>& buckets,
+                  const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
+                  const unordered_map<int, set<int>>& tabelaHashClasses,
+                  int totalLinhas) {
+    // Verifica se a linha está em algum bucket
+    for (const auto& bucket : buckets) {
+        for (const auto& linhaBucket : bucket.second.first) {
+            if (linha == linhaBucket.first) {
+                // Linha está em um bucket, retorna a classe associada ao bucket
+                return bucket.first;
+            }
+        }
+    }
+
+    // Se a linha não estiver em um bucket, prossegue com a análise combinatória
+    vector<tuple<int, int>> featuresLinha;
+    for (size_t i = 0; i < linha.size(); ++i) {
+        featuresLinha.push_back(make_tuple(i + 1, linha[i])); // Ajusta para a estrutura de tupla (coluna, valor)
+    }
+
+    return avaliarClasseCombinatoria(tabelaHash, tabelaHashClasses, featuresLinha, totalLinhas);
+}
+
 // Função para testar o algoritmo com um arquivo de teste
 void teste(const string& nomeArquivoTeste) {
+    int totalLinhas;
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComSimilaridade(nomeArquivoTeste, totalLinhas);
-    ofstream arquivoSuporte("dataset/suporte.txt");
-    auto inicio = chrono::high_resolution_clock::now();
+
     // Abre o arquivo de teste para leitura
     ifstream arquivoTeste(nomeArquivoTeste);
-    // Abre o arquivo de saída para escrita
-    ofstream arquivoSaida("dataset/output.txt");
-
-    // Vetor para armazenar as classes originais do arquivo de teste
-    vector<int> classesTeste;
-    // Variável para armazenar cada linha do arquivo de teste
-    string linha;
-    // Variáveis para contar o total de linhas, acertos e erros
-    int totalLinhasArquivo = 0;
-    int acertos = 0;
-    int erros = 0;
-
-    // Verifica se o arquivo de teste foi aberto corretamente
     if (!arquivoTeste) {
         cerr << "Erro ao abrir o arquivo de teste." << endl;
         return;
     }
 
+    // Abre o arquivo de saída para escrita
+    ofstream arquivoSaida("dataset/output.txt");
+    if (!arquivoSaida) {
+        cerr << "Erro ao abrir o arquivo de saída." << endl;
+        return;
+    }
+
+    // Variáveis para contagem de acertos e erros
+    int totalLinhasArquivo = 0;
+    int acertos = 0;
+    int erros = 0;
+    int a=0;
+
+    auto inicio = chrono::high_resolution_clock::now();
+
     // Lê o arquivo de teste linha por linha
-    int i = 0;
-    while (i<100 && getline(arquivoTeste, linha)) {
-        i++;
+    string linha;
+    while (a<100&&getline(arquivoTeste, linha)) {
+        a++;
         // String stream para processar a linha lida
         stringstream ss(linha);
-        // Variável para armazenar cada valor separado por vírgula
         string item;
-        // Vetor para armazenar os valores inteiros da linha
         vector<int> linhaValores;
-        // Reserva espaço no vetor para evitar realocações dinâmicas frequentes
         linhaValores.reserve(1);
 
         // Separa os valores da linha usando a vírgula como delimitador
         while (getline(ss, item, ',')) {
             linhaValores.push_back(stoi(item));
         }
+
         // Verifica se a linha não está vazia
         if (!linhaValores.empty()) {
             // Extrai a classe original (último valor da linha)
             int classeOriginal = linhaValores.back();
-            // Remove o último valor do vetor, que é a classe original
             linhaValores.pop_back();
 
             // Vetor de tuplas para armazenar os pares (coluna, valor)
             vector<tuple<int, int>> linhaTuplas;
-            // Reserva espaço no vetor para evitar realocações dinâmicas frequentes
             linhaTuplas.reserve(linhaValores.size());
 
             // Cria tuplas de coluna e valor para as features
@@ -225,7 +265,7 @@ void teste(const string& nomeArquivoTeste) {
             }
 
             // Avalia a classe atribuída para a linha usando a função avaliarClasse
-            int classeAtribuida = avaliarClasse(tabelaHashTreino, tabelaHashClassesTreino, linhaTuplas, totalLinhas);
+            int classeAtribuida = avaliarClasse(linhaValores, buckets, tabelaHashTreino, tabelaHashClassesTreino, totalLinhas);
 
             // Escreve a classe atribuída no arquivo de saída
             arquivoSaida << "Linha " << (totalLinhasArquivo + 1) << ": Classe Atribuída = " << classeAtribuida << endl;
