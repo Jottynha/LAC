@@ -12,10 +12,13 @@
 #include <utility> // Para std::pair
 #include <numeric> // Para std::iota
 #include <iterator> // Para std::inserter
+#include <thread>
+#include <mutex>
 
 using namespace std;
 
 const double THRESHOLD_SIMILARIDADE = 0.7;
+mutex mutexRelevancia;
 
 // Função para calcular similaridade (simples exemplo usando a interseção sobre a união)
 double calcularSimilaridade(const vector<int>& linha1, const vector<int>& linha2) {
@@ -118,10 +121,37 @@ vector<vector<int>> combinacoes(const vector<int>& indices, int n) {
     return result;
 }
 
-// Função para avaliar a classe combinatória
+void calcularSuportePorCombinacao(const vector<set<int>>& linhas, 
+                                  const vector<int>& comb,
+                                  const unordered_map<int, set<int>>& tabelaHashClasses,
+                                  unordered_map<int, double>& relevanciaClasse,
+                                  int totalLinhas) {
+    set<int> intersecao = linhas[comb[0]];
+    for (size_t idx = 1; idx < comb.size(); ++idx) {
+        set<int> tempIntersecao;
+        set_intersection(intersecao.begin(), intersecao.end(),
+                         linhas[comb[idx]].begin(), linhas[comb[idx]].end(),
+                         inserter(tempIntersecao, tempIntersecao.begin()));
+        intersecao = tempIntersecao;
+    }
+
+    for (const auto& classe : tabelaHashClasses) {
+        set<int> linhasClasse = classe.second;
+        set<int> linhasIntersecao;
+        set_intersection(intersecao.begin(), intersecao.end(),
+                         linhasClasse.begin(), linhasClasse.end(),
+                         inserter(linhasIntersecao, linhasIntersecao.begin()));
+        if (!linhasIntersecao.empty()) {
+            double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
+            std::lock_guard<std::mutex> lock(mutexRelevancia);
+            relevanciaClasse[classe.first] += suporte;
+        }
+    }
+}
+
 int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
-                  const unordered_map<int, set<int>>& tabelaHashClasses,
-                  const vector<tuple<int, int>>& featuresLinha, int totalLinhas) {
+                              const unordered_map<int, set<int>>& tabelaHashClasses,
+                              const vector<tuple<int, int>>& featuresLinha, int totalLinhas) {
     unordered_map<int, double> relevanciaClasse;
     vector<set<int>> linhas;
     ofstream arquivoSuporte("dataset/suporte.txt", ios::app);
@@ -139,30 +169,19 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
     vector<int> indices(numLinhas);
     iota(indices.begin(), indices.end(), 0);
 
+    vector<thread> threads;
+
     for (int interacao = 1; interacao <= 3; interacao++) {
         auto combs = combinacoes(indices, interacao);
         for (const auto& comb : combs) {
-            set<int> intersecao = linhas[comb[0]];
-            for (long unsigned int idx = 1; idx < comb.size(); ++idx) {
-                set<int> tempIntersecao;
-                set_intersection(intersecao.begin(), intersecao.end(),
-                                 linhas[comb[idx]].begin(), linhas[comb[idx]].end(),
-                                 inserter(tempIntersecao, tempIntersecao.begin()));
-                intersecao = tempIntersecao;
-            }
-
-            for (const auto& classe : tabelaHashClasses) {
-                set<int> linhasClasse = classe.second;
-                set<int> linhasIntersecao;
-                set_intersection(intersecao.begin(), intersecao.end(),
-                                 linhasClasse.begin(), linhasClasse.end(),
-                                 inserter(linhasIntersecao, linhasIntersecao.begin()));
-                if (!linhasIntersecao.empty()) {
-                    double suporte = static_cast<double>(linhasIntersecao.size()) / totalLinhas;
-                    relevanciaClasse[classe.first] += suporte;
-                }
-            }
+            threads.push_back(thread(calcularSuportePorCombinacao, ref(linhas), comb, 
+                                     ref(tabelaHashClasses), ref(relevanciaClasse), totalLinhas));
         }
+    }
+
+    // Espera todas as threads terminarem
+    for (auto& t : threads) {
+        t.join();
     }
 
     vector<pair<int, double>> suporteClasses(relevanciaClasse.begin(), relevanciaClasse.end());
