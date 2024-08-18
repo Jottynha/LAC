@@ -2,6 +2,7 @@
 #include <chrono>
 #include <iomanip>  // Para usar std::setprecision
 #include <vector>
+#include <map>  // Add this line
 #include <unordered_map>
 #include <fstream>
 #include <sstream>
@@ -17,41 +18,192 @@
 
 using namespace std;
 
-const double THRESHOLD_SIMILARIDADE = 0.7;
+// Define os rankings das mãos de pôquer
+enum PokerHand {
+    NADA = 0,
+    UM_PAR,
+    DOIS_PARES,
+    TRINCA,
+    SEQUENCIA,
+    FLUSH,
+    FULL_HOUSE,
+    QUADRA,
+    STRAIGHT_FLUSH,
+    ROYAL_FLUSH
+};
 
 // Mutex para proteger o acesso à variável `relevanciaClasse`
 // O mutex garante que apenas uma thread por vez possa modificar a `relevanciaClasse`,
 // evitando problemas de concorrência (como condições de corrida).
 std::mutex mutexRelevancia;
 
-// Função para calcular similaridade (simples exemplo usando a interseção sobre a união)
-double calcularSimilaridade(const vector<int>& linha1, const vector<int>& linha2) {
-    int intersecao = 0;
-    int uniao = linha1.size();
+// Função para criar pares de naipe e valor para cada carta
+vector<pair<int, int>> criarParesDeCartas(const vector<int>& linhaValores) {
+    vector<pair<int, int>> pares;
+    
+    // Certifica-se de que a entrada contém pelo menos 5 pares de cartas mais a classe
+    if (linhaValores.size() < 10) {
+        cout << "Número insuficiente de valores para formar cartas." << endl;
+        return pares;
+    }
 
-    for (size_t i = 0; i < linha1.size(); ++i) {
-        if (linha1[i] == linha2[i]) {
-            intersecao++;
+    // Adiciona os pares de naipe e valor, ignorando o último valor (classe)
+    for (size_t i = 0; i < linhaValores.size() - 1; i += 2) {
+        pares.push_back({linhaValores[i], linhaValores[i + 1]});
+    }
+
+    return pares;
+}
+
+
+int determinarMaoDePoker(const vector<pair<int, int>>& paresCartas) {
+    map<int, int> valorContagem;
+    map<int, int> naipeContagem;
+    bool isFlush = true;
+    bool isStraight = false;
+
+    if (paresCartas.size() != 5) {
+        cout << "Número incorreto de cartas." << endl;
+        return NADA;
+    }
+
+    // Contar a frequência de cada valor e naipe
+    for (const auto& par : paresCartas) {
+        valorContagem[par.second]++;
+        naipeContagem[par.first]++;
+    }
+
+    // Exibir a contagem de valores e naipes
+    cout << "Contagem de valores:" << endl;
+    for (const auto& [valor, contagem] : valorContagem) {
+        cout << "Valor: " << valor << ", Contagem: " << contagem << endl;
+    }
+
+    cout << "Contagem de naipes:" << endl;
+    for (const auto& [naipe, contagem] : naipeContagem) {
+        cout << "Naipe: " << naipe << ", Contagem: " << contagem << endl;
+    }
+
+    // Verificar se todas as cartas têm o mesmo naipe (Flush)
+    if (naipeContagem.size() > 1) {
+        isFlush = false;
+    }
+    cout << "É Flush: " << (isFlush ? "Sim" : "Não") << endl;
+
+    // Verificar se as cartas formam uma sequência (Straight)
+    vector<int> valoresUnicos;
+    for (const auto& par : valorContagem) {
+        valoresUnicos.push_back(par.first);
+    }
+    sort(valoresUnicos.begin(), valoresUnicos.end());
+
+    cout << "Valores únicos ordenados:" << endl;
+    for (const auto& valor : valoresUnicos) {
+        cout << valor << " ";
+    }
+    cout << endl;
+
+    // Função auxiliar para verificar se a sequência é válida
+    auto verificarSequencia = [](const vector<int>& valores) {
+        if (valores.size() < 5) return false;
+        for (size_t i = 0; i < valores.size() - 4; ++i) {
+            bool sequencia = true;
+            for (size_t j = 0; j < 4; ++j) {
+                if (valores[i + j] != valores[i + j + 1] - 1) {
+                    sequencia = false;
+                    break;
+                }
+            }
+            if (sequencia) return true;
+        }
+        return false;
+    };
+
+    // Verificar Straight
+    if (verificarSequencia(valoresUnicos)) {
+        isStraight = true;
+    } else {
+        // Transformar 1 em 14 e verificar novamente
+        vector<int> valoresComAs = valoresUnicos;
+        if (find(valoresComAs.begin(), valoresComAs.end(), 1) != valoresComAs.end()) {
+            replace(valoresComAs.begin(), valoresComAs.end(), 1, 14);
+            sort(valoresComAs.begin(), valoresComAs.end());
+            if (verificarSequencia(valoresComAs)) {
+                isStraight = true;
+            }
         }
     }
 
-    return static_cast<double>(intersecao) / uniao;
+    cout << "É Sequência: " << (isStraight ? "Sim" : "Não") << endl;
+
+    // Verificar Royal Flush especificamente
+    if (isFlush && isStraight) {
+        // Verificar se é Royal Flush, considerando que o valor 1 pode ser 14
+        vector<int> valoresComAsTransformado = valoresUnicos;
+        if (find(valoresComAsTransformado.begin(), valoresComAsTransformado.end(), 1) != valoresComAsTransformado.end()) {
+            replace(valoresComAsTransformado.begin(), valoresComAsTransformado.end(), 1, 14);
+            sort(valoresComAsTransformado.begin(), valoresComAsTransformado.end());
+        }
+
+        if (valoresComAsTransformado == vector<int>({10, 11, 12, 13, 14})) {
+            cout << "Mão: Royal Flush" << endl;
+            return ROYAL_FLUSH;
+        } else if (valoresUnicos == vector<int>({10, 11, 12, 13, 14})) {
+            cout << "Mão: Royal Flush" << endl;
+            return ROYAL_FLUSH;
+        }
+    }
+
+    // Identificar outras mãos específicas de pôquer
+    if (isFlush && isStraight) {
+        cout << "Mão: Straight Flush" << endl;
+        return STRAIGHT_FLUSH;
+    } else if (valorContagem.size() == 2) {
+        auto it = valorContagem.begin();
+        if (it->second == 4 || (++it)->second == 4) {
+            cout << "Mão: Quadra" << endl;
+            return QUADRA;
+        } else {
+            cout << "Mão: Full House" << endl;
+            return FULL_HOUSE;
+        }
+    } else if (isFlush) {
+        cout << "Mão: Flush" << endl;
+        return FLUSH;
+    } else if (isStraight) {
+        cout << "Mão: Sequência" << endl;
+        return SEQUENCIA;
+    } else if (valorContagem.size() == 3) {
+        auto it = valorContagem.begin();
+        if (it->second == 3 || (++it)->second == 3) {
+            cout << "Mão: Trinca" << endl;
+            return TRINCA;
+        } else {
+            cout << "Mão: Dois Pares" << endl;
+            return DOIS_PARES;
+        }
+    } else if (valorContagem.size() == 4) {
+        cout << "Mão: Um Par" << endl;
+        return UM_PAR;
+    } else {
+        cout << "Mão: Nada" << endl;
+        return NADA;
+    }
 }
 
-// Função para criar buckets com base na similaridade
-unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComSimilaridade(const string& nomeArquivoTeste, int& totalLinhas) {
+
+
+
+// Função para criar buckets com base nas mãos de pôquer e salvar em arquivo
+unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComPokerHands(const string& nomeArquivoTeste, int& totalLinhas) {
     ifstream arquivoTeste(nomeArquivoTeste);
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
-    vector<pair<vector<int>, int>> linhas; // Armazena linhas e números das linhas
+    vector<pair<vector<int>, int>> linhas;
     string linha;
-    int bucketIndex = 0;
     totalLinhas = 0;
     int numeroLinha = 1;
-    int a=0;
 
-    // Lê o arquivo de teste e armazena as linhas com seus números
-    while (a<100&&getline(arquivoTeste, linha)) {
-        a++;
+    while (getline(arquivoTeste, linha)) {
         stringstream ss(linha);
         string item;
         vector<int> linhaValores;
@@ -60,49 +212,40 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
             linhaValores.push_back(stoi(item));
         }
 
-        linhas.push_back({linhaValores, numeroLinha});
+        // Cria os pares de naipe e valor
+        vector<pair<int, int>> paresCartas = criarParesDeCartas(linhaValores);
+
+        // Determina a mão de pôquer para a linha atual
+        int pokerHand = determinarMaoDePoker(paresCartas);
+
+        buckets[pokerHand].first.push_back({linhaValores, numeroLinha});
+
         totalLinhas++;
         numeroLinha++;
     }
 
-    // Organiza as linhas em buckets com base na similaridade
-    for (size_t i = 0; i < linhas.size(); ++i) {
-        bool adicionado = false;
-        for (auto& bucket : buckets) {
-            for (const auto& linhaBucket : bucket.second.first) {
-                if (calcularSimilaridade(linhas[i].first, linhaBucket.first) >= THRESHOLD_SIMILARIDADE) {
-                    bucket.second.first.push_back(linhas[i]);
-                    adicionado = true;
-                    break;
-                }
-            }
-            if (adicionado) break;
-        }
-
-        if (!adicionado) {
-            buckets[bucketIndex] = make_pair(vector<pair<vector<int>, int>>{linhas[i]}, 0.0);
-            bucketIndex++;
-        }
-    }
-
-    // Calcula o suporte para cada bucket
     for (auto& bucket : buckets) {
         int totalLinhasBucket = bucket.second.first.size();
         double suporte = static_cast<double>(totalLinhasBucket) / totalLinhas;
         bucket.second.second = suporte;
     }
 
-    // Imprime os buckets e as linhas pertencentes a eles
-    cout << "Buckets e linhas pertencentes a cada um:" << endl;
-    for (const auto& bucket : buckets) {
-        cout << "Bucket " << bucket.first << endl;
-        for (const auto& linha : bucket.second.first) {
-            for (size_t i = 0; i < linha.first.size(); ++i) {
-                cout << linha.first[i] << (i < linha.first.size() - 1 ? "," : "");
+    // Salva os buckets em um arquivo externo
+    ofstream arquivoBuckets("buckets.txt");
+    if (arquivoBuckets.is_open()) {
+        for (const auto& bucket : buckets) {
+            arquivoBuckets << "Bucket " << bucket.first << " (" << bucket.first << "):" << endl;
+            for (const auto& linha : bucket.second.first) {
+                for (size_t i = 0; i < linha.first.size(); ++i) {
+                    arquivoBuckets << linha.first[i] << (i < linha.first.size() - 1 ? "," : "");
+                }
+                arquivoBuckets << " [Linha: " << linha.second << "]" << endl;
             }
-            cout << " [Linha: " << linha.second << "]" << endl;
+            arquivoBuckets << "Suporte: " << bucket.second.second << endl << endl;
         }
-        cout << endl;
+        arquivoBuckets.close();
+    } else {
+        cerr << "Erro ao abrir o arquivo buckets.txt" << endl;
     }
 
     return buckets;
@@ -263,7 +406,7 @@ int avaliarClasse(const vector<int>& linha,
 // Função para testar o algoritmo com um arquivo de teste
 void teste(const string& nomeArquivoTeste) {
     int totalLinhas;
-    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComSimilaridade(nomeArquivoTeste, totalLinhas);
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComPokerHands(nomeArquivoTeste, totalLinhas);
 
     // Abre o arquivo de teste para leitura
     ifstream arquivoTeste(nomeArquivoTeste);
