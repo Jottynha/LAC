@@ -15,9 +15,33 @@
 #include <iterator> // Para std::inserter
 #include <thread>
 #include <mutex>
+#define maxComb 3
 
 using namespace std;
 
+void selecionarLinhasAleatorias(const string& inputFile, const string& outputFile, int numLinhas) {
+    ifstream arquivoEntrada(inputFile);
+    ofstream arquivoSaida(outputFile);
+    vector<string> linhas;
+    string linha;
+    if (!arquivoEntrada.is_open()) {
+        cerr << "Erro ao abrir o arquivo de entrada!" << endl;
+        return;
+    }
+    while (getline(arquivoEntrada, linha)) {
+        linhas.push_back(linha);
+    }
+    arquivoEntrada.close();
+
+    // Inicializa a semente para o gerador de números aleatórios
+    srand(time(nullptr));
+    // Seleciona aleatoriamente as linhas e escreve no arquivo de saída
+    for (int i = 0; i < numLinhas; ++i) {
+        int indiceAleatorio = rand() % linhas.size();
+        arquivoSaida << linhas[indiceAleatorio] << endl;
+    }
+    arquivoSaida.close();
+}
 // Define os rankings das mãos de pôquer
 enum PokerHand {
     NADA = 0,
@@ -231,7 +255,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
     }
 
     // Salva os buckets em um arquivo externo
-    ofstream arquivoBuckets("buckets.txt");
+    ofstream arquivoBuckets("dataset/buckets.txt");
     if (arquivoBuckets.is_open()) {
         for (const auto& bucket : buckets) {
             arquivoBuckets << "Bucket " << bucket.first << " (" << bucket.first << "):" << endl;
@@ -339,7 +363,7 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
     vector<thread> threads; // Vetor para armazenar as threads criadas
 
     // Loop para considerar combinações de 1 até 3 features
-    for (int interacao = 1; interacao <= 3; interacao++) {
+    for (int interacao = 1; interacao <= maxComb; interacao++) {
         // Gera todas as combinações de `interacao` elementos dos índices
         auto combs = combinacoes(indices, interacao);
         
@@ -405,11 +429,15 @@ int avaliarClasse(const vector<int>& linha,
 
 // Função para testar o algoritmo com um arquivo de teste
 void teste(const string& nomeArquivoTeste) {
+    selecionarLinhasAleatorias(nomeArquivoTeste,"dataset/20linhas.txt",20);
+    ifstream arquivoTeste("dataset/20linhas.txt");
+    auto inicio = chrono::high_resolution_clock::now();
+    
     int totalLinhas;
-    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComPokerHands(nomeArquivoTeste, totalLinhas);
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComPokerHands("dataset/20linhas.txt", totalLinhas);
 
     // Abre o arquivo de teste para leitura
-    ifstream arquivoTeste(nomeArquivoTeste);
+    //ifstream arquivoTeste(nomeArquivoTeste);
     if (!arquivoTeste) {
         cerr << "Erro ao abrir o arquivo de teste." << endl;
         return;
@@ -426,14 +454,10 @@ void teste(const string& nomeArquivoTeste) {
     int totalLinhasArquivo = 0;
     int acertos = 0;
     int erros = 0;
-    int a=0;
-
-    auto inicio = chrono::high_resolution_clock::now();
 
     // Lê o arquivo de teste linha por linha
     string linha;
-    while (a<100&&getline(arquivoTeste, linha)) {
-        a++;
+    while (getline(arquivoTeste, linha)) {
         // String stream para processar a linha lida
         stringstream ss(linha);
         string item;
