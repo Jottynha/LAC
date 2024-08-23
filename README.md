@@ -15,14 +15,115 @@ Esse é o repositório do trabalho final, proposto em laboratório, da disciplin
 
 ## Introdução:
 
+#### Sobre algoritmos de classificação:
+<p align="justify">
+A seguinte explicação sobre algoritmos de classificação tem o objetivo de contextualizar o problema a ser lidado do código, com forte base e inspiração no resumo expandido da tese de VELOSO (2009).
+</p>
+
 <p align="justify">
 Os algoritmos de classificação são métodos que aprendem padrões em dados em um treinamento e usam esse aprendizado para classificar outros dados em classes definidas. Dessa forma, esses são tipos de algoritmos muito relacionados com a área de ciência de dados e especialmente com <i>machine learning</i>, já que estamos ensinando a máquina a encontrar os padrões nos dados e classificar novos dados.
 </p>
 
 <p align="justify">
-Nesse contexto, o <i>Lazy Associative Classification</i> (LAC) é um algoritmo de classificação que ilustra bem o uso de listas, filas, pilhas e tabelas hash.
+O principal problema dos algoritmos de classificação é que eles possuem um fator limitante: o grau de precisão do mapeamento. Ou o algoritmo consegue gerar uma função pouco precisa, ou gasta um tempo inaceitável de processamento para conseguir uma função um pouco mais precisa. Dentre as inúmeras estratégias, a classificação associativa é uma estratégia de classificação que explora relações entre as entradas e as saídas (no caso, as classes) [1].
 </p>
 
+
+#### Sobre o LAC:
+<p align="justify">
+No contexto da disciplina de AEDS I, o <i>Lazy Associative Classification</i> (LAC) é um algoritmo de classificação que ilustra bem o problema de classificação do uso de listas, filas, pilhas e tabelas hash. 
+</p>
+
+<p align="justify">
+Também conhecido como algoritmo de classificação associativa sob demanda, o LAC se baseia no fato de que o problema da classificação pode ser dividido em sub-problemas mas simples, e eles podem ser resolvidos individualmente. Fazendo isso, o algoritmo é treinado de forma a se reduzir o número de regras que são geradas ao trabalhar com domínios menores. Resumindo brevemente, de acordo com o próprio enunciado da atividade, o LAC utiliza uma abordagem <i>"lazy"</i> de classificação, que é feita durante o momento da predição e não como algo que está incluído em um treinamento antecipado. Comparada com outros algoritmos de classificação, essa é uma abordagem bem mais eficiente.
+</p>
+
+
+#### Sobre o trabalho final:
+<p align="justify">
+O objetivo desse trabalho, como já dito anteriormente, foi o de criar uma implementação de LAC que seja correta e a mais eficiente possível, dentro dos conhecimentos vistos na disciplina de AEDS I e com as estratégias de otimização necessárias para que isso seja uma realidade.
+</p>
+
+<p align="justify">
+O desafio desse trabalho, além de criar uma abordagem didática do LAC, foi de criar uma abordagem eficiente em custo computacional. Apesar de tudo, o LAC é um algoritmo de classificação que passa pelo problema da relação inversamente proporcional entre eficiência e acurácia. No geral, ou temos um algoritmo rápido com pouca acurácia, ou um algoritmo mais preciso que gasta um tempo inaceitável para isso.  
+</p>
+
+
+
+## Datasets utilizados:
+### Poker Hands:
+<p align="justify">
+O Poker Hands [2] é um dataset disponibilizado pela UC Irvine Machine Leaning Repository. Seu objetivo é o de ser utilizado em algoritmos de aprendizagem de máquina para prever as mãos de um jogo de poker. Portanto, está diretamente relacionado com a tarefa de classificação. No total (em ambos os arquivos de treinamento e teste), possui 10 features e 1025010 instâncias. As features são categóricas e do tipo inteiro. 
+</p>
+
+<p align="justify">
+Cada linha é um exemplo de uma mão de poker. Cada carta do baralho é explicitada com dois atributos: o naipe e valor. Com isso, cada mão no poker possui 5 cartas, e cada linha possui 10 atributos. Além disso, existe um atributo dedicado para a classe da mão do poker. 
+</p>
+
+<p align="justify">
+Cambronero (2021) cita em <i>Poker Hand Dataset: A Machine Learning Analysis and a Practical Linear Transformation</i> [3] que o dataset Poker Hand é bastante desbalanceado, já que 90% das classes são 0 e 1. Isso é algo que complica as coisas, mas torna o dataset mais interessante para estudos de machine learning, já que os algoritmos de classificação costumam esperar a mesma (ou quase a mesma) quantidade de valores por classe.
+</p>
+
+<p align="justify">
+O artigo de Cambronero também nos proporciona uma descrição detalhada dos valores do dataset do Poker Hands, como podemos ver a seguir:
+</p>
+
+<p align="center">
+
+| Numero | Naipe   |
+|--------|:-------:|
+| 1      | Copas   |  
+| 2      | Espadas |   
+| 3      | Ouros   |
+| 4      | Paus    |    
+
+</p>
+
+
+
+<p align="center">
+
+
+| Numero | Valor   |
+|--------|:-------:|
+| 1      | Ás      |  
+| 2 a 10 | Números |   
+| 11     | Valete  |
+| 12     | Dama    |
+| 13     | Rei     |    
+
+</p>
+
+<p align="center">
+
+
+| Numero | Classe         |
+|--------|:--------------:|
+| 0      | Carta alta     |  
+| 1      | Um Par         |   
+| 2      | Dois Pares     |
+| 3      | Trinca         |
+| 4      | Sequência      |
+| 5      | Flush          |
+| 6      | Full House     |
+| 7      | Quadra         |
+| 8      | Straight Flush |
+| 9      | Royal Flush    | 
+
+</p>
+
+
+
+## Sobre o código:
+...
+
+## Referências Bibliográficas:
+[1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
+http://hdl.handle.net/1843/SLSS-7WFMGG
+
+[2] Cattral,Robert and Oppacher,Franz. (2007). **Poker Hand**. UCI Machine Learning Repository. https://doi.org/10.24432/C5KW38.
+
+[3] Cambronero, Walinton. (2021) **Poker Hand Dataset: A Machine Learning Analysis and a Practical Linear Transformation**. https://walintonc.github.io/papers/ml_pokerhand.pdf
 
 ## Integrantes:
 
