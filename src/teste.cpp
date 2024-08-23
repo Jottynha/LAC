@@ -411,7 +411,21 @@ int avaliarClasse(const vector<int>& linha,
     // Verifica se a linha está em algum bucket
     for (const auto& bucket : buckets) {
         for (const auto& linhaBucket : bucket.second.first) {
-            if (linha == linhaBucket.first) {
+            vector<int> linhaBucketCopy = linhaBucket.first;
+            linhaBucketCopy.pop_back();
+            cout << "Linha: ";
+            for (const auto& elem : linha) {
+                cout << elem << " ";
+            }
+            cout << endl;
+
+            cout << "linhaBucket.first: ";
+            for (const auto& elem : linhaBucket.first) {
+                cout << elem << " ";
+            }
+            cout << endl;
+            
+            if (linha == linhaBucketCopy) {
                 // Linha está em um bucket, retorna a classe associada ao bucket
                 return bucket.first;
             }
@@ -429,7 +443,7 @@ int avaliarClasse(const vector<int>& linha,
 
 // Função para testar o algoritmo com um arquivo de teste
 void teste(const string& nomeArquivoTeste) {
-    selecionarLinhasAleatorias(nomeArquivoTeste,"dataset/20linhas.txt",20);
+    selecionarLinhasAleatorias(nomeArquivoTeste,"dataset/20linhas.txt",1000);
     ifstream arquivoTeste("dataset/20linhas.txt");
     auto inicio = chrono::high_resolution_clock::now();
     
