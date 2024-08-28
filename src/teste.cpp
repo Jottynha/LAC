@@ -19,6 +19,10 @@
 
 using namespace std;
 
+
+std::mutex mutexArquivo;  // Mutex para proteger o acesso ao arquivo de saída
+std::mutex mutexContadores;  // Mutex para proteger os contadores de acertos e erros
+
 void selecionarLinhasAleatorias(const string& inputFile, const string& outputFile, int numLinhas) {
     ifstream arquivoEntrada(inputFile);
     ofstream arquivoSaida(outputFile);
@@ -67,7 +71,6 @@ vector<pair<int, int>> criarParesDeCartas(const vector<int>& linhaValores) {
     
     // Certifica-se de que a entrada contém pelo menos 5 pares de cartas mais a classe
     if (linhaValores.size() < 10) {
-        cout << "Número insuficiente de valores para formar cartas." << endl;
         return pares;
     }
 
@@ -97,22 +100,10 @@ int determinarMaoDePoker(const vector<pair<int, int>>& paresCartas) {
         naipeContagem[par.first]++;
     }
 
-    // Exibir a contagem de valores e naipes
-    cout << "Contagem de valores:" << endl;
-    for (const auto& [valor, contagem] : valorContagem) {
-        cout << "Valor: " << valor << ", Contagem: " << contagem << endl;
-    }
-
-    cout << "Contagem de naipes:" << endl;
-    for (const auto& [naipe, contagem] : naipeContagem) {
-        cout << "Naipe: " << naipe << ", Contagem: " << contagem << endl;
-    }
-
     // Verificar se todas as cartas têm o mesmo naipe (Flush)
     if (naipeContagem.size() > 1) {
         isFlush = false;
     }
-    cout << "É Flush: " << (isFlush ? "Sim" : "Não") << endl;
 
     // Verificar se as cartas formam uma sequência (Straight)
     vector<int> valoresUnicos;
@@ -120,12 +111,6 @@ int determinarMaoDePoker(const vector<pair<int, int>>& paresCartas) {
         valoresUnicos.push_back(par.first);
     }
     sort(valoresUnicos.begin(), valoresUnicos.end());
-
-    cout << "Valores únicos ordenados:" << endl;
-    for (const auto& valor : valoresUnicos) {
-        cout << valor << " ";
-    }
-    cout << endl;
 
     // Função auxiliar para verificar se a sequência é válida
     auto verificarSequencia = [](const vector<int>& valores) {
@@ -158,8 +143,6 @@ int determinarMaoDePoker(const vector<pair<int, int>>& paresCartas) {
         }
     }
 
-    cout << "É Sequência: " << (isStraight ? "Sim" : "Não") << endl;
-
     // Verificar Royal Flush especificamente
     if (isFlush && isStraight) {
         // Verificar se é Royal Flush, considerando que o valor 1 pode ser 14
@@ -170,47 +153,36 @@ int determinarMaoDePoker(const vector<pair<int, int>>& paresCartas) {
         }
 
         if (valoresComAsTransformado == vector<int>({10, 11, 12, 13, 14})) {
-            cout << "Mão: Royal Flush" << endl;
             return ROYAL_FLUSH;
         } else if (valoresUnicos == vector<int>({10, 11, 12, 13, 14})) {
-            cout << "Mão: Royal Flush" << endl;
             return ROYAL_FLUSH;
         }
     }
 
     // Identificar outras mãos específicas de pôquer
     if (isFlush && isStraight) {
-        cout << "Mão: Straight Flush" << endl;
         return STRAIGHT_FLUSH;
     } else if (valorContagem.size() == 2) {
         auto it = valorContagem.begin();
         if (it->second == 4 || (++it)->second == 4) {
-            cout << "Mão: Quadra" << endl;
             return QUADRA;
         } else {
-            cout << "Mão: Full House" << endl;
             return FULL_HOUSE;
         }
     } else if (isFlush) {
-        cout << "Mão: Flush" << endl;
         return FLUSH;
     } else if (isStraight) {
-        cout << "Mão: Sequência" << endl;
         return SEQUENCIA;
     } else if (valorContagem.size() == 3) {
         auto it = valorContagem.begin();
         if (it->second == 3 || (++it)->second == 3) {
-            cout << "Mão: Trinca" << endl;
             return TRINCA;
         } else {
-            cout << "Mão: Dois Pares" << endl;
             return DOIS_PARES;
         }
     } else if (valorContagem.size() == 4) {
-        cout << "Mão: Um Par" << endl;
         return UM_PAR;
     } else {
-        cout << "Mão: Nada" << endl;
         return NADA;
     }
 }
@@ -413,17 +385,6 @@ int avaliarClasse(const vector<int>& linha,
         for (const auto& linhaBucket : bucket.second.first) {
             vector<int> linhaBucketCopy = linhaBucket.first;
             linhaBucketCopy.pop_back();
-            cout << "Linha: ";
-            for (const auto& elem : linha) {
-                cout << elem << " ";
-            }
-            cout << endl;
-
-            cout << "linhaBucket.first: ";
-            for (const auto& elem : linhaBucket.first) {
-                cout << elem << " ";
-            }
-            cout << endl;
             
             if (linha == linhaBucketCopy) {
                 // Linha está em um bucket, retorna a classe associada ao bucket
@@ -441,23 +402,61 @@ int avaliarClasse(const vector<int>& linha,
     return avaliarClasseCombinatoria(tabelaHash, tabelaHashClasses, featuresLinha, totalLinhas);
 }
 
-// Função para testar o algoritmo com um arquivo de teste
+// Função auxiliar para processar um subconjunto de linhas
+void processarLinhas(int threadId, vector<string>& linhas, int inicio, int fim,
+                     const unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>& buckets,
+                     const unordered_map<tuple<int, int>, set<int>>& tabelaHashTreino,
+                     const unordered_map<int, set<int>>& tabelaHashClassesTreino,
+                     int totalLinhas, int& acertos, int& erros, ofstream& arquivoSaida) {
+    for (int i = inicio; i < fim; ++i) {
+        // Mensagem de depuração
+        cout << "Thread " << threadId << " processando linha " << i << endl;
+
+        stringstream ss(linhas[i]);
+        string item;
+        vector<int> linhaValores;
+
+        while (getline(ss, item, ',')) {
+            linhaValores.push_back(stoi(item));
+        }
+
+        if (!linhaValores.empty()) {
+            int classeOriginal = linhaValores.back();
+            linhaValores.pop_back();
+            int classeAtribuida = avaliarClasse(linhaValores, buckets, tabelaHashTreino, tabelaHashClassesTreino, totalLinhas);
+
+            {
+                lock_guard<mutex> lock(mutexArquivo);
+                arquivoSaida << "Linha " << (i + 1) << ": Classe Atribuída = " << classeAtribuida << endl;
+            }
+
+            {
+                lock_guard<mutex> lock(mutexContadores);
+                if (classeAtribuida == classeOriginal) {
+                    acertos++;
+                } else {
+                    erros++;
+                }
+            }
+        }
+    }
+}
+
+// Função para testar o algoritmo com um arquivo de teste usando threads
 void teste(const string& nomeArquivoTeste) {
-    selecionarLinhasAleatorias(nomeArquivoTeste,"dataset/20linhas.txt",1000);
+    selecionarLinhasAleatorias(nomeArquivoTeste, "dataset/20linhas.txt", 100);
+
     ifstream arquivoTeste("dataset/20linhas.txt");
     auto inicio = chrono::high_resolution_clock::now();
-    
+
     int totalLinhas;
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComPokerHands("dataset/20linhas.txt", totalLinhas);
 
-    // Abre o arquivo de teste para leitura
-    //ifstream arquivoTeste(nomeArquivoTeste);
     if (!arquivoTeste) {
         cerr << "Erro ao abrir o arquivo de teste." << endl;
         return;
     }
 
-    // Abre o arquivo de saída para escrita
     ofstream arquivoSaida("dataset/output.txt");
     if (!arquivoSaida) {
         cerr << "Erro ao abrir o arquivo de saída." << endl;
@@ -469,62 +468,44 @@ void teste(const string& nomeArquivoTeste) {
     int acertos = 0;
     int erros = 0;
 
-    // Lê o arquivo de teste linha por linha
+    // Lê todas as linhas do arquivo em um vetor
+    vector<string> linhas;
     string linha;
     while (getline(arquivoTeste, linha)) {
-        // String stream para processar a linha lida
-        stringstream ss(linha);
-        string item;
-        vector<int> linhaValores;
-        linhaValores.reserve(1);
-
-        // Separa os valores da linha usando a vírgula como delimitador
-        while (getline(ss, item, ',')) {
-            linhaValores.push_back(stoi(item));
-        }
-
-        // Verifica se a linha não está vazia
-        if (!linhaValores.empty()) {
-            // Extrai a classe original (último valor da linha)
-            int classeOriginal = linhaValores.back();
-            linhaValores.pop_back();
-
-            // Vetor de tuplas para armazenar os pares (coluna, valor)
-            vector<tuple<int, int>> linhaTuplas;
-            linhaTuplas.reserve(linhaValores.size());
-
-            // Cria tuplas de coluna e valor para as features
-            for (size_t i = 0; i < linhaValores.size(); ++i) {
-                linhaTuplas.emplace_back(i + 1, linhaValores[i]);
-            }
-
-            // Avalia a classe atribuída para a linha usando a função avaliarClasse
-            int classeAtribuida = avaliarClasse(linhaValores, buckets, tabelaHashTreino, tabelaHashClassesTreino, totalLinhas);
-
-            // Escreve a classe atribuída no arquivo de saída
-            arquivoSaida << "Linha " << (totalLinhasArquivo + 1) << ": Classe Atribuída = " << classeAtribuida << endl;
-
-            // Compara a classe atribuída com a classe original para contar acertos e erros
-            if (classeAtribuida == classeOriginal) {
-                acertos++;
-            } else {
-                erros++;
-            }
-
-            // Incrementa o contador de linhas processadas
-            totalLinhasArquivo++;
-        }
+        linhas.push_back(linha);
+        totalLinhasArquivo++;
     }
 
-    // Calcula as porcentagens de acertos e erros
+    // Define o número de threads com base na capacidade do hardware
+    int numThreads = std::thread::hardware_concurrency();
+    if (numThreads == 0) {
+        numThreads = 1;  // Fallback para pelo menos uma thread se a consulta falhar
+    }
+
+    int linhasPorThread = totalLinhasArquivo / numThreads;
+    vector<thread> threads;
+
+    // Cria threads para processar subconjuntos de linhas
+    for (int i = 0; i < numThreads; ++i) {
+        int inicio = i * linhasPorThread;
+        int fim = (i == numThreads - 1) ? totalLinhasArquivo : inicio + linhasPorThread;
+
+        threads.push_back(thread(processarLinhas, i, ref(linhas), inicio, fim, ref(buckets),
+                                 ref(tabelaHashTreino), ref(tabelaHashClassesTreino),
+                                 totalLinhas, ref(acertos), ref(erros), ref(arquivoSaida)));
+    }
+
+    // Aguarda todas as threads terminarem
+    for (auto& t : threads) {
+        t.join();
+    }
+
     double porcentagemAcertos = (static_cast<double>(acertos) / totalLinhasArquivo) * 100.0;
     double porcentagemErros = (static_cast<double>(erros) / totalLinhasArquivo) * 100.0;
 
-    // Escreve o total de acertos e erros no arquivo de saída
     arquivoSaida << "Total de acertos: " << acertos << " (" << fixed << setprecision(2) << porcentagemAcertos << "%)" << endl;
     arquivoSaida << "Total de erros: " << erros << " (" << fixed << setprecision(2) << porcentagemErros << "%)" << endl;
 
-    // Fecha os arquivos de teste e de saída
     arquivoTeste.close();
     arquivoSaida.close();
 
