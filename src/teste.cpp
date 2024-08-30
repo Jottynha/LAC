@@ -225,25 +225,6 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
         double suporte = static_cast<double>(totalLinhasBucket) / totalLinhas;
         bucket.second.second = suporte;
     }
-
-    // Salva os buckets em um arquivo externo
-    ofstream arquivoBuckets("dataset/buckets.txt");
-    if (arquivoBuckets.is_open()) {
-        for (const auto& bucket : buckets) {
-            arquivoBuckets << "Bucket " << bucket.first << " (" << bucket.first << "):" << endl;
-            for (const auto& linha : bucket.second.first) {
-                for (size_t i = 0; i < linha.first.size(); ++i) {
-                    arquivoBuckets << linha.first[i] << (i < linha.first.size() - 1 ? "," : "");
-                }
-                arquivoBuckets << " [Linha: " << linha.second << "]" << endl;
-            }
-            arquivoBuckets << "Suporte: " << bucket.second.second << endl << endl;
-        }
-        arquivoBuckets.close();
-    } else {
-        cerr << "Erro ao abrir o arquivo buckets.txt" << endl;
-    }
-
     return buckets;
 }
 
@@ -314,7 +295,6 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
                               const vector<tuple<int, int>>& featuresLinha, int totalLinhas) {
     unordered_map<int, double> relevanciaClasse; // Mapa para armazenar a relevância de cada classe
     vector<set<int>> linhas; // Vetor para armazenar as linhas correspondentes a cada feature
-    ofstream arquivoSuporte("dataset/suporte.txt", ios::app); // Arquivo para armazenar os suportes calculados
 
     // Para cada feature na linha, busca as linhas correspondentes na `tabelaHash`
     for (const auto& tupla : featuresLinha) {
@@ -355,11 +335,6 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
     // Converte o mapa `relevanciaClasse` em um vetor de pares para ordenação
     vector<pair<int, double>> suporteClasses(relevanciaClasse.begin(), relevanciaClasse.end());
 
-    // Armazena no arquivo os valores de suporte calculados para cada classe
-    for (const auto& classe : suporteClasses) {
-        arquivoSuporte << "Classe: " << classe.first << " Valor: " << classe.second;
-    }
-    arquivoSuporte.close(); // Fecha o arquivo após escrever os dados
 
     // Ordena as classes pelo suporte em ordem decrescente
     sort(suporteClasses.begin(), suporteClasses.end(), [](const pair<int, double>& a, const pair<int, double>& b) {
