@@ -410,7 +410,7 @@ void processarLinhas(int threadId, vector<string>& linhas, int inicio, int fim,
                      int totalLinhas, int& acertos, int& erros, ofstream& arquivoSaida) {
     for (int i = inicio; i < fim; ++i) {
         // Mensagem de depuração
-        cout << "Thread " << threadId << " processando linha " << i << endl;
+        threadId = threadId;
 
         stringstream ss(linhas[i]);
         string item;
@@ -444,7 +444,7 @@ void processarLinhas(int threadId, vector<string>& linhas, int inicio, int fim,
 
 // Função para testar o algoritmo com um arquivo de teste usando threads
 void teste(const string& nomeArquivoTeste) {
-    selecionarLinhasAleatorias(nomeArquivoTeste, "dataset/20linhas.txt", 100);
+    selecionarLinhasAleatorias(nomeArquivoTeste, "dataset/20linhas.txt", 10000);
 
     ifstream arquivoTeste("dataset/20linhas.txt");
     auto inicio = chrono::high_resolution_clock::now();
