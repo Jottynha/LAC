@@ -124,47 +124,4 @@ void treinamento(string nomeArquivo){
         }
         cout << endl;
     }
-
-    char C;
-    cout << "\nDeseja fazer uma analise particular no Treinamento? [S/N]: ";
-    cin >> C;
-    if(C == 'S'){
-        int colunaParaBuscar;
-        int valorParaBuscar;
-        cout << "Digite o número da coluna para buscar (iniciando em 1): ";
-        cin >> colunaParaBuscar;
-        cout << "Digite o valor para buscar: ";
-        cin >> valorParaBuscar;
-        if (colunaParaBuscar < 1) {
-            cerr << "O número da coluna deve ser maior ou igual a 1." << endl;
-            return; // Adicione um retorno para evitar continuar a execução
-        }
-
-        set<int> linhas = buscarFeature(tabelaHashTreino, colunaParaBuscar, valorParaBuscar); // Buscar na tabela hash
-        cout << "Busca para (Coluna: " << colunaParaBuscar << ", Valor: " << valorParaBuscar << "):" << endl;
-        if (!linhas.empty()) {
-            cout << "Aparece nas linhas: ";
-            for (const auto& linha : linhas) {
-                cout << linha << " ";
-            }
-            cout << endl;
-        } else {
-            cout << "Nenhum resultado encontrado." << endl;
-        }
-
-        int classeParaBuscar;
-        cout << "\nDigite a classe para buscar: ";
-        cin >> classeParaBuscar;
-        set<int> linhasClasse = buscarClasse(tabelaHashClassesTreino, classeParaBuscar); // Buscar na tabela hash de classes
-        cout << "Busca para Classe: " << classeParaBuscar << ":" << endl;
-        if (!linhasClasse.empty()) {
-            cout << "Aparece nas linhas: ";
-            for (const auto& linha : linhasClasse) {
-                cout << linha << " ";
-            }
-            cout << endl;
-        } else {
-            cout << "Nenhum resultado encontrado." << endl;
-        }
-    }
 }

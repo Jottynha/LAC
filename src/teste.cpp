@@ -2,7 +2,7 @@
 #include <chrono>
 #include <iomanip>  // Para usar std::setprecision
 #include <vector>
-#include <map>  // Add this line
+#include <map>  
 #include <unordered_map>
 #include <fstream>
 #include <sstream>
@@ -15,15 +15,15 @@
 #include <iterator> // Para std::inserter
 #include <thread>
 #include <mutex>
-#define maxComb 3
 
 using namespace std;
 
-const double THRESHOLD_SIMILARIDADE = 0.7;
+const double THRESHOLD_SIMILARIDADE = 0.5;
+const int maxComb = 3;
 
-std::mutex mutexArquivo;  // Mutex para proteger o acesso ao arquivo de saída
-std::mutex mutexContadores;  // Mutex para proteger os contadores de acertos e erros
-std::mutex mutexRelevancia;
+mutex mutexArquivo;  // Mutex para proteger o acesso ao arquivo de saída
+mutex mutexContadores;  // Mutex para proteger os contadores de acertos e erros
+mutex mutexRelevancia;
 
 void selecionarLinhasAleatorias(const string& inputFile, const string& outputFile, int numLinhas) {
     ifstream arquivoEntrada(inputFile);
@@ -49,89 +49,25 @@ void selecionarLinhasAleatorias(const string& inputFile, const string& outputFil
     arquivoSaida.close();
 }
 
-// Função para calcular similaridade (simples exemplo usando a interseção sobre a união)
+// Função para calcular a similaridade entre duas linhas da base de dados, ignorando as colunas 0, 2, 4, 6, 8 e a última coluna.
 double calcularSimilaridade(const vector<int>& linha1, const vector<int>& linha2) {
-    int intersecao = 0;
-    int uniao = linha1.size();
-
-    for (size_t i = 0; i < linha1.size(); ++i) {
+    double similaridade = 0.0;
+    int count = 0;
+    // Itera sobre as colunas relevantes (1, 3, 5, 7)
+    for (long unsigned int i = 1; i < linha1.size() - 1; i += 2) {
+        // Considera apenas as colunas que representam valores (não os naipes)
         if (linha1[i] == linha2[i]) {
-            intersecao++;
+            similaridade += 1.0;
         }
+        count++;
     }
-
-    return static_cast<double>(intersecao) / uniao;
+    // Normaliza a similaridade pelo número de colunas consideradas
+    if (count > 0) {
+        similaridade /= count;
+    }
+    return similaridade;
 }
 
-// Função para criar buckets com base na similaridade
-unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComSimilaridade(const string& nomeArquivoTeste, int& totalLinhas) {
-    ifstream arquivoTeste(nomeArquivoTeste);
-    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
-    vector<pair<vector<int>, int>> linhas; // Armazena linhas e números das linhas
-    string linha;
-    int bucketIndex = 0;
-    totalLinhas = 0;
-    int numeroLinha = 1;
-    int a=0;
-
-    // Lê o arquivo de teste e armazena as linhas com seus números
-    while (a<100&&getline(arquivoTeste, linha)) {
-        a++;
-        stringstream ss(linha);
-        string item;
-        vector<int> linhaValores;
-
-        while (getline(ss, item, ',')) {
-            linhaValores.push_back(stoi(item));
-        }
-
-        linhas.push_back({linhaValores, numeroLinha});
-        totalLinhas++;
-        numeroLinha++;
-    }
-
-    // Organiza as linhas em buckets com base na similaridade
-    for (size_t i = 0; i < linhas.size(); ++i) {
-        bool adicionado = false;
-        for (auto& bucket : buckets) {
-            for (const auto& linhaBucket : bucket.second.first) {
-                if (calcularSimilaridade(linhas[i].first, linhaBucket.first) >= THRESHOLD_SIMILARIDADE) {
-                    bucket.second.first.push_back(linhas[i]);
-                    adicionado = true;
-                    break;
-                }
-            }
-            if (adicionado) break;
-        }
-
-        if (!adicionado) {
-            buckets[bucketIndex] = make_pair(vector<pair<vector<int>, int>>{linhas[i]}, 0.0);
-            bucketIndex++;
-        }
-    }
-
-    // Calcula o suporte para cada bucket
-    for (auto& bucket : buckets) {
-        int totalLinhasBucket = bucket.second.first.size();
-        double suporte = static_cast<double>(totalLinhasBucket) / totalLinhas;
-        bucket.second.second = suporte;
-    }
-
-    // Imprime os buckets e as linhas pertencentes a eles
-    cout << "Buckets e linhas pertencentes a cada um:" << endl;
-    for (const auto& bucket : buckets) {
-        cout << "Bucket " << bucket.first << endl;
-        for (const auto& linha : bucket.second.first) {
-            for (size_t i = 0; i < linha.first.size(); ++i) {
-                cout << linha.first[i] << (i < linha.first.size() - 1 ? "," : "");
-            }
-            cout << " [Linha: " << linha.second << "]" << endl;
-        }
-        cout << endl;
-    }
-
-    return buckets;
-}
 
 // Função para gerar combinações
 vector<vector<int>> combinacoes(const vector<int>& indices, int n) {
@@ -200,7 +136,6 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
                               const vector<tuple<int, int>>& featuresLinha, int totalLinhas) {
     unordered_map<int, double> relevanciaClasse; // Mapa para armazenar a relevância de cada classe
     vector<set<int>> linhas; // Vetor para armazenar as linhas correspondentes a cada feature
-    ofstream arquivoSuporte("dataset/suporte.txt", ios::app); // Arquivo para armazenar os suportes calculados
 
     // Para cada feature na linha, busca as linhas correspondentes na `tabelaHash`
     for (const auto& tupla : featuresLinha) {
@@ -241,12 +176,6 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
     // Converte o mapa `relevanciaClasse` em um vetor de pares para ordenação
     vector<pair<int, double>> suporteClasses(relevanciaClasse.begin(), relevanciaClasse.end());
 
-    // Armazena no arquivo os valores de suporte calculados para cada classe
-    for (const auto& classe : suporteClasses) {
-        arquivoSuporte << "Classe: " << classe.first << " Valor: " << classe.second;
-    }
-    arquivoSuporte.close(); // Fecha o arquivo após escrever os dados
-
     // Ordena as classes pelo suporte em ordem decrescente
     sort(suporteClasses.begin(), suporteClasses.end(), [](const pair<int, double>& a, const pair<int, double>& b) {
         return a.second > b.second;
@@ -260,6 +189,100 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
     }
 }
 
+double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
+                             int totalLinhas, int maxComb) {
+    unordered_map<int, int> contagemClasses;  // Para contar a frequência das classes no bucket
+    vector<tuple<int, int>> featuresLinha;
+
+    // Preenche as features da linha para análise
+    for (const auto& par : bucket) {
+        const vector<int>& linha = par.first;
+        int classe = par.second;
+
+        // Incrementa a contagem da classe
+        contagemClasses[classe]++;
+        
+        // Adiciona features da linha
+        for (size_t i = 0; i < linha.size(); ++i) {
+            featuresLinha.push_back(make_tuple(i, linha[i]));
+        }
+    }
+
+    double suporteTotal = 0.0;
+
+    // Calcula o suporte baseado na contagem das classes
+    for (const auto& entry : contagemClasses) {
+        int frequencia = entry.second;
+
+        // Calcula o suporte da classe normalizado
+        double suporteClasse = static_cast<double>(frequencia) / static_cast<double>(totalLinhas);
+        suporteTotal += suporteClasse;
+    }
+
+    // Normaliza o suporte total com base no máximo número de combinações
+    suporteTotal /= maxComb;
+
+    return suporteTotal;
+}
+
+
+// Função para criar buckets com base na similaridade
+unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComSimilaridade(const string& nomeArquivoTeste, int& totalLinhas) {
+    ifstream arquivoTeste(nomeArquivoTeste);
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
+    vector<pair<vector<int>, int>> linhas; // Armazena linhas e números das linhas
+    string linha;
+    int bucketIndex = 0;
+    totalLinhas = 0;
+    int numeroLinha = 1;
+
+    // Lê o arquivo de teste e armazena as linhas com seus números
+    while (getline(arquivoTeste, linha)) {
+        stringstream ss(linha);
+        string item;
+        vector<int> linhaValores;
+
+        while (getline(ss, item, ',')) {
+            linhaValores.push_back(stoi(item));
+        }
+
+        linhas.push_back({linhaValores, numeroLinha});
+        totalLinhas++;
+        numeroLinha++;
+    }
+
+    // Organiza as linhas em buckets com base na similaridade
+    for (const auto& linhaAtual : linhas) {
+        bool adicionado = false;
+        for (auto& bucket : buckets) {
+            for (const auto& linhaBucket : bucket.second.first) {
+                if (calcularSimilaridade(linhaAtual.first, linhaBucket.first) >= THRESHOLD_SIMILARIDADE) {
+                    bucket.second.first.push_back(linhaAtual);
+                    adicionado = true;
+                    break;
+                }
+            }
+            if (adicionado) break;
+        }
+
+        if (!adicionado) {
+            buckets[bucketIndex] = make_pair(vector<pair<vector<int>, int>>{linhaAtual}, 0.0);
+            bucketIndex++;
+        }
+    }
+
+    // Calcula o suporte para cada bucket
+    for (auto& bucket : buckets) {
+        const vector<pair<vector<int>, int>>& bucketLinhas = bucket.second.first;
+        double suporte = calcularSuporteBucket(bucketLinhas, totalLinhas, maxComb);
+        bucket.second.second = suporte;
+    }
+
+    return buckets;
+}
+
+
+
 // Função para avaliar a classe de uma linha
 int avaliarClasse(const vector<int>& linha, 
                   const unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>& buckets,
@@ -268,16 +291,18 @@ int avaliarClasse(const vector<int>& linha,
                   int totalLinhas) {
     // Verifica se a linha está em algum bucket
     for (const auto& bucket : buckets) {
-        for (const auto& linhaBucket : bucket.second.first) {
-            vector<int> linhaBucketCopy = linhaBucket.first;
-            linhaBucketCopy.pop_back();
-            
-            if (linha == linhaBucketCopy) {
-                // Linha está em um bucket, retorna a classe associada ao bucket
-                return bucket.first;
-            }
+    // Itera sobre as linhas no bucket
+    for (const auto& linhaBucket : bucket.second.first) {
+        // Cria uma cópia da linha do bucket
+        vector<int> linhaBucketCopy = linhaBucket.first;
+
+        // Se a linha do bucket e a linha a ser comparada forem iguais
+        if (linha == linhaBucketCopy) {
+            // Linha está em um bucket, retorna a classe associada ao bucket
+            return bucket.first;
         }
     }
+}
 
     // Se a linha não estiver em um bucket, prossegue com a análise combinatória
     vector<tuple<int, int>> featuresLinha;
@@ -315,7 +340,6 @@ void processarLinhas(int threadId, vector<string>& linhas, int inicio, int fim,
                 lock_guard<mutex> lock(mutexArquivo);
                 arquivoSaida << "Linha " << (i + 1) << ": Classe Atribuída = " << classeAtribuida << endl;
             }
-
             {
                 lock_guard<mutex> lock(mutexContadores);
                 if (classeAtribuida == classeOriginal) {
@@ -330,13 +354,11 @@ void processarLinhas(int threadId, vector<string>& linhas, int inicio, int fim,
 
 // Função para testar o algoritmo com um arquivo de teste usando threads
 void teste(const string& nomeArquivoTeste) {
-    selecionarLinhasAleatorias(nomeArquivoTeste, "dataset/20linhas.txt", 1000);
-
-    ifstream arquivoTeste("dataset/20linhas.txt");
+    ifstream arquivoTeste(nomeArquivoTeste);
     auto inicio = chrono::high_resolution_clock::now();
 
     int totalLinhas;
-    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComSimilaridade("dataset/20linhas.txt", totalLinhas);
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComSimilaridade(nomeArquivoTeste, totalLinhas);
 
     if (!arquivoTeste) {
         cerr << "Erro ao abrir o arquivo de teste." << endl;
