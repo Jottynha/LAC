@@ -96,14 +96,6 @@ void treinamento(string nomeArquivo){
     tabelaHashTreino = criarTabelaHash(tuplasTreino);
     tabelaHashClassesTreino = criarTabelaHashClasses(classes);
     totalLinhas = tuplasTreino.size();
-    
-    // Impressão das tuplas
-    for (size_t i = 0; i < tuplasTreino.size(); ++i) {
-        for (const auto& t : tuplasTreino[i]) {
-            cout << "Índice: [" << get<0>(t) << "] Valor: [" << get<1>(t) << "] ";
-        }
-        cout << "| Classe: " << classes[i] << endl;
-    }
 
     // Impressão da Tabela Hash de Linhas
     cout << "\nTabela Hash:" << endl;

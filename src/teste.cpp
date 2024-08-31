@@ -295,11 +295,11 @@ int avaliarClasse(const vector<int>& linha,
     for (const auto& linhaBucket : bucket.second.first) {
         // Cria uma cópia da linha do bucket
         vector<int> linhaBucketCopy = linhaBucket.first;
-
+        linhaBucketCopy.pop_back();
         // Se a linha do bucket e a linha a ser comparada forem iguais
         if (linha == linhaBucketCopy) {
             // Linha está em um bucket, retorna a classe associada ao bucket
-            return bucket.first;
+            return bucket.second.second;
         }
     }
 }

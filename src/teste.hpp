@@ -5,5 +5,6 @@
 #include <numeric> 
 
 void teste(const string& nomeArquivoTeste);
+void selecionarLinhasAleatorias(const string& inputFile, const string& outputFile, int numLinhas);
 
 #endif
