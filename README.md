@@ -176,7 +176,8 @@ namespace std {
             </ul>
             <h4>Função <code>lerArquivo</code></h4>
     <p>A função <code>lerArquivo</code> lê um arquivo CSV contendo dados de treino e armazena as tuplas e classes:</p> 
-    <code>
+    
+```cpp
         vector&lt;vector&lt;tuple&lt;int,int&gt;&gt; lerArquivo(const string&amp; nomeArquivo, vector&lt;int&gt;&amp; classes) {<br>
             &emsp;ifstream arquivo(nomeArquivo);<br>
             &emsp;vector&lt;vector&lt;tuple&lt;int, int&gt;&gt; tuplas;<br>
@@ -205,7 +206,7 @@ namespace std {
             &emsp;arquivo.close();<br>
             &emsp;return tuplas;<br>
         }
-    </code>
+```
     <h4>Função <code>criarTabelaHash</code></h4>
     <p>A função <code>criarTabelaHash</code> cria uma tabela hash a partir do vetor de tuplas:</p>
     <code>
