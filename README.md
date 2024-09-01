@@ -129,7 +129,7 @@ O arquivo principal `treinamento.hpp` contém a definição de funções e estru
     <li><strong>treinamento:</strong> Integra as operações de leitura e criação das tabelas hash.</li>
   </ul>
 </div>
-<strong>Especialização do Template de Hash para Tuplas</strong>
+<h4>Especialização do Template de Hash para Tuplas</h4>
 
 No projeto, utilizamos `std::unordered_map` para mapear tuplas a conjuntos de inteiros. No entanto, as tuplas não possuem uma função de hash nativa. Para resolver isso, foi implementada uma especialização do template `std::hash` para `std::tuple`:
 
@@ -150,7 +150,30 @@ namespace std {
     };
 }
 ```
-
+<h4>Variáveis Globais</h4>
+            <p>O projeto faz uso de variáveis globais para armazenar as tabelas hash e as tuplas lidas do dataset. Essas variáveis são essenciais para a organização dos dados e para a eficiência nas buscas e operações subsequentes:</p>
+            <ul>
+                <li><strong><code>tabelaHashTreino</code></strong>: <code>unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt;</code>
+                    <ul>
+                        <li>Mapeia características (representadas como tuplas de inteiros) para conjuntos de IDs de linhas no dataset.</li>
+                    </ul>
+                </li>
+                <li><strong><code>tabelaHashClassesTreino</code></strong>: <code>unordered_map&lt;int, set&lt;int&gt;&gt;</code>
+                    <ul>
+                        <li>Mapeia classes (representadas como inteiros) para conjuntos de IDs de linhas correspondentes a cada classe.</li>
+                    </ul>
+                </li>
+                <li><strong><code>tuplasTreino</code></strong>: <code>vector&lt;vector&lt;tuple&lt;int, int&gt;&gt;&gt;</code>
+                    <ul>
+                        <li>Armazena as tuplas lidas do arquivo de dados, onde cada tupla representa as características de uma linha.</li>
+                    </ul>
+                </li>
+                <li><strong><code>totalLinhas</code></strong>: <code>int</code>
+                    <ul>
+                        <li>Armazena o número total de linhas lidas do dataset.</li>
+                    </ul>
+                </li>
+            </ul>
 
 ## Referências Bibliográficas:
 [1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
