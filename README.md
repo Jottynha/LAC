@@ -115,34 +115,32 @@ O artigo de Cambronero também nos proporciona uma descrição detalhada dos val
 
 
 ## Sobre o código:
-O código em treinamento.hpp faz parte de um projeto que utiliza o algoritmo LAC (Locality-Aware Clustering) para analisar o dataset Pokerhand. Abaixo, explico as principais funcionalidades e estruturas do código:
-Estrutura da Tabela Hash
 
-O código utiliza a função de hash personalizada para permitir que a unordered_map do C++ aceite tuplas como chaves. Isso é feito através da especialização do template da estrutura hash dentro do namespace std. A função hash_tuple é responsável por calcular o hash para cada elemento da tupla, gerando uma chave única.
-Funções Principais
+O arquivo principal `treinamento.hpp` contém a definição de funções e estruturas utilizadas para processar e analisar o dataset. Aqui está uma visão geral das principais funcionalidades:
 
-    lerArquivo: Esta função lê o arquivo de treino (nomeArquivo) e armazena os dados em um vetor de tuplas, onde cada tupla representa um par de valores (coluna, valor). As classes associadas a cada linha do dataset são armazenadas em um vetor separado.
+<div style="background-color:#f0f0f0; padding:15px; border-radius:10px;">
+  <h4>Funções Principais</h4>
+  <ul>
+    <li><strong>lerArquivo:</strong> Lê o dataset e armazena as características e classes em estruturas adequadas.</li>
+    <li><strong>criarTabelaHash:</strong> Cria uma tabela hash para mapeamento das características.</li>
+    <li><strong>criarTabelaHashClasses:</strong> Cria uma tabela hash para mapeamento das classes.</li>
+    <li><strong>buscarFeature:</strong> Busca todas as linhas que possuem uma determinada característica.</li>
+    <li><strong>buscarClasse:</strong> Retorna as linhas que pertencem a uma determinada classe.</li>
+    <li><strong>treinamento:</strong> Integra as operações de leitura e criação das tabelas hash.</li>
+  </ul>
+</div>
 
-    criarTabelaHash: A partir das tuplas lidas, esta função cria uma tabela hash (unordered_map<tuple<int, int>, set<int>>) que mapeia cada par (coluna, valor) para um conjunto de índices das linhas que contêm esse par.
+Aqui está um exemplo de como a tabela hash é estruturada no código:
 
-    criarTabelaHashClasses: Similar à criarTabelaHash, essa função cria uma tabela hash que mapeia cada classe para um conjunto de índices das linhas que pertencem a essa classe.
+<pre style="background-color:#1e1e1e; color:#dcdcdc; padding:15px; border-radius:10px; overflow:auto; font-family: 'Courier New', Courier, monospace;">
+<code>
+// Definição da tabela hash para características
+unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt; tabelaHashTreino;
 
-    buscarFeature: Permite buscar todas as linhas que possuem uma determinada feature (representada por um par (coluna, valor)).
-
-    buscarClasse: Retorna o conjunto de índices de todas as linhas que pertencem a uma determinada classe.
-
-    treinamento: Função que integra as operações de leitura de dados e criação das tabelas hash, preparando o sistema para realizar as análises baseadas no algoritmo LAC.
-
-Estrutura Global
-
-O código também define variáveis globais para armazenar as tabelas hash e as tuplas:
-
-    unordered_map<tuple<int, int>, set<int>> tabelaHashTreino; — Armazena a tabela hash das features.
-    unordered_map<int, set<int>> tabelaHashClassesTreino; — Armazena a tabela hash das classes.
-    vector<vector<tuple<int, int>>> tuplasTreino; — Armazena as tuplas do dataset.
-    int totalLinhas; — Armazena o total de linhas no dataset.
-
-Essas estruturas globais permitem que as funções interajam e manipulem os dados de forma eficiente durante o processo de treinamento.
+// Definição da tabela hash para classes
+unordered_map&lt;int, set&lt;int&gt;&gt; tabelaHashClassesTreino;
+</code>
+</pre>
 
 ## Referências Bibliográficas:
 [1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
