@@ -294,6 +294,50 @@ void treinamento(string nomeArquivo){
     }
 }
 ```
+Evolução do Algoritmo
+
+O desenvolvimento do algoritmo para análise de um dataset de poker-hand passou por várias fases, cada uma contribuindo para a eficiência e precisão do modelo final. Inicialmente, o foco foi estabelecer uma base sólida com um módulo de treinamento, que mais tarde evoluiu para incorporar técnicas avançadas como Locality-Sensitive Hashing (LSH) e MinHash.
+1. Implementação Inicial - Módulo de Treinamento
+
+O desenvolvimento começou com a criação de dois arquivos centrais, treinamento.cpp e treinamento.hpp, que formam o núcleo do módulo de treinamento. O objetivo principal foi processar o dataset de treinamento, onde cada linha representa uma mão de poker e sua classe correspondente.
+
+Leitura do Dataset: O dataset foi lido e processado linha por linha, armazenando informações em um vetor de tuplas. Cada tupla continha o índice e o valor das cartas, representando as características da mão de poker.
+
+Criação de Tabelas Hash: Para otimizar o acesso aos dados, foram implementadas duas tabelas hash globais:
+
+    Uma para armazenar as características das cartas (índice e valor), mapeando-as para as linhas onde aparecem.
+    Outra para armazenar as classes das mãos de poker, associando-as às linhas correspondentes.
+
+Funções de Busca: Funções foram criadas para buscar eficientemente linhas baseadas em características específicas ou classes, aproveitando as tabelas hash para garantir rapidez nas buscas.
+
+Interface de Análise Interativa: Uma interface interativa permitia aos usuários realizar buscas específicas no dataset, facilitando a validação e verificação do comportamento do algoritmo em cenários variados.
+2. Perspectivas de Evolução
+
+Com a base estabelecida, o próximo passo foi aplicar os princípios do módulo de treinamento à análise do arquivo de teste. A fase de teste envolveu comparar previsões feitas pelo algoritmo com valores reais e ajustar as estratégias de cálculo de suporte para aprimorar precisão e eficiência.
+
+Desafios e Soluções: Inicialmente, o algoritmo considerava até 4 interseções para calcular o suporte, o que gerava altos custos computacionais. Para resolver isso, o número máximo de interseções foi reduzido para 3, equilibrando a precisão com a eficiência.
+
+Função de Avaliação Combinatória: A função de avaliação combinatória foi fundamental para calcular o suporte baseado nas características e classes armazenadas nas tabelas hash. Ela realizava intersecções entre linhas correspondentes às características e determinava a classe com maior suporte para cada linha.
+3. Desenvolvimento do Arquivo de Teste
+
+Na fase de testes, o algoritmo foi projetado para processar o arquivo de teste, calcular suportes usando análise combinatória e comparar com os valores reais.
+
+Função de Avaliação Combinatória: Esta função avaliava a classe combinatória de uma linha com base em features e classes nas tabelas hash. Inicialmente, buscava features correspondentes, gerava combinações e usava threads para calcular o suporte. Após o término das threads, as classes eram ordenadas pelo suporte e os resultados eram registrados.
+
+Função de Avaliação de Classe: Verificava se uma linha estava em um bucket; se sim, retornava a classe associada. Caso contrário, chamava a função de avaliação combinatória para determinar a classe com base em combinações e suportes.
+
+Função de Teste: Esta função realizava a avaliação final do algoritmo usando um arquivo de teste, gravava resultados em um arquivo de saída, e calculava a precisão e a taxa de erro do modelo.
+4. Utilização de LSH e Buckets
+
+A implementação final envolveu a combinação de técnicas avançadas como Locality-Sensitive Hashing (LSH) para otimizar a classificação das mãos de poker. O algoritmo utilizava LSH para formar buckets com base nas classes das mãos de poker, o que permitiu uma análise mais rápida e eficiente.
+
+Otimização com LSH: Buckets foram criados para melhorar a performance do algoritmo ao reduzir o tempo de execução e melhorar a precisão. O uso de mutex garantiu a integridade das variáveis durante a execução em múltiplas threads, prevenindo condições de corrida.
+
+Arquivos de Buckets e Suporte: Arquivos dedicados foram criados para armazenar buckets e valores de suporte. O arquivo de buckets continha as classes de mãos de poker, enquanto o arquivo de suporte registrava os valores de suporte calculados para cada classe. Esses arquivos permitiram uma análise detalhada e ajustes finos no modelo de categorização.
+
+Função AvaliarClasseCombinatoria e AvaliarClasse: As funções de avaliação foram refinadas para verificar a presença de uma linha em buckets ou calcular a classe combinatória com base em suportes.
+
+O desenvolvimento do algoritmo foi um processo iterativo, começando com uma abordagem básica e evoluindo para técnicas sofisticadas que melhoraram significativamente a eficiência e a precisão da análise de mãos de poker.
 
 ## Referências Bibliográficas:
 [1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
