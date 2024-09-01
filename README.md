@@ -294,7 +294,6 @@ void treinamento(string nomeArquivo){
     }
 }
 ```
-
 O desenvolvimento inicial focou na criação dos arquivos `treinamento.cpp` e `treinamento.hpp`, que formam o núcleo do módulo de treinamento. O objetivo foi processar o dataset de treinamento de forma eficiente.
 
 - **Leitura do Dataset**: O dataset foi processado linha por linha, armazenando informações em um vetor de tuplas. Cada tupla continha o índice e o valor das cartas.
@@ -307,7 +306,7 @@ O desenvolvimento inicial focou na criação dos arquivos `treinamento.cpp` e `t
 
 - **Interface de Análise Interativa**: Permitida a realização de buscas específicas no dataset, facilitando a validação do algoritmo.
 
-### Perspectivas de Evolução
+ <h4>Perspectivas de Evolução</h4>
 
 Após a criação da base, o foco foi melhorar a análise do arquivo de teste e ajustar as estratégias de cálculo de suporte.
 
@@ -315,7 +314,7 @@ Após a criação da base, o foco foi melhorar a análise do arquivo de teste e 
 
 - **Função de Avaliação Combinatória**: Avalia a classe combinatória com base em features e classes, utilizando intersecções e suporte.
 
-### Desenvolvimento do Arquivo de Teste
+<h4>Desenvolvimento do Arquivo de Teste</h4>
 
 A fase de testes envolveu a análise do arquivo de teste e a avaliação do algoritmo.
 
@@ -323,7 +322,7 @@ A fase de testes envolveu a análise do arquivo de teste e a avaliação do algo
 
 - **Função de Teste**: Avalia a precisão e a taxa de erro do modelo, comparando a classe atribuída com a original e gravando os resultados.
 
-### Utilização de LSH e Buckets
+<h4>Utilização de LSH e Buckets</h4>
 
 A implementação final incorporou técnicas avançadas como Locality-Sensitive Hashing (LSH) para otimizar a classificação das mãos de poker.
 
@@ -343,28 +342,6 @@ O código utiliza diversas bibliotecas padrão da linguagem C++:
 - `<fstream>`: Para manipulação de arquivos.
 - `<sstream>`: Para operar em strings como fluxos de dados.
 - `<iostream>`: Para operações de entrada e saída.
-
-### Template de Hash para Tuplas
-
-Um template personalizado foi implementado para suportar tuplas como chaves em `unordered_map`, calculando o hash combinando os hashes individuais de cada elemento da tupla.
-
-```cpp
-namespace std {
-    template <typename... Types>
-    struct hash<std::tuple<Types...>> {
-        size_t operator()(const std::tuple<Types...>& t) const {
-            return hash_tuple(t, std::index_sequence_for<Types...>{});
-        }
-    private:
-        template <std::size_t... I>
-        size_t hash_tuple(const std::tuple<Types...>& t, std::index_sequence<I...>) const {
-            size_t seed = 0;
-            (..., (seed ^= hash<std::decay_t<decltype(std::get<I>(t))>>{}(std::get<I>(t)) + 0x9e3779b9 + (seed << 6) + (seed >> 2)));
-            return seed;
-        }
-    };
-}
-```
 
 ## Conclusão
 
