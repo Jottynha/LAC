@@ -211,18 +211,19 @@ vector<vector<tuple<int,int>>> lerArquivo(const string& nomeArquivo, vector<int>
 ```
 <h4>Função <code>criarTabelaHash</code></h4>
     <p>A função <code>criarTabelaHash</code> cria uma tabela hash a partir do vetor de tuplas:</p>
-    <code>
-        unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt; criarTabelaHash(const vector&lt;vector&lt;tuple&lt;int, int&gt;&gt;&gt;&amp; tuplas) {<br>
-            &emsp;unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt; tabelaHash;<br><br>
-            &emsp;for (size_t i = 0; i &lt; tuplas.size(); ++i) {<br>
-                &emsp;&emsp;for (const auto&amp; t : tuplas[i]) {<br>
-                    &emsp;&emsp;&emsp;tabelaHash[t].insert(i + 1);<br>
-                &emsp;&emsp;}<br>
-            &emsp;}<br><br>
-            &emsp;return tabelaHash;<br>
+    
+```cpp
+unordered_map<tuple<int, int>, set<int>> criarTabelaHash(const vector<vector<tuple<int, int>>>& tuplas) {
+    unordered_map<tuple<int, int>, set<int>> tabelaHash;
+    for (size_t i = 0; i < tuplas.size(); ++i) {
+        for (const auto& t : tuplas[i]) {
+            tabelaHash[t].insert(i + 1);
         }
-    </code>
-    <h4>Função <code>criarTabelaHashClasses</code></h4>
+    }
+    return tabelaHash;
+}
+```                              
+   <h4>Função <code>criarTabelaHashClasses</code></h4>
     <p>A função <code>criarTabelaHashClasses</code> cria uma tabela hash para as classes:</p>
     <code>
         unordered_map&lt;int, set&lt;int&gt;&gt; criarTabelaHashClasses(const vector&lt;int&gt;&amp; classes) {<br>
