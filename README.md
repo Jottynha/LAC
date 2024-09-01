@@ -113,7 +113,26 @@ O artigo de Cambronero também nos proporciona uma descrição detalhada dos val
 </p>
 
 
+## Bibliotecas Utilizadas
 
+O código utiliza diversas bibliotecas padrão da linguagem C++:
+- `<vector>`: Para armazenar sequências dinâmicas de elementos.
+- `<tuple>`: Para criar tuplas com elementos de tipos distintos.
+- `<string>`: Para manipulação de strings.
+- `<unordered_map>`: Para criar tabelas hash eficientes.
+- `<set>`: Para armazenar elementos únicos.
+- `<fstream>`: Para manipulação de arquivos.
+- `<sstream>`: Para operar em strings como fluxos de dados.
+- `<iostream>`: Para operações de entrada e saída.
+- `<chrono>`: Para medições de tempo.
+- `<iomanip>`: Para formatação de saídas com precisão.
+- `<map>`: Para armazenamento de pares chave-valor com ordenação.
+- `<algorithm>`: Para operações em containers, como ordenação e busca.
+- `<utility>`: Para utilitários como `std::pair`.
+- `<numeric>`: Para operações numéricas, como geração de sequências.
+- `<iterator>`: Para inserção e manipulação de iteradores.
+- `<thread>`: Para suporte a programação multithread.
+- `<mutex>`: Para sincronização e controle de acesso a recursos compartilhados.
 ## Sobre o código:
 
 O arquivo principal `treinamento.hpp` contém a definição de funções e estruturas utilizadas para processar e analisar o dataset. Aqui está uma visão geral das principais funcionalidades:
@@ -329,19 +348,6 @@ A implementação final incorporou técnicas avançadas como Locality-Sensitive 
 - **Otimização com LSH**: Buckets foram criados para reduzir o tempo de execução e melhorar a precisão do algoritmo. O uso de mutex garantiu a integridade das variáveis durante a execução em múltiplas threads.
 
 - **Arquivos de Buckets e Suporte**: Arquivos dedicados foram criados para armazenar buckets e valores de suporte, permitindo uma análise detalhada e ajustes finos no modelo de categorização.
-
-## Bibliotecas Utilizadas
-
-O código utiliza diversas bibliotecas padrão da linguagem C++:
-
-- `<vector>`: Para armazenar sequências dinâmicas de elementos.
-- `<tuple>`: Para criar tuplas com elementos de tipos distintos.
-- `<string>`: Para manipulação de strings.
-- `<unordered_map>`: Para criar tabelas hash eficientes.
-- `<set>`: Para armazenar elementos únicos.
-- `<fstream>`: Para manipulação de arquivos.
-- `<sstream>`: Para operar em strings como fluxos de dados.
-- `<iostream>`: Para operações de entrada e saída.
 
 ## Conclusão
 
