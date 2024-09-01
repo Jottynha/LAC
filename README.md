@@ -129,7 +129,7 @@ O arquivo principal `treinamento.hpp` contém a definição de funções e estru
     <li><strong>treinamento:</strong> Integra as operações de leitura e criação das tabelas hash.</li>
   </ul>
 </div>
-### 1. Especialização do Template de Hash para Tuplas
+<strong>Especialização do Template de Hash para Tuplas</strong>
 
 No projeto, utilizamos `std::unordered_map` para mapear tuplas a conjuntos de inteiros. No entanto, as tuplas não possuem uma função de hash nativa. Para resolver isso, foi implementada uma especialização do template `std::hash` para `std::tuple`:
 
@@ -149,6 +149,8 @@ namespace std {
         }
     };
 }
+```
+
 
 ## Referências Bibliográficas:
 [1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
