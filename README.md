@@ -225,66 +225,75 @@ unordered_map<tuple<int, int>, set<int>> criarTabelaHash(const vector<vector<tup
 ```                              
    <h4>Função <code>criarTabelaHashClasses</code></h4>
     <p>A função <code>criarTabelaHashClasses</code> cria uma tabela hash para as classes:</p>
-    <code>
-        unordered_map&lt;int, set&lt;int&gt;&gt; criarTabelaHashClasses(const vector&lt;int&gt;&amp; classes) {<br>
-            &emsp;unordered_map&lt;int, set&lt;int&gt;&gt; tabelaHashClasses;<br><br>
-            &emsp;for (size_t i = 0; i &lt; classes.size(); ++i) {<br>
-                &emsp;&emsp;tabelaHashClasses[classes[i]].insert(i + 1);<br>
-            &emsp;}<br><br>
-            &emsp;return tabelaHashClasses;<br>
-        }
-    </code>
-    <h4>Função <code>buscarFeature</code></h4>
+    
+```cpp
+unordered_map<int, set<int>> criarTabelaHashClasses(const vector<int>& classes) {
+    unordered_map<int, set<int>> tabelaHashClasses;
+    for (size_t i = 0; i < classes.size(); ++i) {
+        tabelaHashClasses[classes[i]].insert(i + 1);
+    }
+    return tabelaHashClasses;
+}
+```
+<h4>Função <code>buscarFeature</code></h4>
     <p>A função <code>buscarFeature</code> busca uma feature na tabela hash e retorna as linhas onde a chave aparece:</p>
-    <code>
-        set&lt;int&gt; buscarFeature(const unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt;&amp; tabelaHash, int coluna, int valor) {<br>
-            &emsp;tuple&lt;int, int&gt; chave = make_tuple(coluna, valor);<br>
-            &emsp;auto it = tabelaHash.find(chave);<br><br>
-            &emsp;if (it != tabelaHash.end()) {<br>
-                &emsp;&emsp;return it->second; // Retorna o conjunto de linhas onde a chave aparece<br>
-            &emsp;} else {<br>
-                &emsp;&emsp;return {}; // Retorna um conjunto vazio se a chave não for encontrada<br>
-            &emsp;}<br>
-        }
-    </code>
-    <h4>Função <code>buscarClasse</code></h4>
+    
+```cpp
+set<int> buscarFeature(const unordered_map<tuple<int, int>, set<int>>& tabelaHash, int coluna, int valor) {
+    tuple<int, int> chave = make_tuple(coluna, valor);
+    auto it = tabelaHash.find(chave);
+    if (it != tabelaHash.end()) {
+        return it->second; // Retorna o conjunto de linhas onde a chave aparece
+    } else {
+        return {}; // Retorna um conjunto vazio se a chave não for encontrada
+    }
+}
+```
+  <h4>Função <code>buscarClasse</code></h4>
     <p>A função <code>buscarClasse</code> busca uma classe na tabela hash e retorna as linhas onde a classe aparece:</p>
-    <code>
-        set&lt;int&gt; buscarClasse(const unordered_map&lt;int, set&lt;int&gt;&gt;&amp; tabelaHashClasses, int classe) {<br>
-            &emsp;auto it = tabelaHashClasses.find(classe);<br>
-            &emsp;if (it != tabelaHashClasses.end()) {<br>
-                &emsp;&emsp;return it->second; // Retorna o conjunto de linhas onde a classe aparece<br>
-            &emsp;} else {<br>
-                &emsp;&emsp;return {}; // Retorna um conjunto vazio se a classe não for encontrada<br>
-            &emsp;}<br>
-        }
-    </code>
-    <h4>Função <code>treinamento</code></h4>
+    
+```cpp
+set<int> buscarClasse(const unordered_map<int, set<int>>& tabelaHashClasses, int classe) {
+    auto it = tabelaHashClasses.find(classe);
+    if (it != tabelaHashClasses.end()) {
+        return it->second; // Retorna o conjunto de linhas onde a classe aparece
+    } else {
+        return {}; // Retorna um conjunto vazio se a classe não for encontrada
+    }
+}
+```
+<h4>Função <code>treinamento</code></h4>
     <p>A função <code>treinamento</code> realiza o processo de leitura do arquivo, criação das tabelas hash e exibe as tabelas:</p>
-    <code>
-        void treinamento(string nomeArquivo){<br>
-            &emsp;vector&lt;int&gt; classes; // Vetor para armazenar as classes<br>
-            &emsp;tuplasTreino = lerArquivo(nomeArquivo, classes);<br>
-            &emsp;tabelaHashTreino = criarTabelaHash(tuplasTreino);<br>
-            &emsp;tabelaHashClassesTreino = criarTabelaHashClasses(classes);<br><br>
-            &emsp;cout &lt;&lt; "Tabela Hash de Features: " &lt;&lt; endl;<br>
-            &emsp;for (const auto&amp; [chave, linhas] : tabelaHashTreino) {<br>
-                &emsp;&emsp;cout &lt;&lt; "(" &lt;&lt; get&lt;0&gt;(chave) &lt;&lt; ", " &lt;&lt; get&lt;1&gt;(chave) &lt;&lt; "): ";<br>
-                &emsp;&emsp;for (const auto&amp; linha : linhas) {<br>
-                    &emsp;&emsp;&emsp;cout &lt;&lt; linha &lt;&lt; " ";<br>
-                &emsp;&emsp;}<br>
-                &emsp;&emsp;cout &lt;&lt; endl;<br>
-            &emsp;}<br><br>
-            &emsp;cout &lt;&lt; "Tabela Hash de Classes: " &lt;&lt; endl;<br>
-            &emsp;for (const auto&amp; [classe, linhas] : tabelaHashClassesTreino) {<br>
-                &emsp;&emsp;cout &lt;&lt; classe &lt;&lt; ": ";<br>
-                &emsp;&emsp;for (const auto&amp; linha : linhas) {<br>
-                    &emsp;&emsp;&emsp;cout &lt;&lt; linha &lt;&lt; " ";<br>
-                &emsp;&emsp;}<br>
-                &emsp;&emsp;cout &lt;&lt; endl;<br>
-            &emsp;}<br>
+    
+```cpp
+void treinamento(string nomeArquivo){
+    vector<int> classes; // Vetor para armazenar as classes
+    tuplasTreino = lerArquivo(nomeArquivo, classes);
+    tabelaHashTreino = criarTabelaHash(tuplasTreino);
+    tabelaHashClassesTreino = criarTabelaHashClasses(classes);
+    totalLinhas = tuplasTreino.size();
+
+    // Impressão da Tabela Hash de Linhas
+    cout << "\nTabela Hash:" << endl;
+    for (const auto& [chave, linhas] : tabelaHashTreino) {
+        cout << "Chave: (Índice: " << get<0>(chave) << ", Valor: " << get<1>(chave) << ") - Aparece nas linhas: ";
+        for (const auto& linha : linhas) {
+            cout << linha << " ";
         }
-    </code>
+        cout << endl;
+    }
+
+    // Impressão da Tabela Hash das Classes
+    cout << "\nTabela Hash das Classes:" << endl;
+    for (const auto& [classe, linhas] : tabelaHashClassesTreino) {
+        cout << "Classe: " << classe << " Aparece nas linhas: ";
+        for (const auto& linha : linhas) {
+            cout << linha << " ";
+        }
+        cout << endl;
+    }
+}
+```
 
 ## Referências Bibliográficas:
 [1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
