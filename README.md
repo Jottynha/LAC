@@ -129,18 +129,26 @@ O arquivo principal `treinamento.hpp` contém a definição de funções e estru
     <li><strong>treinamento:</strong> Integra as operações de leitura e criação das tabelas hash.</li>
   </ul>
 </div>
+### 1. Especialização do Template de Hash para Tuplas
 
-Aqui está um exemplo de como a tabela hash é estruturada no código:
+No projeto, utilizamos `std::unordered_map` para mapear tuplas a conjuntos de inteiros. No entanto, as tuplas não possuem uma função de hash nativa. Para resolver isso, foi implementada uma especialização do template `std::hash` para `std::tuple`:
 
-<pre style="background-color:#1e1e1e; color:#dcdcdc; padding:15px; border-radius:10px; overflow:auto; font-family: 'Courier New', Courier, monospace;">
-<code>
-// Definição da tabela hash para características
-unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt; tabelaHashTreino;
-
-// Definição da tabela hash para classes
-unordered_map&lt;int, set&lt;int&gt;&gt; tabelaHashClassesTreino;
-</code>
-</pre>
+```cpp
+namespace std {
+    template <typename... Types>
+    struct hash<std::tuple<Types...>> {
+        size_t operator()(const std::tuple<Types...>& t) const {
+            return hash_tuple(t, std::index_sequence_for<Types...>{});
+        }
+    private:
+        template <std::size_t... I>
+        size_t hash_tuple(const std::tuple<Types...>& t, std::index_sequence<I...>) const {
+            size_t seed = 0;
+            (..., (seed ^= hash<std::decay_t<decltype(std::get<I>(t))>>{}(std::get<I>(t)) + 0x9e3779b9 + (seed << 6) + (seed >> 2)));
+            return seed;
+        }
+    };
+}
 
 ## Referências Bibliográficas:
 [1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
