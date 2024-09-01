@@ -349,6 +349,27 @@ A implementação final incorporou técnicas avançadas como Locality-Sensitive 
 
 - **Arquivos de Buckets e Suporte**: Arquivos dedicados foram criados para armazenar buckets e valores de suporte, permitindo uma análise detalhada e ajustes finos no modelo de categorização.
 
+## Observações
+
+### Custo Computacional das Intersecções
+
+Durante o desenvolvimento do algoritmo, observou-se que o custo computacional das intersecções entre as características aumentava exponencialmente com o número de combinações consideradas. Testes mostraram que, à medida que o número de intersecções aumentava, o valor calculado para a classe de uma linha se aproximava cada vez mais do valor real. No entanto, o aumento no número de combinações também acarretava um aumento significativo no tempo de execução.
+
+Para equilibrar a precisão e a eficiência, decidimos limitar o número máximo de combinações a 3. Esta abordagem proporcionou um bom comprometimento entre a precisão dos resultados e o custo computacional, permitindo uma análise eficiente sem comprometer a acurácia.
+
+### Estudo da Acurácia
+
+Para avaliar a precisão do algoritmo, foi criada uma função que seleciona linhas aleatórias do dataset `pokerhand.data` para estudo. Essa função é usada para verificar a acurácia do modelo com diferentes amostras de dados. Além disso, o dataset `iris.data` também foi utilizado para validar o algoritmo em um conjunto de dados diferente, proporcionando uma visão mais abrangente do desempenho do modelo.
+
+### Arquivos para Análise
+
+Para facilitar a análise e o entendimento dos resultados, foram criados arquivos dedicados:
+
+- **Buckets**: Contém as classes de mãos de poker, cada uma associada aos conjuntos de valores de cartas que pertencem a essa classe. Este arquivo é útil para verificar como as linhas de dados são agrupadas em diferentes buckets.
+- **Suporte**: Registra os valores de suporte calculados para cada classe dentro dos buckets. Este arquivo ajuda a identificar quais combinações de cartas são mais relevantes para cada mão de poker e permite ajustes finos no modelo.
+
+Esses arquivos são essenciais para a análise detalhada dos resultados e para o ajuste contínuo do algoritmo, garantindo que o modelo final seja robusto e eficiente para a categorização de mãos de poker.
+
 ## Conclusão
 
 O algoritmo evoluiu de uma implementação inicial básica para uma solução avançada e otimizada para análise de mãos de poker. O uso de técnicas como LSH melhorou significativamente a performance, permitindo uma análise precisa e eficiente de grandes volumes de dados.
