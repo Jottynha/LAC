@@ -178,36 +178,38 @@ namespace std {
     <p>A função <code>lerArquivo</code> lê um arquivo CSV contendo dados de treino e armazena as tuplas e classes:</p> 
     
 ```cpp
-        vector&lt;vector&lt;tuple&lt;int,int&gt;&gt; lerArquivo(const string&amp; nomeArquivo, vector&lt;int&gt;&amp; classes) {<br>
-            &emsp;ifstream arquivo(nomeArquivo);<br>
-            &emsp;vector&lt;vector&lt;tuple&lt;int, int&gt;&gt; tuplas;<br>
-            &emsp;string linha;<br><br>
-            &emsp;if (!arquivo) {<br>
-                &emsp;&emsp;cerr &lt;&lt; "Erro ao abrir o arquivo: " &lt;&lt; nomeArquivo &lt;&lt; endl;<br>
-                &emsp;&emsp;return tuplas;<br>
-            &emsp;}<br><br>
-            &emsp;while (getline(arquivo, linha)) {<br>
-                &emsp;&emsp;vector&lt;tuple&lt;int, int&gt;&gt; linhaTuplas;<br>
-                &emsp;&emsp;stringstream ss(linha);<br>
-                &emsp;&emsp;string item;<br>
-                &emsp;&emsp;vector&lt;int&gt; linhaValores;<br><br>
-                &emsp;&emsp;while (getline(ss, item, ',')) {<br>
-                    &emsp;&emsp;&emsp;linhaValores.push_back(stoi(item));<br>
-                &emsp;&emsp;}<br><br>
-                &emsp;&emsp;if (!linhaValores.empty()) {<br>
-                    &emsp;&emsp;&emsp;classes.push_back(linhaValores.back());<br>
-                    &emsp;&emsp;&emsp;linhaValores.pop_back();<br>
-                &emsp;&emsp;}<br><br>
-                &emsp;&emsp;for (size_t i = 0; i &lt; linhaValores.size(); ++i) {<br>
-                    &emsp;&emsp;&emsp;linhaTuplas.push_back(make_tuple(i + 1, linhaValores[i]));<br>
-                &emsp;&emsp;}<br><br>
-                &emsp;&emsp;tuplas.push_back(linhaTuplas);<br>
-            &emsp;}<br><br>
-            &emsp;arquivo.close();<br>
-            &emsp;return tuplas;<br>
+vector<vector<tuple<int,int>>> lerArquivo(const string& nomeArquivo, vector<int>& classes) {
+    ifstream arquivo(nomeArquivo);
+    vector<vector<tuple<int, int>>> tuplas;
+    string linha;
+    if (!arquivo) {
+        cerr << "Erro ao abrir o arquivo: " << nomeArquivo << endl;
+        return tuplas;
+    }
+    while (getline(arquivo, linha)) {
+        vector<tuple<int, int>> linhaTuplas;
+        stringstream ss(linha);
+        string item;
+        vector<int> linhaValores;
+        while (getline(ss, item, ',')) {
+            linhaValores.push_back(stoi(item));
         }
+        // O último valor é a classe, então removemos ele da linha de valores
+        if (!linhaValores.empty()) {
+            classes.push_back(linhaValores.back());
+            linhaValores.pop_back();        
+        }
+        // Adiciona tuplas contendo o índice e o valor
+        for (size_t i = 0; i < linhaValores.size(); ++i) {
+            linhaTuplas.push_back(make_tuple(i + 1, linhaValores[i]));
+        }
+        tuplas.push_back(linhaTuplas);
+    }
+    arquivo.close();
+    return tuplas;
+}
 ```
-    <h4>Função <code>criarTabelaHash</code></h4>
+<h4>Função <code>criarTabelaHash</code></h4>
     <p>A função <code>criarTabelaHash</code> cria uma tabela hash a partir do vetor de tuplas:</p>
     <code>
         unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt; criarTabelaHash(const vector&lt;vector&lt;tuple&lt;int, int&gt;&gt;&gt;&amp; tuplas) {<br>
