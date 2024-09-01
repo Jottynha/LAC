@@ -206,7 +206,7 @@ namespace std {
             &emsp;return tuplas;<br>
         }
     </code>
-    <h2>Função <code>criarTabelaHash</code></h2>
+    <h4>Função <code>criarTabelaHash</code></h4>
     <p>A função <code>criarTabelaHash</code> cria uma tabela hash a partir do vetor de tuplas:</p>
     <code>
         unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt; criarTabelaHash(const vector&lt;vector&lt;tuple&lt;int, int&gt;&gt;&gt;&amp; tuplas) {<br>
@@ -219,7 +219,7 @@ namespace std {
             &emsp;return tabelaHash;<br>
         }
     </code>
-    <h2>Função <code>criarTabelaHashClasses</code></h2>
+    <h4>Função <code>criarTabelaHashClasses</code></h4>
     <p>A função <code>criarTabelaHashClasses</code> cria uma tabela hash para as classes:</p>
     <code>
         unordered_map&lt;int, set&lt;int&gt;&gt; criarTabelaHashClasses(const vector&lt;int&gt;&amp; classes) {<br>
@@ -230,7 +230,7 @@ namespace std {
             &emsp;return tabelaHashClasses;<br>
         }
     </code>
-    <h2>Função <code>buscarFeature</code></h2>
+    <h4>Função <code>buscarFeature</code></h4>
     <p>A função <code>buscarFeature</code> busca uma feature na tabela hash e retorna as linhas onde a chave aparece:</p>
     <code>
         set&lt;int&gt; buscarFeature(const unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt;&amp; tabelaHash, int coluna, int valor) {<br>
@@ -243,7 +243,7 @@ namespace std {
             &emsp;}<br>
         }
     </code>
-    <h2>Função <code>buscarClasse</code></h2>
+    <h4>Função <code>buscarClasse</code></h4>
     <p>A função <code>buscarClasse</code> busca uma classe na tabela hash e retorna as linhas onde a classe aparece:</p>
     <code>
         set&lt;int&gt; buscarClasse(const unordered_map&lt;int, set&lt;int&gt;&gt;&amp; tabelaHashClasses, int classe) {<br>
@@ -255,7 +255,7 @@ namespace std {
             &emsp;}<br>
         }
     </code>
-    <h2>Função <code>treinamento</code></h2>
+    <h4>Função <code>treinamento</code></h4>
     <p>A função <code>treinamento</code> realiza o processo de leitura do arquivo, criação das tabelas hash e exibe as tabelas:</p>
     <code>
         void treinamento(string nomeArquivo){<br>
