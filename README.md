@@ -115,7 +115,34 @@ O artigo de Cambronero também nos proporciona uma descrição detalhada dos val
 
 
 ## Sobre o código:
-...
+O código em treinamento.hpp faz parte de um projeto que utiliza o algoritmo LAC (Locality-Aware Clustering) para analisar o dataset Pokerhand. Abaixo, explico as principais funcionalidades e estruturas do código:
+Estrutura da Tabela Hash
+
+O código utiliza a função de hash personalizada para permitir que a unordered_map do C++ aceite tuplas como chaves. Isso é feito através da especialização do template da estrutura hash dentro do namespace std. A função hash_tuple é responsável por calcular o hash para cada elemento da tupla, gerando uma chave única.
+Funções Principais
+
+    lerArquivo: Esta função lê o arquivo de treino (nomeArquivo) e armazena os dados em um vetor de tuplas, onde cada tupla representa um par de valores (coluna, valor). As classes associadas a cada linha do dataset são armazenadas em um vetor separado.
+
+    criarTabelaHash: A partir das tuplas lidas, esta função cria uma tabela hash (unordered_map<tuple<int, int>, set<int>>) que mapeia cada par (coluna, valor) para um conjunto de índices das linhas que contêm esse par.
+
+    criarTabelaHashClasses: Similar à criarTabelaHash, essa função cria uma tabela hash que mapeia cada classe para um conjunto de índices das linhas que pertencem a essa classe.
+
+    buscarFeature: Permite buscar todas as linhas que possuem uma determinada feature (representada por um par (coluna, valor)).
+
+    buscarClasse: Retorna o conjunto de índices de todas as linhas que pertencem a uma determinada classe.
+
+    treinamento: Função que integra as operações de leitura de dados e criação das tabelas hash, preparando o sistema para realizar as análises baseadas no algoritmo LAC.
+
+Estrutura Global
+
+O código também define variáveis globais para armazenar as tabelas hash e as tuplas:
+
+    unordered_map<tuple<int, int>, set<int>> tabelaHashTreino; — Armazena a tabela hash das features.
+    unordered_map<int, set<int>> tabelaHashClassesTreino; — Armazena a tabela hash das classes.
+    vector<vector<tuple<int, int>>> tuplasTreino; — Armazena as tuplas do dataset.
+    int totalLinhas; — Armazena o total de linhas no dataset.
+
+Essas estruturas globais permitem que as funções interajam e manipulem os dados de forma eficiente durante o processo de treinamento.
 
 ## Referências Bibliográficas:
 [1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
