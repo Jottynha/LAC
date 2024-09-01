@@ -6,7 +6,7 @@ using namespace std;
 
 
 int main() {
-    selecionarLinhasAleatorias("dataset/poker-hand-testing.data", "dataset/20linhas.txt", 100);
+    selecionarLinhasAleatorias("dataset/poker-hand-testing.data", "dataset/20linhas.txt", 1000);
     treinamento("dataset/poker-hand-training.data");
     teste("dataset/20linhas.txt");
     return 0;

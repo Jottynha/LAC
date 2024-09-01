@@ -18,7 +18,7 @@
 
 using namespace std;
 
-const double THRESHOLD_SIMILARIDADE = 0.5;
+const double THRESHOLD_SIMILARIDADE = 0.7;
 const int maxComb = 3;
 
 mutex mutexArquivo;  // Mutex para proteger o acesso ao arquivo de saída
@@ -176,7 +176,8 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
 double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
                              int totalLinhas, int maxComb,
                              const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
-                             const unordered_map<int, set<int>>& tabelaHashClasses) {
+                             const unordered_map<int, set<int>>& tabelaHashClasses,
+                             const unordered_map<int, double>& suportesExistentes) {
     vector<int> classesAtribuidas;
     size_t numLinhas = min(bucket.size(), size_t(5));
 
@@ -201,6 +202,16 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
     double classeMedia = classesAtribuidas.empty() ? 0.0 : somaClasses / classesAtribuidas.size();
     double suporteTotal = (maxComb > 0) ? classeMedia / maxComb : 0.0;
 
+    // Verifica se o suporte calculado é semelhante aos já existentes
+    double tolerancia = 0;  // Ajuste a tolerância conforme necessário
+    for (const auto& [_, suporteExistente] : suportesExistentes) {
+        if (abs(suporteTotal - suporteExistente) < tolerancia) {
+            // Se o suporte for muito próximo, ajusta o valor para ser distinto
+            suporteTotal += tolerancia;
+            //tolerancia+=1;
+        }
+    }
+
     return suporteTotal;
 }
 
@@ -212,7 +223,8 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
 
     ifstream arquivoTeste(nomeArquivoTeste);
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
-    vector<pair<vector<int>, int>> linhas; // Armazena linhas e suas classes
+    unordered_map<int, double> suportesExistentes; // Armazena suportes já calculados
+    vector<pair<vector<int>, int>> linhas;
     set<int> classesDistintas;
     totalLinhas = 0;
 
@@ -221,7 +233,6 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
         return {};
     }
 
-    // Lê o arquivo de teste e prepara os dados
     string linha;
     while (getline(arquivoTeste, linha)) {
         stringstream ss(linha);
@@ -233,25 +244,20 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
             linhaValores.push_back(stoi(item));
         }
 
-        classe = linhaValores.back(); // Último valor é a classe
-        
-        // Mantém a classe e a adiciona junto com a linha
+        classe = linhaValores.back();
         classesDistintas.insert(classe);
         linhas.push_back({linhaValores, classe});
         totalLinhas++;
     }
 
-    // Cria um bucket para cada classe distinta
     for (int classe : classesDistintas) {
         buckets[classe] = make_pair(vector<pair<vector<int>, int>>(), 0.0);
     }
 
-    // Distribui as linhas nos buckets com base na similaridade
     for (const auto& linha : linhas) {
         int melhorBucket = -1;
         double maiorSimilaridade = 0.0;
 
-        // Verifica a similaridade com as primeiras 10 linhas de cada bucket
         for (auto& bucket : buckets) {
             size_t comparacoes = min(bucket.second.first.size(), static_cast<size_t>(10));
             for (size_t i = 0; i < comparacoes; ++i) {
@@ -264,10 +270,8 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
         }
 
         if (maiorSimilaridade > 0.1) {
-            // Se a maior similaridade for maior que 0.1, adiciona a linha ao bucket com a maior similaridade
             buckets[melhorBucket].first.push_back({linha.first, linha.second});
         } else {
-            // Se não encontrou similaridade suficiente, adiciona a um bucket vazio se disponível
             bool adicionado = false;
             for (auto& bucket : buckets) {
                 if (bucket.second.first.empty()) {
@@ -278,7 +282,6 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
             }
 
             if (!adicionado) {
-                // Caso não haja bucket vazio, coloca no bucket com a maior média de similaridade
                 double maiorMediaSimilaridade = 0.0;
                 int melhorBucketParaAdicionar = -1;
 
@@ -304,13 +307,12 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
         }
     }
 
-    // Calcula o suporte para cada bucket
     for (auto& bucket : buckets) {
-        double suporte = calcularSuporteBucket(bucket.second.first, totalLinhas, maxComb, tabelaHash, tabelaHashClasses);
+        double suporte = calcularSuporteBucket(bucket.second.first, totalLinhas, maxComb, tabelaHash, tabelaHashClasses, suportesExistentes);
         bucket.second.second = suporte;
+        suportesExistentes[bucket.first] = suporte;
     }
 
-    // Exporta os buckets para um arquivo
     ofstream arquivoBuckets("buckets_output.txt");
     for (const auto& bucket : buckets) {
         arquivoBuckets << "Bucket " << bucket.first << " (Suporte: " << bucket.second.second << "):\n";
