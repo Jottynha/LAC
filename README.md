@@ -175,41 +175,33 @@ namespace std {
                 </li>
             </ul>
             <h4>Função <code>lerArquivo</code></h4>
-    <p>A função <code>lerArquivo</code> lê um arquivo CSV contendo dados de treino e armazena as tuplas e classes:</p>
-    
+    <p>A função <code>lerArquivo</code> lê um arquivo CSV contendo dados de treino e armazena as tuplas e classes:</p> 
     <code>
         vector&lt;vector&lt;tuple&lt;int,int&gt;&gt; lerArquivo(const string&amp; nomeArquivo, vector&lt;int&gt;&amp; classes) {<br>
             &emsp;ifstream arquivo(nomeArquivo);<br>
             &emsp;vector&lt;vector&lt;tuple&lt;int, int&gt;&gt; tuplas;<br>
             &emsp;string linha;<br><br>
-
             &emsp;if (!arquivo) {<br>
                 &emsp;&emsp;cerr &lt;&lt; "Erro ao abrir o arquivo: " &lt;&lt; nomeArquivo &lt;&lt; endl;<br>
                 &emsp;&emsp;return tuplas;<br>
             &emsp;}<br><br>
-
             &emsp;while (getline(arquivo, linha)) {<br>
                 &emsp;&emsp;vector&lt;tuple&lt;int, int&gt;&gt; linhaTuplas;<br>
                 &emsp;&emsp;stringstream ss(linha);<br>
                 &emsp;&emsp;string item;<br>
                 &emsp;&emsp;vector&lt;int&gt; linhaValores;<br><br>
-
                 &emsp;&emsp;while (getline(ss, item, ',')) {<br>
                     &emsp;&emsp;&emsp;linhaValores.push_back(stoi(item));<br>
                 &emsp;&emsp;}<br><br>
-
                 &emsp;&emsp;if (!linhaValores.empty()) {<br>
                     &emsp;&emsp;&emsp;classes.push_back(linhaValores.back());<br>
                     &emsp;&emsp;&emsp;linhaValores.pop_back();<br>
                 &emsp;&emsp;}<br><br>
-
                 &emsp;&emsp;for (size_t i = 0; i &lt; linhaValores.size(); ++i) {<br>
                     &emsp;&emsp;&emsp;linhaTuplas.push_back(make_tuple(i + 1, linhaValores[i]));<br>
                 &emsp;&emsp;}<br><br>
-
                 &emsp;&emsp;tuplas.push_back(linhaTuplas);<br>
             &emsp;}<br><br>
-
             &emsp;arquivo.close();<br>
             &emsp;return tuplas;<br>
         }
@@ -219,38 +211,31 @@ namespace std {
     <code>
         unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt; criarTabelaHash(const vector&lt;vector&lt;tuple&lt;int, int&gt;&gt;&gt;&amp; tuplas) {<br>
             &emsp;unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt; tabelaHash;<br><br>
-
             &emsp;for (size_t i = 0; i &lt; tuplas.size(); ++i) {<br>
                 &emsp;&emsp;for (const auto&amp; t : tuplas[i]) {<br>
                     &emsp;&emsp;&emsp;tabelaHash[t].insert(i + 1);<br>
                 &emsp;&emsp;}<br>
             &emsp;}<br><br>
-
             &emsp;return tabelaHash;<br>
         }
     </code>
-
     <h2>Função <code>criarTabelaHashClasses</code></h2>
     <p>A função <code>criarTabelaHashClasses</code> cria uma tabela hash para as classes:</p>
     <code>
         unordered_map&lt;int, set&lt;int&gt;&gt; criarTabelaHashClasses(const vector&lt;int&gt;&amp; classes) {<br>
             &emsp;unordered_map&lt;int, set&lt;int&gt;&gt; tabelaHashClasses;<br><br>
-
             &emsp;for (size_t i = 0; i &lt; classes.size(); ++i) {<br>
                 &emsp;&emsp;tabelaHashClasses[classes[i]].insert(i + 1);<br>
             &emsp;}<br><br>
-
             &emsp;return tabelaHashClasses;<br>
         }
     </code>
-
     <h2>Função <code>buscarFeature</code></h2>
     <p>A função <code>buscarFeature</code> busca uma feature na tabela hash e retorna as linhas onde a chave aparece:</p>
     <code>
         set&lt;int&gt; buscarFeature(const unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt;&amp; tabelaHash, int coluna, int valor) {<br>
             &emsp;tuple&lt;int, int&gt; chave = make_tuple(coluna, valor);<br>
             &emsp;auto it = tabelaHash.find(chave);<br><br>
-
             &emsp;if (it != tabelaHash.end()) {<br>
                 &emsp;&emsp;return it->second; // Retorna o conjunto de linhas onde a chave aparece<br>
             &emsp;} else {<br>
@@ -258,7 +243,6 @@ namespace std {
             &emsp;}<br>
         }
     </code>
-
     <h2>Função <code>buscarClasse</code></h2>
     <p>A função <code>buscarClasse</code> busca uma classe na tabela hash e retorna as linhas onde a classe aparece:</p>
     <code>
@@ -271,7 +255,6 @@ namespace std {
             &emsp;}<br>
         }
     </code>
-
     <h2>Função <code>treinamento</code></h2>
     <p>A função <code>treinamento</code> realiza o processo de leitura do arquivo, criação das tabelas hash e exibe as tabelas:</p>
     <code>
@@ -280,7 +263,6 @@ namespace std {
             &emsp;tuplasTreino = lerArquivo(nomeArquivo, classes);<br>
             &emsp;tabelaHashTreino = criarTabelaHash(tuplasTreino);<br>
             &emsp;tabelaHashClassesTreino = criarTabelaHashClasses(classes);<br><br>
-
             &emsp;cout &lt;&lt; "Tabela Hash de Features: " &lt;&lt; endl;<br>
             &emsp;for (const auto&amp; [chave, linhas] : tabelaHashTreino) {<br>
                 &emsp;&emsp;cout &lt;&lt; "(" &lt;&lt; get&lt;0&gt;(chave) &lt;&lt; ", " &lt;&lt; get&lt;1&gt;(chave) &lt;&lt; "): ";<br>
@@ -289,7 +271,6 @@ namespace std {
                 &emsp;&emsp;}<br>
                 &emsp;&emsp;cout &lt;&lt; endl;<br>
             &emsp;}<br><br>
-
             &emsp;cout &lt;&lt; "Tabela Hash de Classes: " &lt;&lt; endl;<br>
             &emsp;for (const auto&amp; [classe, linhas] : tabelaHashClassesTreino) {<br>
                 &emsp;&emsp;cout &lt;&lt; classe &lt;&lt; ": ";<br>
