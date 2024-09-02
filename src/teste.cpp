@@ -178,7 +178,7 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
                              const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
                              const unordered_map<int, set<int>>& tabelaHashClasses) {
     vector<int> classesAtribuidas;
-    size_t numLinhas = min(bucket.size(), size_t(10));
+    size_t numLinhas = min(bucket.size(), size_t(3));
 
     for (size_t j = 0; j < numLinhas; ++j) {
         const vector<int>& linha = bucket[j].first;
@@ -203,9 +203,11 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
     double classeMedia = somaClasses / numLinhas;
     double suporteTotal = (maxComb > 0) ? classeMedia / maxComb : 0.0;
 
-    // Arredondamento com base no limite fornecido
-    if (suporteTotal - floor(suporteTotal) >= 0.225) {
+    //Arredondamento com base no limite fornecido
+    if (suporteTotal - floor(suporteTotal) >= 0.1) {
         suporteTotal = ceil(suporteTotal);
+    } else if (suporteTotal - floor(suporteTotal) >= 0.4) {
+        suporteTotal = ceil(suporteTotal) + 1;
     } else {
         suporteTotal = floor(suporteTotal);
     }
@@ -216,27 +218,20 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
 
 
 
-// Mutexes para proteger o acesso a variáveis compartilhadas
-mutex mutexBuckets, mutexSuportesExistentes;
-
 unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsPorThread(
     const vector<pair<vector<int>, int>>& linhas, 
     const set<int>& classesDistintas,
     int inicio, int fim) {
 
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
-    unordered_map<int, double> suportesExistentes; // Armazena suportes já calculados localmente
+    unordered_map<int, double> suportesExistentes;
 
-        // Inicializa os buckets com base nas classes distintas + 5
-    int numBuckets = classesDistintas.size() + totalLinhas/1000 + 30;
+    int numBuckets = classesDistintas.size() + totalLinhas / 1000 + 5000;
 
     for (int i = 0; i < numBuckets; ++i) {
-        // Usamos i como identificador do bucket para garantir que cada bucket tenha um identificador único
         buckets[i] = make_pair(vector<pair<vector<int>, int>>(), 0.0);
     }
 
-
-    // Processa o subconjunto de linhas
     for (int i = inicio; i < fim; ++i) {
         const auto& linha = linhas[i];
         int melhorBucket = -1;
@@ -294,7 +289,6 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsPor
     return buckets;
 }
 
-// Função principal para criar buckets com base na similaridade utilizando threads
 unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComSimilaridade(
     const string& nomeArquivoTeste, int& totalLinhas, int maxComb,
     const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
@@ -302,7 +296,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
 
     ifstream arquivoTeste(nomeArquivoTeste);
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
-    unordered_map<int, double> suportesExistentes; // Armazena suportes já calculados
+    unordered_map<int, double> suportesExistentes;
     vector<pair<vector<int>, int>> linhas;
     set<int> classesDistintas;
     totalLinhas = 0;
@@ -329,51 +323,14 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
         totalLinhas++;
     }
 
-    int numThreads = std::thread::hardware_concurrency();
-    if (numThreads == 0) {
-        numThreads = 1;  // Fallback para pelo menos uma thread se a consulta falhar
-    }
+    buckets = criarBucketsPorThread(linhas, classesDistintas, 0, totalLinhas);
 
-    int linhasPorThread = totalLinhas / numThreads;
-    vector<thread> threads;
-    vector<unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>> resultadosParciais(numThreads);
-
-    // Cria threads para processar subconjuntos de linhas
-    for (int i = 0; i < numThreads; ++i) {
-        int inicio = i * linhasPorThread;
-        int fim = (i == numThreads - 1) ? totalLinhas : inicio + linhasPorThread;
-
-        threads.push_back(thread([&, i, inicio, fim] {
-            resultadosParciais[i] = criarBucketsPorThread(linhas, classesDistintas, inicio, fim);
-        }));
-    }
-
-    // Aguarda todas as threads terminarem
-    for (auto& t : threads) {
-        t.join();
-    }
-
-    // Combina os resultados parciais dos buckets de todas as threads
-    for (const auto& resultadoParcial : resultadosParciais) {
-        for (const auto& bucketParcial : resultadoParcial) {
-            int classe = bucketParcial.first;
-            lock_guard<mutex> lock(mutexBuckets); // Protege o acesso ao mapa de buckets
-            buckets[classe].first.insert(
-                buckets[classe].first.end(), 
-                bucketParcial.second.first.begin(), 
-                bucketParcial.second.first.end()
-            );
-        }
-    }
-
-    // Calcula os suportes de todos os buckets
     for (auto& bucket : buckets) {
         double suporte = calcularSuporteBucket(bucket.second.first, totalLinhas, maxComb, tabelaHash, tabelaHashClasses);
         bucket.second.second = suporte;
         suportesExistentes[bucket.first] = suporte;
     }
 
-    // Salva os buckets em um arquivo de saída
     ofstream arquivoBuckets("buckets_output.txt");
     for (const auto& bucket : buckets) {
         arquivoBuckets << "Bucket " << bucket.first << " (Suporte: " << bucket.second.second << "):\n";
@@ -389,6 +346,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
 
     return buckets;
 }
+
 
 int avaliarClasse(const vector<int>& linha, 
                   const unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>& buckets,
