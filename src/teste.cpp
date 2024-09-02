@@ -349,6 +349,205 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
     }
 }
 
+<<<<<<< Updated upstream
+=======
+// Função para calcular o suporte do bucket
+double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
+                             int totalLinhas, int maxComb,
+                             const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
+                             const unordered_map<int, set<int>>& tabelaHashClasses,
+                             const unordered_map<int, double>& suportesExistentes) {
+    vector<int> classesAtribuidas;
+    size_t numLinhas = min(bucket.size(), size_t(5));
+
+    for (size_t j = 0; j < numLinhas; ++j) {
+        const vector<int>& linha = bucket[j].first;
+        int classe = bucket[j].second;
+
+        if (classe == -1) {
+            vector<tuple<int, int>> featuresLinha;
+            for (size_t i = 0; i < linha.size(); ++i) {
+                featuresLinha.push_back(make_tuple(i + 1, linha[i]));
+            }
+            classe = avaliarClasseCombinatoria(tabelaHash, tabelaHashClasses, featuresLinha, totalLinhas);
+        }
+        classesAtribuidas.push_back(classe);
+    }
+
+    double somaClasses = 0.0;
+    for (int classe : classesAtribuidas) {
+        somaClasses += classe;
+    }
+    double classeMedia = classesAtribuidas.empty() ? 0.0 : somaClasses / classesAtribuidas.size();
+    double suporteTotal = (maxComb > 0) ? classeMedia / maxComb : 0.0;
+
+    // Verifica se o suporte calculado é semelhante aos já existentes
+    double tolerancia = 0;  // Ajuste a tolerância conforme necessário
+    for (const auto& [_, suporteExistente] : suportesExistentes) {
+        if (abs(suporteTotal - suporteExistente) < tolerancia) {
+            // Se o suporte for muito próximo, ajusta o valor para ser distinto
+            suporteTotal += tolerancia;
+            //tolerancia+=1;
+        }
+    }
+
+    return suporteTotal;
+}
+
+// Função auxiliar para processar um subconjunto de linhas e atribuí-las aos buckets
+void processarLinhasParaBuckets(int inicio, int fim, 
+                                const vector<pair<vector<int>, int>>& linhas, 
+                                unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>& buckets) {
+    for (int i = inicio; i < fim; ++i) {
+        const auto& linha = linhas[i];
+        int melhorBucket = -1;
+        double maiorSimilaridade = 0.0;
+
+        for (auto& bucket : buckets) {
+            size_t comparacoes = min(bucket.second.first.size(), static_cast<size_t>(10));
+            for (size_t j = 0; j < comparacoes; ++j) {
+                double similaridade = calcularSimilaridade(linha.first, bucket.second.first[j].first);
+                if (similaridade > maiorSimilaridade) {
+                    maiorSimilaridade = similaridade;
+                    melhorBucket = bucket.first;
+                }
+            }
+        }
+
+        if (maiorSimilaridade > 0.1) {
+            buckets[melhorBucket].first.push_back({linha.first, linha.second});
+        } else {
+            bool adicionado = false;
+            for (auto& bucket : buckets) {
+                if (bucket.second.first.empty()) {
+                    bucket.second.first.push_back({linha.first, linha.second});
+                    adicionado = true;
+                    break;
+                }
+            }
+
+            if (!adicionado) {
+                double maiorMediaSimilaridade = 0.0;
+                int melhorBucketParaAdicionar = -1;
+
+                for (const auto& bucket : buckets) {
+                    double somaSimilaridade = 0.0;
+                    int count = 0;
+                    size_t comparacoes = min(bucket.second.first.size(), static_cast<size_t>(10));
+                    for (size_t j = 0; j < comparacoes; ++j) {
+                        somaSimilaridade += calcularSimilaridade(linha.first, bucket.second.first[j].first);
+                        count++;
+                    }
+                    double mediaSimilaridade = (count > 0) ? somaSimilaridade / count : 0.0;
+                    if (mediaSimilaridade > maiorMediaSimilaridade) {
+                        maiorMediaSimilaridade = mediaSimilaridade;
+                        melhorBucketParaAdicionar = bucket.first;
+                    }
+                }
+
+                if (melhorBucketParaAdicionar != -1) {
+                    buckets[melhorBucketParaAdicionar].first.push_back({linha.first, linha.second});
+                }
+            }
+        }
+    }
+}
+
+// Função para criar buckets com base na similaridade
+unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComSimilaridade(
+    const vector<string>& linhas, int inicio, int fim, int& totalLinhas, int maxComb,
+    const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
+    const unordered_map<int, set<int>>& tabelaHashClasses) {
+
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
+    unordered_map<int, double> suportesExistentes; // Armazena suportes já calculados
+    vector<pair<vector<int>, int>> linhasProcessadas;
+    set<int> classesDistintas;
+    totalLinhas = 0;
+
+    for (int i = inicio; i < fim; ++i) {
+        stringstream ss(linhas[i]);
+        string item;
+        vector<int> linhaValores;
+        int classe;
+
+        while (getline(ss, item, ',')) {
+            linhaValores.push_back(stoi(item));
+        }
+
+        classe = linhaValores.back();
+        classesDistintas.insert(classe);
+        linhasProcessadas.push_back({linhaValores, classe});
+        totalLinhas++;
+    }
+
+    for (int classe : classesDistintas) {
+        buckets[classe] = make_pair(vector<pair<vector<int>, int>>(), 0.0);
+    }
+
+    for (const auto& linha : linhasProcessadas) {
+        int melhorBucket = -1;
+        double maiorSimilaridade = 0.0;
+
+        for (auto& bucket : buckets) {
+            size_t comparacoes = min(bucket.second.first.size(), static_cast<size_t>(10));
+            for (size_t i = 0; i < comparacoes; ++i) {
+                double similaridade = calcularSimilaridade(linha.first, bucket.second.first[i].first);
+                if (similaridade > maiorSimilaridade) {
+                    maiorSimilaridade = similaridade;
+                    melhorBucket = bucket.first;
+                }
+            }
+        }
+
+        if (maiorSimilaridade > 0.1) {
+            buckets[melhorBucket].first.push_back({linha.first, linha.second});
+        } else {
+            bool adicionado = false;
+            for (auto& bucket : buckets) {
+                if (bucket.second.first.empty()) {
+                    bucket.second.first.push_back({linha.first, linha.second});
+                    adicionado = true;
+                    break;
+                }
+            }
+
+            if (!adicionado) {
+                double maiorMediaSimilaridade = 0.0;
+                int melhorBucketParaAdicionar = -1;
+
+                for (const auto& bucket : buckets) {
+                    double somaSimilaridade = 0.0;
+                    int count = 0;
+                    size_t comparacoes = min(bucket.second.first.size(), static_cast<size_t>(10));
+                    for (size_t i = 0; i < comparacoes; ++i) {
+                        somaSimilaridade += calcularSimilaridade(linha.first, bucket.second.first[i].first);
+                        count++;
+                    }
+                    double mediaSimilaridade = (count > 0) ? somaSimilaridade / count : 0.0;
+                    if (mediaSimilaridade > maiorMediaSimilaridade) {
+                        maiorMediaSimilaridade = mediaSimilaridade;
+                        melhorBucketParaAdicionar = bucket.first;
+                    }
+                }
+
+                if (melhorBucketParaAdicionar != -1) {
+                    buckets[melhorBucketParaAdicionar].first.push_back({linha.first, linha.second});
+                }
+            }
+        }
+    }
+
+    for (auto& bucket : buckets) {
+        double suporte = calcularSuporteBucket(bucket.second.first, totalLinhas, maxComb, tabelaHash, tabelaHashClasses, suportesExistentes);
+        bucket.second.second = suporte;
+        suportesExistentes[bucket.first] = suporte;
+    }
+
+    return buckets;
+}
+
+>>>>>>> Stashed changes
 // Função para avaliar a classe de uma linha
 int avaliarClasse(const vector<int>& linha, 
                   const unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>& buckets,
@@ -417,6 +616,8 @@ void processarLinhas(int threadId, vector<string>& linhas, int inicio, int fim,
     }
 }
 
+
+
 // Função para testar o algoritmo com um arquivo de teste usando threads
 void teste(const string& nomeArquivoTeste) {
     selecionarLinhasAleatorias(nomeArquivoTeste, "dataset/20linhas.txt", 10000);
@@ -424,9 +625,12 @@ void teste(const string& nomeArquivoTeste) {
     ifstream arquivoTeste("dataset/20linhas.txt");
     auto inicio = chrono::high_resolution_clock::now();
 
+<<<<<<< Updated upstream
     int totalLinhas;
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComPokerHands("dataset/20linhas.txt", totalLinhas);
 
+=======
+>>>>>>> Stashed changes
     if (!arquivoTeste) {
         cerr << "Erro ao abrir o arquivo de teste." << endl;
         return;
@@ -459,15 +663,53 @@ void teste(const string& nomeArquivoTeste) {
 
     int linhasPorThread = totalLinhasArquivo / numThreads;
     vector<thread> threads;
+    vector<unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>> resultadosBuckets(numThreads);
 
-    // Cria threads para processar subconjuntos de linhas
+    // Cria threads para criar buckets em subconjuntos de linhas
+    for (int i = 0; i < numThreads; ++i) {
+        int inicio = i * linhasPorThread;
+        int fim = (i == numThreads - 1) ? totalLinhasArquivo : inicio + linhasPorThread;
+
+        threads.push_back(thread(
+            [&, i, inicio, fim] {
+                int totalLinhas = fim - inicio;
+                int maxcomb = 3;  // ou algum valor apropriado
+                resultadosBuckets[i] = criarBucketsComSimilaridade(linhas, inicio, fim, totalLinhas, maxcomb, tabelaHashTreino, tabelaHashClassesTreino);
+            }
+        ));
+    }
+
+    // Aguarda todas as threads terminarem
+    for (auto& t : threads) {
+        t.join();
+    }
+
+    // Mescla os resultados dos buckets criados por cada thread
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
+    for (const auto& resultado : resultadosBuckets) {
+        for (const auto& bucket : resultado) {
+            if (buckets.find(bucket.first) == buckets.end()) {
+                buckets[bucket.first] = bucket.second;
+            } else {
+                buckets[bucket.first].first.insert(
+                    buckets[bucket.first].first.end(),
+                    bucket.second.first.begin(),
+                    bucket.second.first.end()
+                );
+                buckets[bucket.first].second += bucket.second.second;
+            }
+        }
+    }
+
+    // Inicia o processamento das linhas usando threads
+    threads.clear();
     for (int i = 0; i < numThreads; ++i) {
         int inicio = i * linhasPorThread;
         int fim = (i == numThreads - 1) ? totalLinhasArquivo : inicio + linhasPorThread;
 
         threads.push_back(thread(processarLinhas, i, ref(linhas), inicio, fim, ref(buckets),
                                  ref(tabelaHashTreino), ref(tabelaHashClassesTreino),
-                                 totalLinhas, ref(acertos), ref(erros), ref(arquivoSaida)));
+                                 totalLinhasArquivo, ref(acertos), ref(erros), ref(arquivoSaida)));
     }
 
     // Aguarda todas as threads terminarem
