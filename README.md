@@ -333,7 +333,8 @@ Após a criação da base, o foco foi melhorar a análise do arquivo de teste e 
 
 - **Função de Avaliação Combinatória**: Avalia a classe combinatória com base em features e classes, utilizando intersecções e suporte.
 
-<h3>Desenvolvimento do Arquivo de Teste</h3>
+<h2>Desenvolvimento do Arquivo de Teste</h2>
+<p> Os arquivos <code>teste.cpp</code> e <code>teste.hpp</code> são essenciais para o processo de validação e avaliação do modelo de classificação. O arquivo <code>teste.cpp</code> implementa a lógica necessária para testar a precisão do modelo, analisando novas entradas e determinando suas classes com base no treinamento prévio. Ele realiza a leitura dos dados de teste, utiliza as tabelas hash para identificar a classe correspondente e avalia a performance do modelo. O arquivo <code>teste.hpp</code> declara as funções e estruturas de dados necessárias para essa operação, promovendo uma organização clara e eficiente do código, facilitando futuras modificações e expansões. </p>
 <h4>Função <code>selecionarLinhasAleatorias</code></h4>
 <p>A função <code>selecionarLinhasAleatorias</code> é responsável por selecionar um número especificado de linhas aleatórias de um arquivo de entrada e salvar essas linhas em um arquivo de saída. Ela lê todas as linhas do arquivo de entrada, armazena-as em um vetor, e, em seguida, escolhe aleatoriamente as linhas desejadas para gravar no arquivo de saída. Essa função é útil para amostrar dados de um arquivo maior, permitindo que você trabalhe com subconjuntos menores de maneira eficiente e sem necessidade de processamento manual.</p>
 
