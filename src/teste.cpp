@@ -19,7 +19,7 @@
 
 using namespace std;
 
-const double THRESHOLD_SIMILARIDADE = 0.8;
+const double THRESHOLD_SIMILARIDADE = 0.95;
 const int maxComb = 5;
 
 mutex mutexArquivo;  // Mutex para proteger o acesso ao arquivo de saída
@@ -178,7 +178,7 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
                              const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
                              const unordered_map<int, set<int>>& tabelaHashClasses) {
     vector<int> classesAtribuidas;
-    size_t numLinhas = min(bucket.size(), size_t(22));
+    size_t numLinhas = min(bucket.size(), size_t(10));
 
     for (size_t j = 0; j < numLinhas; ++j) {
         const vector<int>& linha = bucket[j].first;
@@ -199,13 +199,12 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
         somaClasses += classe;
     }
 
-    double classeMedia = classesAtribuidas.empty() ? 0.0 : somaClasses / classesAtribuidas.size();
+    // Calcular a média considerando as linhas do bucket, com um máximo de 5 linhas
+    double classeMedia = somaClasses / numLinhas;
     double suporteTotal = (maxComb > 0) ? classeMedia / maxComb : 0.0;
 
-    
-
     // Arredondamento com base no limite fornecido
-    if (suporteTotal - floor(suporteTotal) >= 0.25) {
+    if (suporteTotal - floor(suporteTotal) >= 0.225) {
         suporteTotal = ceil(suporteTotal);
     } else {
         suporteTotal = floor(suporteTotal);
@@ -213,6 +212,8 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
 
     return suporteTotal;
 }
+
+
 
 
 // Mutexes para proteger o acesso a variáveis compartilhadas
@@ -227,7 +228,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsPor
     unordered_map<int, double> suportesExistentes; // Armazena suportes já calculados localmente
 
         // Inicializa os buckets com base nas classes distintas + 5
-    int numBuckets = classesDistintas.size() + 5;
+    int numBuckets = classesDistintas.size() + totalLinhas/1000 + 30;
 
     for (int i = 0; i < numBuckets; ++i) {
         // Usamos i como identificador do bucket para garantir que cada bucket tenha um identificador único
@@ -252,7 +253,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsPor
             }
         }
 
-        if (maiorSimilaridade > 0.9) {
+        if (maiorSimilaridade > 2) {
             buckets[melhorBucket].first.push_back({linha.first, linha.second});
         } else {
             bool adicionado = false;
@@ -389,21 +390,14 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
     return buckets;
 }
 
-// Função para avaliar a classe de uma linha
 int avaliarClasse(const vector<int>& linha, 
                   const unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>& buckets,
                   const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
                   const unordered_map<int, set<int>>& tabelaHashClasses,
                   int totalLinhas) {
-    cout << "Iniciando avaliação da linha: ";
-    for (int valor : linha) {
-        cout << valor << " ";
-    }
-    cout << endl;
 
     // Verifica se a linha está em algum bucket
     for (const auto& bucket : buckets) {
-        cout << "Verificando bucket " << bucket.first << " com suporte " << bucket.second.second << endl;
 
         // Itera sobre as linhas no bucket
         for (const auto& linhaBucket : bucket.second.first) {
@@ -412,23 +406,14 @@ int avaliarClasse(const vector<int>& linha,
             linhaBucketCopy.pop_back();
             
             // Se a linha do bucket e a linha a ser comparada forem iguais
-            cout << "Comparando com linha do bucket: ";
-            for (int valor : linhaBucketCopy) {
-                cout << valor << " ";
-            }
-            cout << endl;
-            
             if (linha == linhaBucketCopy) {
                 // Linha está em um bucket, retorna a classe associada ao bucket
-                cout << "Linha encontrada no bucket " << bucket.first << endl;
-                cout << "Classe atribuída: " << bucket.second.second << endl;
                 return bucket.second.second;
             }
         }
     }
 
     // Se a linha não estiver em um bucket, prossegue com a análise combinatória
-    cout << "Linha não encontrada em nenhum bucket. Iniciando análise combinatória." << endl;
     vector<tuple<int, int>> featuresLinha;
     for (size_t i = 0; i < linha.size(); ++i) {
         featuresLinha.push_back(make_tuple(i + 1, linha[i])); // Ajusta para a estrutura de tupla (coluna, valor)
@@ -436,7 +421,6 @@ int avaliarClasse(const vector<int>& linha,
     
     // Avalia a classe usando a análise combinatória
     int classeAtribuida = avaliarClasseCombinatoria(tabelaHash, tabelaHashClasses, featuresLinha, totalLinhas);
-    cout << "Classe atribuída após análise combinatória: " << classeAtribuida << endl;
 
     return classeAtribuida;
 }
@@ -498,7 +482,7 @@ void teste(const string& nomeArquivoTeste) {
     auto inicio = chrono::high_resolution_clock::now();
 
     int totalLinhas;
-    int maxcomb = 3;
+    int maxcomb = 5;
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComSimilaridade(nomeArquivoTeste, totalLinhas, maxcomb, tabelaHashTreino, tabelaHashClassesTreino);
 
     if (!arquivoTeste) {
