@@ -113,9 +113,270 @@ O artigo de Cambronero também nos proporciona uma descrição detalhada dos val
 </p>
 
 
+## Bibliotecas Utilizadas
 
+O código utiliza diversas bibliotecas padrão da linguagem C++:
+- `<vector>`: Para armazenar sequências dinâmicas de elementos.
+- `<tuple>`: Para criar tuplas com elementos de tipos distintos.
+- `<string>`: Para manipulação de strings.
+- `<unordered_map>`: Para criar tabelas hash eficientes.
+- `<set>`: Para armazenar elementos únicos.
+- `<fstream>`: Para manipulação de arquivos.
+- `<sstream>`: Para operar em strings como fluxos de dados.
+- `<iostream>`: Para operações de entrada e saída.
+- `<chrono>`: Para medições de tempo.
+- `<iomanip>`: Para formatação de saídas com precisão.
+- `<map>`: Para armazenamento de pares chave-valor com ordenação.
+- `<algorithm>`: Para operações em containers, como ordenação e busca.
+- `<utility>`: Para utilitários como `std::pair`.
+- `<numeric>`: Para operações numéricas, como geração de sequências.
+- `<iterator>`: Para inserção e manipulação de iteradores.
+- `<thread>`: Para suporte a programação multithread.
+- `<mutex>`: Para sincronização e controle de acesso a recursos compartilhados.
 ## Sobre o código:
-...
+
+O arquivo principal `treinamento.hpp` contém a definição de funções e estruturas utilizadas para processar e analisar o dataset. Aqui está uma visão geral das principais funcionalidades:
+
+<div style="background-color:#f0f0f0; padding:15px; border-radius:10px;">
+  <h4>Funções Principais</h4>
+  <ul>
+    <li><strong>lerArquivo:</strong> Lê o dataset e armazena as características e classes em estruturas adequadas.</li>
+    <li><strong>criarTabelaHash:</strong> Cria uma tabela hash para mapeamento das características.</li>
+    <li><strong>criarTabelaHashClasses:</strong> Cria uma tabela hash para mapeamento das classes.</li>
+    <li><strong>buscarFeature:</strong> Busca todas as linhas que possuem uma determinada característica.</li>
+    <li><strong>buscarClasse:</strong> Retorna as linhas que pertencem a uma determinada classe.</li>
+    <li><strong>treinamento:</strong> Integra as operações de leitura e criação das tabelas hash.</li>
+  </ul>
+</div>
+<h4>Especialização do Template de Hash para Tuplas</h4>
+
+No projeto, utilizamos `std::unordered_map` para mapear tuplas a conjuntos de inteiros. No entanto, as tuplas não possuem uma função de hash nativa. Para resolver isso, foi implementada uma especialização do template `std::hash` para `std::tuple`:
+
+```cpp
+namespace std {
+    template <typename... Types>
+    struct hash<std::tuple<Types...>> {
+        size_t operator()(const std::tuple<Types...>& t) const {
+            return hash_tuple(t, std::index_sequence_for<Types...>{});
+        }
+    private:
+        template <std::size_t... I>
+        size_t hash_tuple(const std::tuple<Types...>& t, std::index_sequence<I...>) const {
+            size_t seed = 0;
+            (..., (seed ^= hash<std::decay_t<decltype(std::get<I>(t))>>{}(std::get<I>(t)) + 0x9e3779b9 + (seed << 6) + (seed >> 2)));
+            return seed;
+        }
+    };
+}
+```
+<h4>Variáveis Globais</h4>
+            <p>O projeto faz uso de variáveis globais para armazenar as tabelas hash e as tuplas lidas do dataset. Essas variáveis são essenciais para a organização dos dados e para a eficiência nas buscas e operações subsequentes:</p>
+            <ul>
+                <li><strong><code>tabelaHashTreino</code></strong>: <code>unordered_map&lt;tuple&lt;int, int&gt;, set&lt;int&gt;&gt;</code>
+                    <ul>
+                        <li>Mapeia características (representadas como tuplas de inteiros) para conjuntos de IDs de linhas no dataset.</li>
+                    </ul>
+                </li>
+                <li><strong><code>tabelaHashClassesTreino</code></strong>: <code>unordered_map&lt;int, set&lt;int&gt;&gt;</code>
+                    <ul>
+                        <li>Mapeia classes (representadas como inteiros) para conjuntos de IDs de linhas correspondentes a cada classe.</li>
+                    </ul>
+                </li>
+                <li><strong><code>tuplasTreino</code></strong>: <code>vector&lt;vector&lt;tuple&lt;int, int&gt;&gt;&gt;</code>
+                    <ul>
+                        <li>Armazena as tuplas lidas do arquivo de dados, onde cada tupla representa as características de uma linha.</li>
+                    </ul>
+                </li>
+                <li><strong><code>totalLinhas</code></strong>: <code>int</code>
+                    <ul>
+                        <li>Armazena o número total de linhas lidas do dataset.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Função <code>lerArquivo</code></h4>
+    <p>A função <code>lerArquivo</code> lê um arquivo CSV contendo dados de treino e armazena as tuplas e classes:</p> 
+    
+```cpp
+vector<vector<tuple<int,int>>> lerArquivo(const string& nomeArquivo, vector<int>& classes) {
+    ifstream arquivo(nomeArquivo);
+    vector<vector<tuple<int, int>>> tuplas;
+    string linha;
+    if (!arquivo) {
+        cerr << "Erro ao abrir o arquivo: " << nomeArquivo << endl;
+        return tuplas;
+    }
+    while (getline(arquivo, linha)) {
+        vector<tuple<int, int>> linhaTuplas;
+        stringstream ss(linha);
+        string item;
+        vector<int> linhaValores;
+        while (getline(ss, item, ',')) {
+            linhaValores.push_back(stoi(item));
+        }
+        // O último valor é a classe, então removemos ele da linha de valores
+        if (!linhaValores.empty()) {
+            classes.push_back(linhaValores.back());
+            linhaValores.pop_back();        
+        }
+        // Adiciona tuplas contendo o índice e o valor
+        for (size_t i = 0; i < linhaValores.size(); ++i) {
+            linhaTuplas.push_back(make_tuple(i + 1, linhaValores[i]));
+        }
+        tuplas.push_back(linhaTuplas);
+    }
+    arquivo.close();
+    return tuplas;
+}
+```
+<h4>Função <code>criarTabelaHash</code></h4>
+    <p>A função <code>criarTabelaHash</code> cria uma tabela hash a partir do vetor de tuplas:</p>
+    
+```cpp
+unordered_map<tuple<int, int>, set<int>> criarTabelaHash(const vector<vector<tuple<int, int>>>& tuplas) {
+    unordered_map<tuple<int, int>, set<int>> tabelaHash;
+    for (size_t i = 0; i < tuplas.size(); ++i) {
+        for (const auto& t : tuplas[i]) {
+            tabelaHash[t].insert(i + 1);
+        }
+    }
+    return tabelaHash;
+}
+```                              
+   <h4>Função <code>criarTabelaHashClasses</code></h4>
+    <p>A função <code>criarTabelaHashClasses</code> cria uma tabela hash para as classes:</p>
+    
+```cpp
+unordered_map<int, set<int>> criarTabelaHashClasses(const vector<int>& classes) {
+    unordered_map<int, set<int>> tabelaHashClasses;
+    for (size_t i = 0; i < classes.size(); ++i) {
+        tabelaHashClasses[classes[i]].insert(i + 1);
+    }
+    return tabelaHashClasses;
+}
+```
+<h4>Função <code>buscarFeature</code></h4>
+    <p>A função <code>buscarFeature</code> busca uma feature na tabela hash e retorna as linhas onde a chave aparece:</p>
+    
+```cpp
+set<int> buscarFeature(const unordered_map<tuple<int, int>, set<int>>& tabelaHash, int coluna, int valor) {
+    tuple<int, int> chave = make_tuple(coluna, valor);
+    auto it = tabelaHash.find(chave);
+    if (it != tabelaHash.end()) {
+        return it->second; // Retorna o conjunto de linhas onde a chave aparece
+    } else {
+        return {}; // Retorna um conjunto vazio se a chave não for encontrada
+    }
+}
+```
+  <h4>Função <code>buscarClasse</code></h4>
+    <p>A função <code>buscarClasse</code> busca uma classe na tabela hash e retorna as linhas onde a classe aparece:</p>
+    
+```cpp
+set<int> buscarClasse(const unordered_map<int, set<int>>& tabelaHashClasses, int classe) {
+    auto it = tabelaHashClasses.find(classe);
+    if (it != tabelaHashClasses.end()) {
+        return it->second; // Retorna o conjunto de linhas onde a classe aparece
+    } else {
+        return {}; // Retorna um conjunto vazio se a classe não for encontrada
+    }
+}
+```
+<h4>Função <code>treinamento</code></h4>
+    <p>A função <code>treinamento</code> realiza o processo de leitura do arquivo, criação das tabelas hash e exibe as tabelas:</p>
+    
+```cpp
+void treinamento(string nomeArquivo){
+    vector<int> classes; // Vetor para armazenar as classes
+    tuplasTreino = lerArquivo(nomeArquivo, classes);
+    tabelaHashTreino = criarTabelaHash(tuplasTreino);
+    tabelaHashClassesTreino = criarTabelaHashClasses(classes);
+    totalLinhas = tuplasTreino.size();
+
+    // Impressão da Tabela Hash de Linhas
+    cout << "\nTabela Hash:" << endl;
+    for (const auto& [chave, linhas] : tabelaHashTreino) {
+        cout << "Chave: (Índice: " << get<0>(chave) << ", Valor: " << get<1>(chave) << ") - Aparece nas linhas: ";
+        for (const auto& linha : linhas) {
+            cout << linha << " ";
+        }
+        cout << endl;
+    }
+
+    // Impressão da Tabela Hash das Classes
+    cout << "\nTabela Hash das Classes:" << endl;
+    for (const auto& [classe, linhas] : tabelaHashClassesTreino) {
+        cout << "Classe: " << classe << " Aparece nas linhas: ";
+        for (const auto& linha : linhas) {
+            cout << linha << " ";
+        }
+        cout << endl;
+    }
+}
+```
+O desenvolvimento inicial focou na criação dos arquivos `treinamento.cpp` e `treinamento.hpp`, que formam o núcleo do módulo de treinamento. O objetivo foi processar o dataset de treinamento de forma eficiente.
+
+- **Leitura do Dataset**: O dataset foi processado linha por linha, armazenando informações em um vetor de tuplas. Cada tupla continha o índice e o valor das cartas.
+  
+- **Criação de Tabelas Hash**: Foram criadas duas tabelas hash globais:
+  - Uma para armazenar as características das cartas (índice e valor).
+  - Outra para armazenar as classes das mãos de poker.
+
+- **Funções de Busca**: Implementadas para permitir buscas rápidas e eficientes com base nas tabelas hash.
+
+- **Interface de Análise Interativa**: Permitida a realização de buscas específicas no dataset, facilitando a validação do algoritmo.
+
+ <h4>Perspectivas de Evolução</h4>
+
+Após a criação da base, o foco foi melhorar a análise do arquivo de teste e ajustar as estratégias de cálculo de suporte.
+
+- **Desafios e Soluções**: Inicialmente, o algoritmo lidava com até 4 interseções, o que era caro computacionalmente. A restrição a 3 interseções ajudou a balancear precisão e eficiência.
+
+- **Função de Avaliação Combinatória**: Avalia a classe combinatória com base em features e classes, utilizando intersecções e suporte.
+
+<h4>Desenvolvimento do Arquivo de Teste</h4>
+
+A fase de testes envolveu a análise do arquivo de teste e a avaliação do algoritmo.
+
+- **Função de Avaliação Combinatória e Avaliação de Classe**: Refinadas para verificar a presença de uma linha em buckets ou calcular a classe combinatória com base em suportes.
+
+- **Função de Teste**: Avalia a precisão e a taxa de erro do modelo, comparando a classe atribuída com a original e gravando os resultados.
+
+<h4>Utilização de LSH e Buckets</h4>
+
+A implementação final incorporou técnicas avançadas como Locality-Sensitive Hashing (LSH) para otimizar a classificação das mãos de poker.
+
+- **Otimização com LSH**: Buckets foram criados para reduzir o tempo de execução e melhorar a precisão do algoritmo. O uso de mutex garantiu a integridade das variáveis durante a execução em múltiplas threads.
+
+- **Arquivos de Buckets e Suporte**: Arquivos dedicados foram criados para armazenar buckets e valores de suporte, permitindo uma análise detalhada e ajustes finos no modelo de categorização.
+
+## Observações
+
+### Custo Computacional das Intersecções
+
+Durante o desenvolvimento do algoritmo, observou-se que o custo computacional das intersecções entre as características aumentava exponencialmente com o número de combinações consideradas. Testes mostraram que, à medida que o número de intersecções aumentava, o valor calculado para a classe de uma linha se aproximava cada vez mais do valor real. No entanto, o aumento no número de combinações também acarretava um aumento significativo no tempo de execução.
+
+Para equilibrar a precisão e a eficiência, decidimos limitar o número máximo de combinações a 3. Esta abordagem proporcionou um bom comprometimento entre a precisão dos resultados e o custo computacional, permitindo uma análise eficiente sem comprometer a acurácia.
+
+### Estudo da Acurácia
+
+Para avaliar a precisão do algoritmo, foi criada uma função que seleciona linhas aleatórias do dataset `pokerhand.data` para estudo. Essa função é usada para verificar a acurácia do modelo com diferentes amostras de dados. Além disso, o dataset `iris.data` também foi utilizado para validar o algoritmo em um conjunto de dados diferente, proporcionando uma visão mais abrangente do desempenho do modelo.
+
+### Arquivos para Análise
+
+Para facilitar a análise e o entendimento dos resultados, foram criados arquivos dedicados:
+
+- **Buckets**: Contém as classes de mãos de poker, cada uma associada aos conjuntos de valores de cartas que pertencem a essa classe. Este arquivo é útil para verificar como as linhas de dados são agrupadas em diferentes buckets.
+- **Suporte**: Registra os valores de suporte calculados para cada classe dentro dos buckets. Este arquivo ajuda a identificar quais combinações de cartas são mais relevantes para cada mão de poker e permite ajustes finos no modelo.
+
+Esses arquivos são essenciais para a análise detalhada dos resultados e para o ajuste contínuo do algoritmo, garantindo que o modelo final seja robusto e eficiente para a categorização de mãos de poker.
+
+## Conclusão
+
+O algoritmo evoluiu de uma implementação inicial básica para uma solução avançada e otimizada para análise de mãos de poker. O uso de técnicas como LSH melhorou significativamente a performance, permitindo uma análise precisa e eficiente de grandes volumes de dados.
+
+---
+
+Esse README oferece uma visão geral da evolução do algoritmo, as bibliotecas utilizadas e o código relevante, proporcionando uma base clara para entender e utilizar o projeto.
 
 ## Referências Bibliográficas:
 [1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
