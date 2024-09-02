@@ -363,6 +363,28 @@ void selecionarLinhasAleatorias(const string& inputFile, const string& outputFil
     arquivoSaida.close();
 }
 ```
+<h4>Função <code>calcularSimilaridade</code></h4>
+<p>A função <code>calcularSimilaridade</code> é utilizada para calcular a similaridade entre duas linhas de dados, ignorando as colunas que não são relevantes para a comparação. Especificamente, são ignoradas as colunas 0, 2, 4, 6, 8 e a última coluna, considerando apenas as colunas 1, 3, 5, e 7, que contêm os valores relevantes para a análise.</p>
+
+```cpp
+double calcularSimilaridade(const vector<int>& linha1, const vector<int>& linha2) {
+    double similaridade = 0.0;
+    int count = 0;
+    // Itera sobre as colunas relevantes (1, 3, 5, 7)
+    for (long unsigned int i = 1; i < linha1.size() - 1; i += 2) {
+        // Considera apenas as colunas que representam valores (não os naipes)
+        if (linha1[i] == linha2[i]) {
+            similaridade += 1.0;
+        }
+        count++;
+    }
+    // Normaliza a similaridade pelo número de colunas consideradas
+    if (count > 0) {
+        similaridade /= count;
+    }
+    return similaridade;
+}
+```
 
 <h4>Utilização de LSH e Buckets</h4>
 
