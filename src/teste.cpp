@@ -15,11 +15,12 @@
 #include <iterator> // Para std::inserter
 #include <thread>
 #include <mutex>
+#include <cmath> // Adicione esta linha no topo do seu arquiv
 
 using namespace std;
 
-const double THRESHOLD_SIMILARIDADE = 0.7;
-const int maxComb = 3;
+const double THRESHOLD_SIMILARIDADE = 0.8;
+const int maxComb = 5;
 
 mutex mutexArquivo;  // Mutex para proteger o acesso ao arquivo de saída
 mutex mutexContadores;  // Mutex para proteger os contadores de acertos e erros
@@ -172,14 +173,12 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
     }
 }
 
-// Função para calcular o suporte do bucket
 double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
                              int totalLinhas, int maxComb,
                              const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
-                             const unordered_map<int, set<int>>& tabelaHashClasses,
-                             const unordered_map<int, double>& suportesExistentes) {
+                             const unordered_map<int, set<int>>& tabelaHashClasses) {
     vector<int> classesAtribuidas;
-    size_t numLinhas = min(bucket.size(), size_t(5));
+    size_t numLinhas = min(bucket.size(), size_t(22));
 
     for (size_t j = 0; j < numLinhas; ++j) {
         const vector<int>& linha = bucket[j].first;
@@ -199,21 +198,22 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
     for (int classe : classesAtribuidas) {
         somaClasses += classe;
     }
+
     double classeMedia = classesAtribuidas.empty() ? 0.0 : somaClasses / classesAtribuidas.size();
     double suporteTotal = (maxComb > 0) ? classeMedia / maxComb : 0.0;
 
-    // Verifica se o suporte calculado é semelhante aos já existentes
-    double tolerancia = 0;  // Ajuste a tolerância conforme necessário
-    for (const auto& [_, suporteExistente] : suportesExistentes) {
-        if (abs(suporteTotal - suporteExistente) < tolerancia) {
-            // Se o suporte for muito próximo, ajusta o valor para ser distinto
-            suporteTotal += tolerancia;
-            //tolerancia+=1;
-        }
+    
+
+    // Arredondamento com base no limite fornecido
+    if (suporteTotal - floor(suporteTotal) >= 0.25) {
+        suporteTotal = ceil(suporteTotal);
+    } else {
+        suporteTotal = floor(suporteTotal);
     }
 
     return suporteTotal;
 }
+
 
 // Mutexes para proteger o acesso a variáveis compartilhadas
 mutex mutexBuckets, mutexSuportesExistentes;
@@ -226,10 +226,14 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsPor
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
     unordered_map<int, double> suportesExistentes; // Armazena suportes já calculados localmente
 
-    // Inicializa os buckets com as classes distintas
-    for (int classe : classesDistintas) {
-        buckets[classe] = make_pair(vector<pair<vector<int>, int>>(), 0.0);
+        // Inicializa os buckets com base nas classes distintas + 5
+    int numBuckets = classesDistintas.size() + 5;
+
+    for (int i = 0; i < numBuckets; ++i) {
+        // Usamos i como identificador do bucket para garantir que cada bucket tenha um identificador único
+        buckets[i] = make_pair(vector<pair<vector<int>, int>>(), 0.0);
     }
+
 
     // Processa o subconjunto de linhas
     for (int i = inicio; i < fim; ++i) {
@@ -248,7 +252,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsPor
             }
         }
 
-        if (maiorSimilaridade > 0.1) {
+        if (maiorSimilaridade > 0.9) {
             buckets[melhorBucket].first.push_back({linha.first, linha.second});
         } else {
             bool adicionado = false;
@@ -363,7 +367,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
 
     // Calcula os suportes de todos os buckets
     for (auto& bucket : buckets) {
-        double suporte = calcularSuporteBucket(bucket.second.first, totalLinhas, maxComb, tabelaHash, tabelaHashClasses, suportesExistentes);
+        double suporte = calcularSuporteBucket(bucket.second.first, totalLinhas, maxComb, tabelaHash, tabelaHashClasses);
         bucket.second.second = suporte;
         suportesExistentes[bucket.first] = suporte;
     }
