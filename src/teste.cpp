@@ -576,6 +576,7 @@ int avaliarClasse(const vector<int>& linha,
     return avaliarClasseCombinatoria(tabelaHash, tabelaHashClasses, featuresLinha, totalLinhas);
 }
 
+<<<<<<< Updated upstream
 // Função auxiliar para processar um subconjunto de linhas
 void processarLinhas(int threadId, vector<string>& linhas, int inicio, int fim,
                      const unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>& buckets,
@@ -628,6 +629,13 @@ void teste(const string& nomeArquivoTeste) {
 <<<<<<< Updated upstream
     int totalLinhas;
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComPokerHands("dataset/20linhas.txt", totalLinhas);
+=======
+
+void lerLinhas(const string& nomeArquivoTeste, vector<string>& linhas, int inicio, int fim) {
+    ifstream arquivoTeste(nomeArquivoTeste);
+    string linha;
+    int linhaAtual = 0;
+>>>>>>> Stashed changes
 
 =======
 >>>>>>> Stashed changes
@@ -636,16 +644,98 @@ void teste(const string& nomeArquivoTeste) {
         return;
     }
 
+    while (getline(arquivoTeste, linha)) {
+        if (linhaAtual >= inicio && linhaAtual < fim) {
+            lock_guard<mutex> lock(mutexArquivo);
+            linhas.push_back(linha);
+        }
+        linhaAtual++;
+        if (linhaAtual >= fim) {
+            break;
+        }
+    }
+}
+
+void processarLinhas(int threadId, vector<string>& linhas, int inicio, int fim,
+                     const unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>& buckets,
+                     const unordered_map<tuple<int, int>, set<int>>& tabelaHashTreino,
+                     const unordered_map<int, set<int>>& tabelaHashClassesTreino,
+                     int totalLinhas, int& acertos, int& erros, ofstream& arquivoSaida) {
+    for (int i = inicio; i < fim; ++i) {
+        threadId = threadId;
+
+        stringstream ss(linhas[i]);
+        string item;
+        vector<int> linhaValores;
+
+        while (getline(ss, item, ',')) {
+            linhaValores.push_back(stoi(item));
+        }
+
+        if (!linhaValores.empty()) {
+            int classeOriginal = linhaValores.back();
+            linhaValores.pop_back();
+
+            int classeAtribuida = avaliarClasse(linhaValores, buckets, tabelaHashTreino, tabelaHashClassesTreino, totalLinhas);
+
+            {
+                lock_guard<mutex> lock(mutexArquivo);
+                arquivoSaida << "Linha " << (i + 1) << ": Classe Atribuída = " << classeAtribuida << endl;
+            }
+
+            {
+                lock_guard<mutex> lock(mutexContadores);
+                if (classeAtribuida == classeOriginal) {
+                    acertos++;
+                } else {
+                    erros++;
+                }
+            }
+        }
+    }
+}
+
+void teste(const string& nomeArquivoTeste) {
+    auto inicio = chrono::high_resolution_clock::now();
+
+    int totalLinhas;
+    int maxcomb = 3;
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets = criarBucketsComSimilaridade(nomeArquivoTeste, totalLinhas, maxcomb, tabelaHashTreino, tabelaHashClassesTreino);
+
+    vector<string> linhas;
+
+    // Define o número de threads com base na capacidade do hardware
+    int numThreads = std::thread::hardware_concurrency();
+    if (numThreads == 0) {
+        numThreads = 1;
+    }
+
+    vector<thread> threads;
+    int linhasPorThread = totalLinhas / numThreads;
+
+    // Cria threads para ler linhas do arquivo
+    for (int i = 0; i < numThreads; ++i) {
+        int inicioLeitura = i * linhasPorThread;
+        int fimLeitura = (i == numThreads - 1) ? totalLinhas : inicioLeitura + linhasPorThread;
+
+        threads.push_back(thread(lerLinhas, nomeArquivoTeste, ref(linhas), inicioLeitura, fimLeitura));
+    }
+
+    // Aguarda todas as threads de leitura terminarem
+    for (auto& t : threads) {
+        t.join();
+    }
+
+    // Após leitura, começa o processamento das linhas
     ofstream arquivoSaida("dataset/output.txt");
     if (!arquivoSaida) {
         cerr << "Erro ao abrir o arquivo de saída." << endl;
         return;
     }
 
-    // Variáveis para contagem de acertos e erros
-    int totalLinhasArquivo = 0;
     int acertos = 0;
     int erros = 0;
+<<<<<<< Updated upstream
 
     // Lê todas as linhas do arquivo em um vetor
     vector<string> linhas;
@@ -664,6 +754,9 @@ void teste(const string& nomeArquivoTeste) {
     int linhasPorThread = totalLinhasArquivo / numThreads;
     vector<thread> threads;
     vector<unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>> resultadosBuckets(numThreads);
+=======
+    threads.clear();
+>>>>>>> Stashed changes
 
     // Cria threads para criar buckets em subconjuntos de linhas
     for (int i = 0; i < numThreads; ++i) {
@@ -704,26 +797,25 @@ void teste(const string& nomeArquivoTeste) {
     // Inicia o processamento das linhas usando threads
     threads.clear();
     for (int i = 0; i < numThreads; ++i) {
-        int inicio = i * linhasPorThread;
-        int fim = (i == numThreads - 1) ? totalLinhasArquivo : inicio + linhasPorThread;
+        int inicioProcessamento = i * linhasPorThread;
+        int fimProcessamento = (i == numThreads - 1) ? totalLinhas : inicioProcessamento + linhasPorThread;
 
-        threads.push_back(thread(processarLinhas, i, ref(linhas), inicio, fim, ref(buckets),
+        threads.push_back(thread(processarLinhas, i, ref(linhas), inicioProcessamento, fimProcessamento, ref(buckets),
                                  ref(tabelaHashTreino), ref(tabelaHashClassesTreino),
                                  totalLinhasArquivo, ref(acertos), ref(erros), ref(arquivoSaida)));
     }
 
-    // Aguarda todas as threads terminarem
+    // Aguarda todas as threads de processamento terminarem
     for (auto& t : threads) {
         t.join();
     }
 
-    double porcentagemAcertos = (static_cast<double>(acertos) / totalLinhasArquivo) * 100.0;
-    double porcentagemErros = (static_cast<double>(erros) / totalLinhasArquivo) * 100.0;
+    double porcentagemAcertos = (static_cast<double>(acertos) / totalLinhas) * 100.0;
+    double porcentagemErros = (static_cast<double>(erros) / totalLinhas) * 100.0;
 
     arquivoSaida << "Total de acertos: " << acertos << " (" << fixed << setprecision(2) << porcentagemAcertos << "%)" << endl;
     arquivoSaida << "Total de erros: " << erros << " (" << fixed << setprecision(2) << porcentagemErros << "%)" << endl;
 
-    arquivoTeste.close();
     arquivoSaida.close();
 
     auto fim = chrono::high_resolution_clock::now();

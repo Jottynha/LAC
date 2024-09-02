@@ -7,6 +7,10 @@ using namespace std;
 
 int main() {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    selecionarLinhasAleatorias("dataset/poker-hand-testing.data", "dataset/20linhas.txt", 100);
+>>>>>>> Stashed changes
 =======
     selecionarLinhasAleatorias("dataset/poker-hand-testing.data", "dataset/20linhas.txt", 100);
 >>>>>>> Stashed changes
