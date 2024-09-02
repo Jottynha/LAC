@@ -225,6 +225,7 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
     return suporteTotal;
 }
 
+<<<<<<< Updated upstream
 
 // Função para criar buckets com base na similaridade
 unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComSimilaridade(const string& nomeArquivoTeste, int& totalLinhas) {
@@ -254,6 +255,30 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
     // Organiza as linhas em buckets com base na similaridade
     for (const auto& linhaAtual : linhas) {
         bool adicionado = false;
+=======
+// Mutexes para proteger o acesso a variáveis compartilhadas
+mutex mutexBuckets, mutexSuportesExistentes;
+
+unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsPorThread(
+    const vector<pair<vector<int>, int>>& linhas, 
+    const set<int>& classesDistintas,
+    int inicio, int fim) {
+
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
+    unordered_map<int, double> suportesExistentes; // Armazena suportes já calculados localmente
+
+    // Inicializa os buckets com as classes distintas
+    for (int classe : classesDistintas) {
+        buckets[classe] = make_pair(vector<pair<vector<int>, int>>(), 0.0);
+    }
+
+    // Processa o subconjunto de linhas
+    for (int i = inicio; i < fim; ++i) {
+        const auto& linha = linhas[i];
+        int melhorBucket = -1;
+        double maiorSimilaridade = 0.0;
+
+>>>>>>> Stashed changes
         for (auto& bucket : buckets) {
             for (const auto& linhaBucket : bucket.second.first) {
                 if (calcularSimilaridade(linhaAtual.first, linhaBucket.first) >= THRESHOLD_SIMILARIDADE) {
@@ -271,11 +296,108 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
         }
     }
 
+<<<<<<< Updated upstream
     // Calcula o suporte para cada bucket
+=======
+    return buckets;
+}
+
+// Função principal para criar buckets com base na similaridade utilizando threads
+unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsComSimilaridade(
+    const string& nomeArquivoTeste, int& totalLinhas, int maxComb,
+    const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
+    const unordered_map<int, set<int>>& tabelaHashClasses) {
+
+    ifstream arquivoTeste(nomeArquivoTeste);
+    unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
+    unordered_map<int, double> suportesExistentes; // Armazena suportes já calculados
+    vector<pair<vector<int>, int>> linhas;
+    set<int> classesDistintas;
+    totalLinhas = 0;
+
+    if (!arquivoTeste) {
+        cerr << "Erro ao abrir o arquivo de teste." << endl;
+        return {};
+    }
+
+    string linha;
+    while (getline(arquivoTeste, linha)) {
+        stringstream ss(linha);
+        string item;
+        vector<int> linhaValores;
+        int classe;
+
+        while (getline(ss, item, ',')) {
+            linhaValores.push_back(stoi(item));
+        }
+
+        classe = linhaValores.back();
+        classesDistintas.insert(classe);
+        linhas.push_back({linhaValores, classe});
+        totalLinhas++;
+    }
+
+    int numThreads = std::thread::hardware_concurrency();
+    if (numThreads == 0) {
+        numThreads = 1;  // Fallback para pelo menos uma thread se a consulta falhar
+    }
+
+    int linhasPorThread = totalLinhas / numThreads;
+    vector<thread> threads;
+    vector<unordered_map<int, pair<vector<pair<vector<int>, int>>, double>>> resultadosParciais(numThreads);
+
+    // Cria threads para processar subconjuntos de linhas
+    for (int i = 0; i < numThreads; ++i) {
+        int inicio = i * linhasPorThread;
+        int fim = (i == numThreads - 1) ? totalLinhas : inicio + linhasPorThread;
+
+        threads.push_back(thread([&, i, inicio, fim] {
+            resultadosParciais[i] = criarBucketsPorThread(linhas, classesDistintas, inicio, fim);
+        }));
+    }
+
+    // Aguarda todas as threads terminarem
+    for (auto& t : threads) {
+        t.join();
+    }
+
+    // Combina os resultados parciais dos buckets de todas as threads
+    for (const auto& resultadoParcial : resultadosParciais) {
+        for (const auto& bucketParcial : resultadoParcial) {
+            int classe = bucketParcial.first;
+            lock_guard<mutex> lock(mutexBuckets); // Protege o acesso ao mapa de buckets
+            buckets[classe].first.insert(
+                buckets[classe].first.end(), 
+                bucketParcial.second.first.begin(), 
+                bucketParcial.second.first.end()
+            );
+        }
+    }
+
+    // Calcula os suportes de todos os buckets
+>>>>>>> Stashed changes
     for (auto& bucket : buckets) {
         const vector<pair<vector<int>, int>>& bucketLinhas = bucket.second.first;
         double suporte = calcularSuporteBucket(bucketLinhas, totalLinhas, maxComb);
         bucket.second.second = suporte;
+<<<<<<< Updated upstream
+=======
+        suportesExistentes[bucket.first] = suporte;
+    }
+
+    // Salva os buckets em um arquivo de saída
+    ofstream arquivoBuckets("buckets_output.txt");
+    for (const auto& bucket : buckets) {
+        arquivoBuckets << "Bucket " << bucket.first << " (Suporte: " << bucket.second.second << "):\n";
+        for (const auto& linhaBucket : bucket.second.first) {
+            arquivoBuckets << "Linha: ";
+            for (const auto& valor : linhaBucket.first) {
+                arquivoBuckets << valor << " ";
+            }
+            arquivoBuckets << "Classe: " << linhaBucket.second << "\n";
+        }
+        arquivoBuckets << "\n";
+>>>>>>> Stashed changes
     }
 
     return buckets;
