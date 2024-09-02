@@ -333,13 +333,35 @@ Após a criação da base, o foco foi melhorar a análise do arquivo de teste e 
 
 - **Função de Avaliação Combinatória**: Avalia a classe combinatória com base em features e classes, utilizando intersecções e suporte.
 
-<h4>Desenvolvimento do Arquivo de Teste</h4>
+<h3>Desenvolvimento do Arquivo de Teste</h3>
+<h4>Função <code>selecionarLinhasAleatorias</code></h4>
+A função selecionarLinhasAleatorias é responsável por selecionar um número especificado de linhas aleatórias de um arquivo de entrada e salvar essas linhas em um arquivo de saída. Ela lê todas as linhas do arquivo de entrada, armazena-as em um vetor, e, em seguida, escolhe aleatoriamente as linhas desejadas para gravar no arquivo de saída. Essa função é útil para amostrar dados de um arquivo maior, permitindo que você trabalhe com subconjuntos menores de maneira eficiente e sem necessidade de processamento manual.
 
-A fase de testes envolveu a análise do arquivo de teste e a avaliação do algoritmo.
+```cpp
+void selecionarLinhasAleatorias(const string& inputFile, const string& outputFile, int numLinhas) {
+    ifstream arquivoEntrada(inputFile);
+    ofstream arquivoSaida(outputFile);
+    vector<string> linhas;
+    string linha;
+    if (!arquivoEntrada.is_open()) {
+        cerr << "Erro ao abrir o arquivo de entrada!" << endl;
+        return;
+    }
+    while (getline(arquivoEntrada, linha)) {
+        linhas.push_back(linha);
+    }
+    arquivoEntrada.close();
 
-- **Função de Avaliação Combinatória e Avaliação de Classe**: Refinadas para verificar a presença de uma linha em buckets ou calcular a classe combinatória com base em suportes.
-
-- **Função de Teste**: Avalia a precisão e a taxa de erro do modelo, comparando a classe atribuída com a original e gravando os resultados.
+    // Inicializa a semente para o gerador de números aleatórios
+    srand(time(nullptr));
+    // Seleciona aleatoriamente as linhas e escreve no arquivo de saída
+    for (int i = 0; i < numLinhas; ++i) {
+        int indiceAleatorio = rand() % linhas.size();
+        arquivoSaida << linhas[indiceAleatorio] << endl;
+    }
+    arquivoSaida.close();
+}
+```
 
 <h4>Utilização de LSH e Buckets</h4>
 
