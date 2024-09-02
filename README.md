@@ -386,6 +386,27 @@ double calcularSimilaridade(const vector<int>& linha1, const vector<int>& linha2
 }
 ```
 
+<h4>Função <code>combinacoes</code></h4>
+<p>A função <code>combinacoes</code> é responsável por gerar todas as combinações possíveis de um conjunto de índices, selecionando um número específico de elementos em cada combinação. Dado um vetor de índices e um valor <code>n</code>, a função retorna um vetor contendo todas as combinações de tamanho <code>n</code>, sem repetição, utilizando a técnica de permutação. Essa função é útil para analisar subconjuntos de dados, permitindo a exploração de diferentes combinações de características ou parâmetros.</p>
+
+```cpp
+vector<vector<int>> combinacoes(const vector<int>& indices, int n) {
+    vector<vector<int>> result;
+    vector<bool> v(indices.size());
+    fill(v.begin(), v.begin() + n, true);
+    do {
+        vector<int> comb;
+        for (long unsigned int i = 0; i < indices.size(); ++i) {
+            if (v[i]) {
+                comb.push_back(indices[i]);
+            }
+        }
+        result.push_back(comb);
+    } while (prev_permutation(v.begin(), v.end()));
+    return result;
+}
+```
+
 <h4>Utilização de LSH e Buckets</h4>
 
 A implementação final incorporou técnicas avançadas como Locality-Sensitive Hashing (LSH) para otimizar a classificação das mãos de poker.
