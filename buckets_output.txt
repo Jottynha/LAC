@@ -1,0 +1,1532 @@
+Bucket 265 (Suporte: 0):
+Linha: 4 10 4 5 4 11 1 9 2 6 0 Classe: 0
+Linha: 3 1 1 5 4 10 4 5 3 6 1 Classe: 1
+Linha: 2 12 3 5 1 10 1 9 2 9 1 Classe: 1
+Linha: 1 11 3 5 1 12 1 9 3 6 0 Classe: 0
+Linha: 1 2 1 5 1 11 3 5 4 6 1 Classe: 1
+
+Bucket 264 (Suporte: 1):
+Linha: 3 6 4 8 2 13 1 3 2 3 1 Classe: 1
+Linha: 4 10 4 4 4 13 2 1 3 3 0 Classe: 0
+
+Bucket 263 (Suporte: 0):
+Linha: 2 8 3 7 1 2 4 7 4 11 1 Classe: 1
+Linha: 1 8 1 5 2 9 4 9 3 11 1 Classe: 1
+Linha: 1 8 3 5 2 2 3 9 2 8 1 Classe: 1
+Linha: 2 8 1 12 3 2 1 13 1 8 1 Classe: 1
+
+Bucket 262 (Suporte: 1):
+Linha: 4 1 1 8 2 4 4 8 3 3 1 Classe: 1
+Linha: 2 1 1 3 2 4 2 13 1 12 0 Classe: 0
+Linha: 2 1 2 13 4 4 4 12 2 6 0 Classe: 0
+Linha: 2 1 3 11 1 4 2 11 4 1 2 Classe: 2
+Linha: 3 1 3 8 2 4 1 2 1 9 0 Classe: 0
+
+Bucket 261 (Suporte: 0):
+Linha: 1 9 4 3 1 4 1 12 1 11 0 Classe: 0
+Linha: 3 10 4 3 4 4 3 1 4 9 0 Classe: 0
+Linha: 3 3 1 3 2 4 2 5 1 2 1 Classe: 1
+Linha: 4 8 1 3 1 4 1 6 2 7 0 Classe: 0
+Linha: 2 3 3 3 4 4 3 4 3 2 2 Classe: 2
+
+Bucket 260 (Suporte: 1):
+Linha: 3 5 3 9 4 6 2 6 2 4 1 Classe: 1
+Linha: 1 12 2 9 2 13 3 6 3 1 0 Classe: 0
+Linha: 3 3 4 13 4 6 1 6 4 4 1 Classe: 1
+Linha: 3 10 4 7 1 6 4 6 4 4 1 Classe: 1
+Linha: 1 10 3 9 4 9 2 6 3 4 1 Classe: 1
+
+Bucket 259 (Suporte: 1):
+Linha: 1 4 3 8 4 9 4 5 2 8 1 Classe: 1
+Linha: 2 6 1 8 1 4 1 5 2 8 1 Classe: 1
+Linha: 3 8 4 8 4 10 1 5 2 2 1 Classe: 1
+Linha: 3 13 1 6 3 10 2 5 2 8 0 Classe: 0
+
+Bucket 258 (Suporte: 0):
+Linha: 4 6 4 4 1 11 3 10 1 7 0 Classe: 0
+Linha: 2 6 2 10 2 8 4 4 3 7 0 Classe: 0
+Linha: 1 6 4 10 1 11 4 2 4 7 0 Classe: 0
+Linha: 1 6 1 10 4 7 4 10 1 2 1 Classe: 1
+
+Bucket 257 (Suporte: 0):
+Linha: 4 2 2 12 2 9 1 6 3 9 1 Classe: 1
+Linha: 1 11 2 12 3 7 1 3 3 9 0 Classe: 0
+Linha: 2 11 3 12 3 9 4 12 4 9 2 Classe: 2
+Linha: 3 6 1 12 1 8 3 8 1 9 1 Classe: 1
+Linha: 4 11 2 12 4 12 1 12 1 9 3 Classe: 3
+Linha: 1 8 2 12 4 6 2 3 3 9 0 Classe: 0
+
+Bucket 126 (Suporte: 0):
+Linha: 1 5 4 9 3 11 2 8 4 1 0 Classe: 0
+Linha: 2 7 3 10 4 9 2 8 2 1 0 Classe: 0
+Linha: 4 9 1 11 4 10 2 8 2 1 0 Classe: 0
+Linha: 1 2 4 12 3 6 4 8 4 1 0 Classe: 0
+Linha: 2 8 4 7 1 11 3 8 1 1 1 Classe: 1
+
+Bucket 125 (Suporte: 0):
+Linha: 4 8 3 11 4 1 3 7 2 6 0 Classe: 0
+Linha: 4 5 2 11 4 1 4 10 2 13 0 Classe: 0
+Linha: 3 8 3 11 3 5 4 1 1 6 0 Classe: 0
+Linha: 1 8 4 11 3 13 1 1 4 13 1 Classe: 1
+Linha: 1 8 4 11 4 2 4 10 2 12 0 Classe: 0
+
+Bucket 124 (Suporte: 1):
+Linha: 2 3 1 11 3 4 1 4 4 7 1 Classe: 1
+Linha: 1 2 4 13 2 4 1 4 2 2 2 Classe: 2
+Linha: 4 7 4 12 2 4 1 4 2 12 2 Classe: 2
+Linha: 1 10 2 2 4 4 3 4 2 4 3 Classe: 3
+Linha: 4 8 1 12 1 4 4 4 3 5 1 Classe: 1
+
+Bucket 123 (Suporte: 0):
+Linha: 1 5 1 11 4 4 1 2 3 12 0 Classe: 0
+Linha: 4 9 3 4 2 5 4 2 2 12 0 Classe: 0
+Linha: 1 2 3 3 4 5 3 2 3 12 1 Classe: 1
+Linha: 4 3 3 3 3 5 1 2 4 13 1 Classe: 1
+
+Bucket 122 (Suporte: 0):
+Linha: 4 4 1 3 3 13 2 10 3 7 0 Classe: 0
+Linha: 1 4 2 5 1 2 3 10 3 9 0 Classe: 0
+Linha: 1 4 2 7 2 10 4 10 3 8 1 Classe: 1
+Linha: 3 4 3 6 1 6 2 10 3 1 1 Classe: 1
+Linha: 1 4 4 2 3 10 4 10 3 2 2 Classe: 2
+
+Bucket 121 (Suporte: 1):
+Linha: 1 4 4 4 4 11 4 12 3 12 2 Classe: 2
+Linha: 1 4 3 10 1 11 2 1 3 9 0 Classe: 0
+Linha: 1 4 1 7 3 11 3 2 3 9 0 Classe: 0
+Linha: 1 4 2 7 3 11 4 13 4 12 0 Classe: 0
+Linha: 3 5 2 7 3 11 3 1 4 9 0 Classe: 0
+
+Bucket 120 (Suporte: 0):
+Linha: 4 1 3 10 4 3 1 7 3 12 0 Classe: 0
+Linha: 2 1 2 10 3 10 4 7 2 6 1 Classe: 1
+Linha: 3 1 1 3 1 1 3 7 2 10 1 Classe: 1
+Linha: 4 1 2 2 4 6 2 7 4 13 0 Classe: 0
+Linha: 3 1 1 3 4 1 3 10 4 10 2 Classe: 2
+Linha: 1 1 3 5 3 3 4 10 1 12 0 Classe: 0
+
+Bucket 119 (Suporte: 0):
+Linha: 2 7 4 11 4 8 4 10 2 5 0 Classe: 0
+Linha: 4 1 3 1 1 10 3 10 1 5 2 Classe: 2
+Linha: 3 7 3 5 4 1 3 10 4 5 1 Classe: 1
+Linha: 3 7 1 2 1 1 4 5 3 5 1 Classe: 1
+Linha: 4 7 4 5 2 1 1 10 4 3 0 Classe: 0
+
+Bucket 118 (Suporte: 0):
+Linha: 2 6 2 8 2 1 2 11 3 11 1 Classe: 1
+Linha: 1 7 4 2 1 12 4 11 3 11 1 Classe: 1
+Linha: 4 3 3 7 2 11 4 11 3 11 3 Classe: 3
+
+Bucket 117 (Suporte: 0):
+Linha: 3 2 4 3 3 8 1 9 3 5 0 Classe: 0
+Linha: 4 2 2 9 2 12 1 9 1 2 2 Classe: 2
+Linha: 1 4 4 6 3 12 3 9 2 5 0 Classe: 0
+
+Bucket 116 (Suporte: 0):
+Linha: 1 11 1 8 1 3 3 2 1 4 0 Classe: 0
+Linha: 1 11 3 11 3 3 1 9 3 9 2 Classe: 2
+Linha: 2 11 2 1 2 12 4 2 2 4 0 Classe: 0
+Linha: 4 11 4 7 2 3 1 12 4 4 0 Classe: 0
+
+Bucket 115 (Suporte: 0):
+Linha: 4 7 4 6 4 2 1 13 1 4 0 Classe: 0
+Linha: 4 7 2 5 3 10 1 1 4 4 0 Classe: 0
+Linha: 4 7 2 1 1 13 1 4 4 4 1 Classe: 1
+Linha: 4 7 3 6 4 13 4 4 2 3 0 Classe: 0
+Linha: 4 7 2 6 3 11 2 1 2 4 0 Classe: 0
+Linha: 4 7 2 5 2 1 3 9 1 4 0 Classe: 0
+
+Bucket 114 (Suporte: 0):
+Linha: 3 12 3 5 1 1 2 4 4 12 1 Classe: 1
+Linha: 2 5 3 5 2 12 1 4 2 6 1 Classe: 1
+Linha: 3 5 4 6 2 2 1 4 2 6 1 Classe: 1
+
+Bucket 113 (Suporte: 1):
+Linha: 3 12 1 8 1 13 2 2 3 2 1 Classe: 1
+Linha: 4 12 3 3 1 9 2 2 3 2 1 Classe: 1
+Linha: 4 11 3 6 4 4 3 2 4 2 1 Classe: 1
+Linha: 3 8 4 9 4 13 4 2 3 2 1 Classe: 1
+Linha: 1 11 2 5 2 10 2 2 4 2 1 Classe: 1
+Linha: 4 4 2 1 1 11 4 2 2 2 1 Classe: 1
+
+Bucket 112 (Suporte: 0):
+Linha: 2 3 1 6 4 5 3 7 2 12 0 Classe: 0
+Linha: 1 3 1 6 1 7 2 6 2 11 1 Classe: 1
+Linha: 1 3 2 6 2 12 2 13 1 11 0 Classe: 0
+Linha: 1 3 2 6 3 12 3 9 3 4 0 Classe: 0
+
+Bucket 111 (Suporte: 0):
+Linha: 4 9 1 10 3 10 3 13 3 2 1 Classe: 1
+Linha: 1 9 1 6 4 10 4 4 3 2 0 Classe: 0
+Linha: 4 9 1 4 3 12 2 7 1 2 0 Classe: 0
+Linha: 4 9 1 4 2 6 3 1 4 2 0 Classe: 0
+Linha: 1 9 4 13 2 4 1 7 1 2 0 Classe: 0
+Linha: 4 9 1 1 4 7 2 4 4 2 0 Classe: 0
+Linha: 2 9 1 4 4 13 3 1 1 2 0 Classe: 0
+Linha: 3 9 2 11 1 1 3 7 1 2 0 Classe: 0
+
+Bucket 110 (Suporte: 0):
+Linha: 1 2 1 8 1 6 2 6 1 7 1 Classe: 1
+Linha: 4 9 1 8 3 10 4 6 3 13 0 Classe: 0
+Linha: 2 9 4 8 2 7 1 4 3 13 0 Classe: 0
+
+Bucket 109 (Suporte: 0):
+Linha: 4 8 2 4 4 2 2 5 2 2 1 Classe: 1
+Linha: 2 5 1 13 2 2 1 5 1 10 1 Classe: 1
+Linha: 4 13 4 4 1 2 3 5 4 5 1 Classe: 1
+Linha: 2 5 4 4 4 2 3 9 4 10 0 Classe: 0
+
+Bucket 108 (Suporte: 1):
+Linha: 1 4 3 9 2 1 3 10 3 8 0 Classe: 0
+Linha: 2 9 3 9 2 12 2 5 1 8 1 Classe: 1
+Linha: 2 5 1 9 3 12 2 3 3 8 0 Classe: 0
+Linha: 3 4 1 9 2 12 1 7 1 10 0 Classe: 0
+Linha: 1 11 4 9 4 12 4 10 1 8 4 Classe: 4
+
+Bucket 107 (Suporte: 0):
+Linha: 4 6 1 5 4 5 2 7 2 11 1 Classe: 1
+Linha: 1 4 2 5 3 5 3 3 3 11 1 Classe: 1
+Linha: 1 4 2 2 3 5 1 12 1 11 0 Classe: 0
+Linha: 3 9 3 10 2 5 2 6 4 11 0 Classe: 0
+
+Bucket 106 (Suporte: 0):
+Linha: 4 10 4 7 3 7 4 5 4 1 1 Classe: 1
+Linha: 3 13 2 7 1 7 2 5 2 1 1 Classe: 1
+Linha: 1 12 4 12 1 7 1 5 3 11 1 Classe: 1
+Linha: 1 12 4 7 2 7 4 10 2 13 1 Classe: 1
+
+Bucket 105 (Suporte: 1):
+Linha: 3 13 1 12 3 5 3 4 2 2 0 Classe: 0
+Linha: 4 13 2 12 2 1 4 9 4 10 0 Classe: 0
+Linha: 4 1 3 12 4 5 1 9 4 10 0 Classe: 0
+
+Bucket 104 (Suporte: 1):
+Linha: 1 13 3 2 2 6 2 13 4 11 1 Classe: 1
+Linha: 3 9 2 2 3 6 2 9 1 12 1 Classe: 1
+Linha: 4 4 1 2 1 6 3 13 4 11 0 Classe: 0
+Linha: 2 13 2 11 1 6 3 5 4 11 1 Classe: 1
+
+Bucket 103 (Suporte: 0):
+Linha: 2 3 4 13 3 4 4 9 1 10 0 Classe: 0
+Linha: 2 8 4 13 4 4 3 1 1 13 1 Classe: 1
+Linha: 4 8 1 13 4 3 2 9 4 11 0 Classe: 0
+Linha: 4 5 3 13 4 10 1 9 4 11 0 Classe: 0
+Linha: 4 1 2 13 1 11 2 9 4 11 1 Classe: 1
+
+Bucket 102 (Suporte: 1):
+Linha: 4 10 1 3 2 8 4 8 2 10 2 Classe: 2
+Linha: 2 5 3 2 2 8 3 10 1 10 1 Classe: 1
+Linha: 1 5 2 1 4 4 4 8 2 10 0 Classe: 0
+Linha: 4 10 3 13 2 7 3 8 1 10 1 Classe: 1
+Linha: 2 10 2 6 2 2 1 8 3 10 1 Classe: 1
+
+Bucket 101 (Suporte: 0):
+Linha: 4 5 1 6 2 13 4 4 3 9 0 Classe: 0
+Linha: 4 2 2 6 4 10 3 6 3 9 1 Classe: 1
+Linha: 4 5 2 5 3 13 3 6 3 9 1 Classe: 1
+
+Bucket 100 (Suporte: 1):
+Linha: 1 2 4 13 2 7 3 11 4 6 0 Classe: 0
+Linha: 3 1 2 12 4 7 1 11 4 10 0 Classe: 0
+Linha: 4 7 3 11 1 7 2 11 4 9 2 Classe: 2
+Linha: 2 2 3 1 4 7 4 11 4 4 0 Classe: 0
+
+Bucket 99 (Suporte: 0):
+Linha: 1 3 3 5 3 2 2 5 3 12 1 Classe: 1
+Linha: 3 3 2 10 1 13 4 5 4 12 0 Classe: 0
+Linha: 1 3 2 10 3 8 2 5 4 7 0 Classe: 0
+Linha: 3 3 2 4 3 6 3 5 1 7 4 Classe: 4
+Linha: 3 3 4 3 2 11 1 5 2 8 1 Classe: 1
+
+Bucket 98 (Suporte: 1):
+Linha: 1 10 4 13 4 5 2 9 2 5 1 Classe: 1
+Linha: 4 8 1 13 1 12 1 6 3 5 0 Classe: 0
+
+Bucket 97 (Suporte: 0):
+Linha: 1 3 1 1 1 8 2 12 1 2 0 Classe: 0
+Linha: 1 3 3 11 3 2 3 10 4 2 1 Classe: 1
+Linha: 4 3 3 7 4 11 2 10 2 2 0 Classe: 0
+Linha: 2 3 1 8 4 6 4 8 1 2 1 Classe: 1
+
+Bucket 96 (Suporte: 0):
+Linha: 2 3 4 6 1 5 4 2 4 3 1 Classe: 1
+Linha: 2 11 3 6 1 5 2 7 2 3 0 Classe: 0
+Linha: 2 11 3 6 2 5 1 7 2 8 0 Classe: 0
+Linha: 4 10 4 6 1 5 2 3 1 1 0 Classe: 0
+Linha: 1 1 1 6 1 5 1 3 2 11 0 Classe: 0
+Linha: 4 3 1 5 3 5 4 7 3 3 2 Classe: 2
+
+Bucket 95 (Suporte: 1):
+Linha: 4 13 4 1 1 1 4 6 2 7 1 Classe: 1
+Linha: 4 13 3 1 1 11 3 9 4 6 0 Classe: 0
+Linha: 2 13 1 1 2 4 3 12 1 11 0 Classe: 0
+Linha: 1 13 1 1 1 11 3 12 4 4 0 Classe: 0
+Linha: 1 8 2 1 4 11 4 12 3 7 0 Classe: 0
+
+Bucket 94 (Suporte: 0):
+Linha: 3 5 4 4 3 13 4 2 3 8 0 Classe: 0
+Linha: 4 9 3 4 1 13 4 10 3 8 0 Classe: 0
+Linha: 4 12 2 4 4 4 4 5 3 8 1 Classe: 1
+Linha: 3 12 3 4 1 12 1 5 1 8 1 Classe: 1
+Linha: 4 2 4 4 1 12 1 5 2 8 0 Classe: 0
+Linha: 1 7 2 4 4 1 4 2 4 8 0 Classe: 0
+
+Bucket 93 (Suporte: 0):
+Linha: 4 10 1 8 1 12 1 9 4 1 0 Classe: 0
+Linha: 4 10 3 3 2 12 4 9 3 12 1 Classe: 1
+Linha: 2 9 2 3 1 11 3 9 4 1 1 Classe: 1
+
+Bucket 92 (Suporte: 1):
+Linha: 3 11 1 1 3 7 4 6 1 3 0 Classe: 0
+Linha: 4 4 1 13 1 3 3 6 4 3 1 Classe: 1
+Linha: 3 13 2 13 2 5 3 6 3 3 1 Classe: 1
+Linha: 3 7 4 1 4 4 4 6 4 3 0 Classe: 0
+Linha: 4 7 4 1 4 3 3 6 3 2 0 Classe: 0
+Linha: 4 6 2 13 3 8 3 6 1 3 1 Classe: 1
+Linha: 2 4 2 1 2 9 4 6 1 3 0 Classe: 0
+
+Bucket 91 (Suporte: 0):
+Linha: 1 5 3 12 2 4 1 9 4 6 0 Classe: 0
+Linha: 1 5 1 12 3 8 2 13 3 7 0 Classe: 0
+Linha: 3 3 2 12 4 4 1 13 3 7 0 Classe: 0
+Linha: 2 10 4 12 3 4 3 13 3 8 0 Classe: 0
+
+Bucket 90 (Suporte: 0):
+Linha: 4 5 4 1 2 6 1 12 2 9 0 Classe: 0
+Linha: 4 1 1 13 2 6 1 12 4 9 0 Classe: 0
+Linha: 3 2 4 10 3 6 4 5 4 9 0 Classe: 0
+Linha: 2 10 3 11 1 6 3 3 1 9 0 Classe: 0
+Linha: 3 1 2 9 2 6 2 12 1 1 1 Classe: 1
+
+Bucket 89 (Suporte: 0):
+Linha: 1 10 1 7 4 1 4 5 2 7 1 Classe: 1
+Linha: 2 9 1 10 2 1 3 1 2 7 1 Classe: 1
+Linha: 3 11 3 4 2 1 1 5 4 7 0 Classe: 0
+Linha: 4 13 2 3 1 1 1 6 3 7 0 Classe: 0
+
+Bucket 88 (Suporte: 0):
+Linha: 3 4 1 3 4 12 1 13 3 9 0 Classe: 0
+Linha: 4 4 3 11 2 12 3 6 1 1 0 Classe: 0
+
+Bucket 87 (Suporte: 1):
+Linha: 3 13 2 13 4 13 1 13 3 2 7 Classe: 7
+Linha: 4 13 2 2 2 10 1 6 3 2 1 Classe: 1
+Linha: 3 13 1 9 2 10 1 7 4 2 0 Classe: 0
+Linha: 3 10 2 9 4 10 2 6 2 2 1 Classe: 1
+
+Bucket 86 (Suporte: 0):
+Linha: 4 10 3 8 3 10 4 7 2 1 1 Classe: 1
+Linha: 1 11 3 8 3 10 1 2 1 1 0 Classe: 0
+Linha: 1 7 3 8 2 11 4 6 2 1 0 Classe: 0
+Linha: 2 11 1 8 2 8 3 5 2 1 1 Classe: 1
+
+Bucket 85 (Suporte: 1):
+Linha: 4 11 2 4 2 10 2 5 3 13 0 Classe: 0
+Linha: 1 11 3 7 4 10 2 5 3 10 1 Classe: 1
+Linha: 4 11 1 6 2 10 1 10 1 11 2 Classe: 2
+Linha: 3 11 2 4 2 10 3 7 3 13 0 Classe: 0
+Linha: 2 11 2 2 4 10 1 6 4 7 0 Classe: 0
+Linha: 3 11 2 12 4 10 2 9 2 10 1 Classe: 1
+
+Bucket 84 (Suporte: 0):
+Linha: 1 12 1 4 4 5 4 1 2 4 1 Classe: 1
+Linha: 4 12 2 2 3 9 4 9 2 4 1 Classe: 1
+Linha: 3 12 2 12 3 5 2 7 2 4 1 Classe: 1
+Linha: 2 12 3 12 4 13 2 5 2 4 1 Classe: 1
+Linha: 3 12 3 7 2 5 1 10 1 4 0 Classe: 0
+Linha: 3 2 2 4 3 5 3 7 3 4 1 Classe: 1
+
+Bucket 83 (Suporte: 1):
+Linha: 2 2 3 8 4 6 3 2 1 12 1 Classe: 1
+Linha: 4 4 2 8 4 1 4 2 1 12 0 Classe: 0
+Linha: 3 4 4 8 3 6 4 4 2 5 1 Classe: 1
+Linha: 2 4 2 8 3 12 1 2 3 13 0 Classe: 0
+
+Bucket 82 (Suporte: 1):
+Linha: 4 1 2 11 1 10 4 4 1 11 1 Classe: 1
+Linha: 4 13 2 11 1 10 4 4 4 11 1 Classe: 1
+Linha: 4 8 4 1 4 10 2 4 1 13 0 Classe: 0
+Linha: 2 1 3 2 4 10 3 4 4 12 0 Classe: 0
+Linha: 2 12 4 2 2 10 1 4 3 10 1 Classe: 1
+Linha: 3 3 2 12 2 10 1 4 3 6 0 Classe: 0
+
+Bucket 81 (Suporte: 0):
+Linha: 3 3 2 5 3 12 3 10 2 6 0 Classe: 0
+Linha: 1 3 2 1 1 12 1 11 1 13 0 Classe: 0
+Linha: 1 3 1 5 4 12 3 12 3 11 1 Classe: 1
+Linha: 1 3 4 3 1 12 1 8 1 10 1 Classe: 1
+
+Bucket 80 (Suporte: 0):
+Linha: 1 1 3 8 3 2 4 7 1 3 0 Classe: 0
+Linha: 2 1 4 8 2 9 4 6 1 11 0 Classe: 0
+
+Bucket 79 (Suporte: 1):
+Linha: 3 5 2 6 1 9 2 11 3 3 0 Classe: 0
+Linha: 4 4 4 9 1 9 1 2 1 3 1 Classe: 1
+Linha: 4 5 2 5 1 11 2 2 2 3 1 Classe: 1
+
+Bucket 78 (Suporte: 1):
+Linha: 3 13 1 4 2 13 2 6 2 11 1 Classe: 1
+Linha: 2 3 1 4 2 13 3 10 3 11 0 Classe: 0
+Linha: 2 3 3 4 2 1 3 10 1 11 0 Classe: 0
+Linha: 3 3 3 13 2 1 3 4 1 11 0 Classe: 0
+Linha: 4 12 4 3 3 1 1 10 3 11 0 Classe: 0
+Linha: 1 8 4 4 3 1 4 13 1 11 0 Classe: 0
+
+Bucket 77 (Suporte: 1):
+Linha: 1 3 1 1 4 1 4 13 2 4 1 Classe: 1
+Linha: 4 3 1 1 2 2 3 8 1 4 0 Classe: 0
+Linha: 3 3 3 1 3 6 2 13 2 4 0 Classe: 0
+Linha: 3 3 1 1 2 9 4 8 4 11 0 Classe: 0
+
+Bucket 76 (Suporte: 0):
+Linha: 3 5 2 12 3 13 2 6 1 8 0 Classe: 0
+Linha: 2 11 1 12 1 13 1 6 2 4 0 Classe: 0
+Linha: 1 11 3 8 3 13 2 6 4 12 0 Classe: 0
+Linha: 3 5 4 3 3 13 4 6 2 8 0 Classe: 0
+Linha: 4 6 3 12 3 13 2 6 4 10 1 Classe: 1
+
+Bucket 75 (Suporte: 0):
+Linha: 3 12 1 11 4 6 4 2 3 4 0 Classe: 0
+Linha: 1 9 4 11 1 6 1 11 2 13 1 Classe: 1
+Linha: 4 9 1 11 1 6 1 13 3 4 0 Classe: 0
+Linha: 4 1 2 1 1 6 3 2 3 4 1 Classe: 1
+
+Bucket 74 (Suporte: 0):
+Linha: 4 4 2 5 4 8 3 13 2 1 0 Classe: 0
+Linha: 2 1 2 5 4 8 1 13 3 4 0 Classe: 0
+Linha: 1 1 4 5 4 12 4 6 3 4 0 Classe: 0
+Linha: 2 1 4 5 3 13 3 6 2 4 0 Classe: 0
+Linha: 4 12 4 5 4 8 1 8 1 4 1 Classe: 1
+
+Bucket 73 (Suporte: 1):
+Linha: 4 7 1 6 4 6 3 6 1 10 3 Classe: 3
+Linha: 4 1 2 12 1 6 3 6 2 7 1 Classe: 1
+Linha: 1 4 1 6 3 6 1 5 4 10 1 Classe: 1
+
+Bucket 72 (Suporte: 0):
+Linha: 2 5 2 10 2 12 4 11 2 4 0 Classe: 0
+Linha: 4 9 3 13 2 12 1 11 1 4 0 Classe: 0
+Linha: 4 9 2 13 1 11 1 3 4 4 0 Classe: 0
+
+Bucket 71 (Suporte: 0):
+Linha: 1 4 2 8 3 5 4 3 4 2 0 Classe: 0
+Linha: 3 1 4 4 1 11 2 3 2 2 0 Classe: 0
+
+Bucket 70 (Suporte: 1):
+Linha: 2 12 4 13 3 11 1 3 2 5 0 Classe: 0
+Linha: 2 12 1 4 2 11 1 3 4 8 0 Classe: 0
+Linha: 1 12 2 6 4 11 2 1 4 12 1 Classe: 1
+Linha: 4 11 3 13 2 11 1 1 2 8 1 Classe: 1
+Linha: 3 11 3 12 4 11 3 5 2 8 1 Classe: 1
+Linha: 2 11 2 1 1 11 4 3 4 12 1 Classe: 1
+
+Bucket 69 (Suporte: 0):
+Linha: 2 3 2 10 3 4 2 7 4 1 0 Classe: 0
+Linha: 3 7 2 12 4 12 2 7 3 1 2 Classe: 2
+Linha: 2 9 3 10 3 11 3 7 1 1 0 Classe: 0
+Linha: 2 8 1 12 2 9 4 7 1 1 0 Classe: 0
+Linha: 1 3 4 9 3 9 4 7 4 1 1 Classe: 1
+
+Bucket 68 (Suporte: 0):
+Linha: 4 9 2 13 2 2 1 2 4 7 1 Classe: 1
+Linha: 4 9 2 2 2 11 1 11 2 7 1 Classe: 1
+Linha: 3 9 1 2 4 5 2 5 1 7 1 Classe: 1
+Linha: 2 9 3 12 4 3 2 4 2 7 0 Classe: 0
+Linha: 2 9 1 9 1 7 2 3 2 7 2 Classe: 2
+
+Bucket 67 (Suporte: 0):
+Linha: 3 13 4 4 3 8 4 3 1 1 0 Classe: 0
+Linha: 4 2 1 4 2 8 1 5 1 1 0 Classe: 0
+Linha: 1 5 4 4 2 8 3 10 2 12 0 Classe: 0
+Linha: 2 12 1 4 2 8 1 3 4 4 1 Classe: 1
+Linha: 4 13 4 4 1 8 4 3 4 1 0 Classe: 0
+
+Bucket 66 (Suporte: 0):
+Linha: 1 13 3 3 4 12 3 12 3 5 1 Classe: 1
+Linha: 1 13 1 5 2 3 4 12 1 8 0 Classe: 0
+Linha: 4 13 1 9 4 3 4 12 2 12 1 Classe: 1
+
+Bucket 65 (Suporte: 1):
+Linha: 3 1 4 1 3 4 1 1 1 2 3 Classe: 3
+Linha: 1 1 4 1 2 1 3 9 4 2 3 Classe: 3
+Linha: 2 1 1 5 2 4 3 11 4 2 0 Classe: 0
+Linha: 1 1 4 11 3 5 3 7 2 2 0 Classe: 0
+
+Bucket 64 (Suporte: 1):
+Linha: 3 10 2 8 3 7 4 1 3 4 0 Classe: 0
+Linha: 4 12 4 8 3 7 2 11 1 4 0 Classe: 0
+Linha: 2 10 4 8 1 7 1 6 1 2 0 Classe: 0
+
+Bucket 63 (Suporte: 1):
+Linha: 3 4 4 8 1 11 2 8 4 7 1 Classe: 1
+Linha: 4 4 4 11 2 6 4 8 3 7 0 Classe: 0
+Linha: 4 13 2 7 4 10 3 8 4 7 1 Classe: 1
+Linha: 1 11 3 6 3 13 1 8 3 7 0 Classe: 0
+
+Bucket 62 (Suporte: 0):
+Linha: 1 9 1 11 3 5 3 9 2 11 2 Classe: 2
+Linha: 4 4 4 11 3 2 4 9 2 8 0 Classe: 0
+Linha: 4 6 2 11 2 10 1 9 4 8 0 Classe: 0
+Linha: 1 1 3 11 1 12 2 9 4 11 1 Classe: 1
+Linha: 3 2 4 11 1 8 1 9 1 13 0 Classe: 0
+
+Bucket 61 (Suporte: 0):
+Linha: 1 12 1 1 1 11 1 8 1 9 5 Classe: 5
+Linha: 2 8 4 1 1 11 1 5 3 13 0 Classe: 0
+Linha: 4 12 3 1 2 11 4 4 3 9 0 Classe: 0
+Linha: 1 1 3 1 1 11 4 4 1 8 1 Classe: 1
+
+Bucket 60 (Suporte: 0):
+Linha: 1 4 1 12 3 6 4 1 3 8 0 Classe: 0
+Linha: 3 4 1 12 4 1 3 1 4 13 1 Classe: 1
+Linha: 3 8 2 12 2 10 3 1 1 3 0 Classe: 0
+Linha: 4 4 3 12 3 10 3 11 1 8 0 Classe: 0
+Linha: 4 13 2 12 4 10 3 1 2 1 1 Classe: 1
+
+Bucket 59 (Suporte: 1):
+Linha: 1 10 2 9 2 2 1 9 1 5 1 Classe: 1
+Linha: 1 10 2 8 3 2 3 9 2 5 0 Classe: 0
+Linha: 4 10 3 10 1 2 1 4 3 11 1 Classe: 1
+Linha: 2 10 1 13 4 2 2 2 2 1 1 Classe: 1
+Linha: 3 10 1 8 1 2 3 13 4 10 1 Classe: 1
+
+Bucket 28 (Suporte: 1):
+Linha: 3 2 4 10 2 5 2 9 1 7 0 Classe: 0
+Linha: 3 2 1 6 3 3 1 9 1 7 0 Classe: 0
+Linha: 3 6 2 10 2 3 1 9 3 3 1 Classe: 1
+
+Bucket 27 (Suporte: 0):
+Linha: 1 6 2 12 3 3 1 11 2 5 0 Classe: 0
+Linha: 1 6 2 12 1 7 1 11 1 2 0 Classe: 0
+Linha: 2 9 1 12 3 7 3 4 2 5 0 Classe: 0
+
+Bucket 26 (Suporte: 0):
+Linha: 4 5 4 10 1 9 4 13 2 8 0 Classe: 0
+Linha: 4 5 3 10 3 9 1 1 3 6 0 Classe: 0
+Linha: 2 5 2 7 2 9 4 1 3 5 1 Classe: 1
+Linha: 1 5 3 7 3 9 3 13 2 2 0 Classe: 0
+
+Bucket 25 (Suporte: 0):
+Linha: 3 1 3 11 2 2 2 8 4 6 0 Classe: 0
+Linha: 4 8 3 11 2 10 1 8 3 4 1 Classe: 1
+
+Bucket 24 (Suporte: 1):
+Linha: 4 6 4 9 4 3 3 10 1 1 0 Classe: 0
+Linha: 3 6 3 2 3 13 1 10 2 1 0 Classe: 0
+Linha: 4 6 2 8 4 13 2 10 4 11 0 Classe: 0
+
+Bucket 23 (Suporte: 1):
+Linha: 1 2 3 4 2 4 4 1 3 6 1 Classe: 1
+Linha: 4 2 4 7 4 4 1 1 3 4 1 Classe: 1
+
+Bucket 22 (Suporte: 0):
+Linha: 4 2 1 4 1 1 4 12 1 13 0 Classe: 0
+Linha: 4 2 4 3 2 1 3 1 1 13 1 Classe: 1
+
+Bucket 21 (Suporte: 1):
+Linha: 4 8 3 8 4 13 3 10 2 8 3 Classe: 3
+Linha: 2 8 4 8 1 9 4 13 1 13 2 Classe: 2
+Linha: 2 8 1 8 1 11 3 2 3 6 1 Classe: 1
+Linha: 2 13 1 8 3 11 2 10 4 13 1 Classe: 1
+
+Bucket 20 (Suporte: 1):
+Linha: 3 11 1 9 4 12 2 12 1 3 1 Classe: 1
+Linha: 2 4 4 2 4 5 3 12 3 3 0 Classe: 0
+Linha: 1 11 2 12 4 12 1 8 1 3 1 Classe: 1
+
+Bucket 19 (Suporte: 0):
+Linha: 1 7 4 7 2 13 1 8 2 2 1 Classe: 1
+Linha: 3 7 1 12 4 11 1 8 1 2 0 Classe: 0
+Linha: 4 7 1 7 3 9 4 8 2 12 1 Classe: 1
+
+Bucket 18 (Suporte: 1):
+Linha: 1 13 2 12 3 4 4 13 2 3 1 Classe: 1
+Linha: 4 13 2 12 1 6 3 13 3 5 1 Classe: 1
+Linha: 1 7 4 12 2 3 3 13 3 10 0 Classe: 0
+Linha: 2 8 2 12 4 10 1 13 2 10 1 Classe: 1
+
+Bucket 17 (Suporte: 0):
+Linha: 1 7 2 9 1 2 4 5 4 2 1 Classe: 1
+Linha: 2 7 4 8 2 2 1 11 4 2 1 Classe: 1
+
+Bucket 16 (Suporte: 0):
+Linha: 3 12 2 10 1 9 4 2 3 1 0 Classe: 0
+Linha: 2 12 1 13 2 9 3 2 4 13 1 Classe: 1
+Linha: 4 12 1 10 3 4 1 2 2 9 0 Classe: 0
+
+Bucket 15 (Suporte: 1):
+Linha: 2 1 2 13 4 5 3 10 2 7 0 Classe: 0
+Linha: 4 8 4 13 1 5 1 10 2 11 0 Classe: 0
+Linha: 3 1 1 13 3 5 1 4 3 4 1 Classe: 1
+Linha: 2 10 2 13 1 5 4 3 1 7 0 Classe: 0
+
+Bucket 14 (Suporte: 1):
+Linha: 3 6 3 9 3 10 1 10 2 9 2 Classe: 2
+Linha: 2 8 1 9 1 6 3 10 4 7 4 Classe: 4
+Linha: 2 10 4 4 3 6 4 10 3 7 1 Classe: 1
+
+Bucket 13 (Suporte: 1):
+Linha: 3 13 1 4 2 4 4 10 2 12 1 Classe: 1
+Linha: 3 10 3 4 1 4 2 2 3 5 1 Classe: 1
+
+Bucket 0 (Suporte: 0):
+Linha: 4 6 3 12 3 10 2 2 2 11 0 Classe: 0
+Linha: 3 1 3 4 2 11 3 2 4 11 1 Classe: 1
+Linha: 4 6 1 7 2 3 2 2 2 11 0 Classe: 0
+
+Bucket 1 (Suporte: 0):
+Linha: 1 13 3 9 1 8 4 4 4 9 1 Classe: 1
+Linha: 1 13 1 9 2 10 3 4 3 5 0 Classe: 0
+Linha: 3 3 1 9 4 8 1 8 2 5 1 Classe: 1
+Linha: 3 11 2 9 3 8 3 4 2 1 0 Classe: 0
+Linha: 4 13 4 9 3 8 2 3 3 9 1 Classe: 1
+
+Bucket 2 (Suporte: 1):
+Linha: 4 10 3 3 1 10 4 11 3 10 3 Classe: 3
+Linha: 4 10 4 3 2 10 3 8 1 12 1 Classe: 1
+Linha: 3 2 1 3 4 10 4 11 2 11 1 Classe: 1
+
+Bucket 3 (Suporte: 0):
+Linha: 3 1 3 11 2 10 3 2 4 9 0 Classe: 0
+Linha: 2 2 3 11 4 10 2 3 4 3 1 Classe: 1
+Linha: 4 2 4 4 2 10 2 2 1 9 1 Classe: 1
+Linha: 2 7 2 11 2 10 2 6 4 9 0 Classe: 0
+Linha: 1 3 3 11 3 10 3 2 2 3 1 Classe: 1
+
+Bucket 4 (Suporte: 1):
+Linha: 4 2 2 6 3 1 4 1 1 11 1 Classe: 1
+Linha: 1 13 4 6 1 7 3 13 3 11 1 Classe: 1
+Linha: 3 2 4 6 1 12 1 5 4 11 0 Classe: 0
+Linha: 4 2 1 13 3 12 2 13 1 11 1 Classe: 1
+Linha: 1 13 4 6 4 9 3 8 4 11 0 Classe: 0
+
+Bucket 5 (Suporte: 1):
+Linha: 4 3 3 8 2 10 3 7 1 7 1 Classe: 1
+Linha: 2 3 2 8 4 7 3 10 2 7 1 Classe: 1
+Linha: 3 3 3 8 4 12 3 10 4 4 0 Classe: 0
+
+Bucket 6 (Suporte: 1):
+Linha: 4 1 4 7 2 7 1 7 1 3 3 Classe: 3
+Linha: 3 1 3 7 1 5 1 6 4 8 0 Classe: 0
+Linha: 3 11 4 7 3 8 3 7 4 8 2 Classe: 2
+
+Bucket 7 (Suporte: 1):
+Linha: 2 13 2 2 3 4 1 6 3 13 1 Classe: 1
+Linha: 1 9 1 2 1 3 2 3 4 13 1 Classe: 1
+Linha: 2 9 1 9 3 3 1 3 3 13 2 Classe: 2
+Linha: 4 9 3 4 3 5 1 3 4 13 0 Classe: 0
+Linha: 1 9 4 2 4 5 2 2 4 13 1 Classe: 1
+Linha: 2 9 4 2 3 10 2 13 1 13 1 Classe: 1
+
+Bucket 8 (Suporte: 0):
+Linha: 1 1 1 7 3 2 3 13 3 10 0 Classe: 0
+Linha: 1 1 3 7 2 5 3 3 3 10 0 Classe: 0
+Linha: 1 1 1 7 1 5 4 2 1 13 0 Classe: 0
+Linha: 3 1 3 2 2 5 1 12 1 13 0 Classe: 0
+
+Bucket 9 (Suporte: 0):
+Linha: 3 1 3 4 3 7 1 13 1 7 1 Classe: 1
+Linha: 2 13 1 4 4 7 3 13 1 13 3 Classe: 3
+Linha: 4 13 4 10 2 7 2 8 3 13 1 Classe: 1
+Linha: 4 3 2 10 1 7 2 3 2 13 1 Classe: 1
+Linha: 4 1 3 10 3 7 3 8 4 9 0 Classe: 0
+Linha: 3 1 1 3 2 7 1 13 3 9 0 Classe: 0
+
+Bucket 10 (Suporte: 0):
+Linha: 4 3 3 1 2 13 2 5 2 1 1 Classe: 1
+Linha: 2 12 2 1 3 13 4 5 3 3 0 Classe: 0
+Linha: 2 12 2 1 2 7 1 5 3 7 1 Classe: 1
+Linha: 1 12 1 1 4 6 4 5 2 7 0 Classe: 0
+Linha: 2 11 3 1 3 9 3 5 2 10 0 Classe: 0
+Linha: 4 10 2 1 4 12 1 5 1 10 1 Classe: 1
+
+Bucket 11 (Suporte: 1):
+Linha: 2 4 4 8 1 2 4 1 2 7 0 Classe: 0
+Linha: 1 7 4 8 2 2 2 1 1 12 0 Classe: 0
+Linha: 1 7 3 2 3 3 2 1 2 7 1 Classe: 1
+Linha: 1 7 2 8 2 13 4 1 2 7 1 Classe: 1
+
+Bucket 12 (Suporte: 0):
+Linha: 1 2 3 6 2 11 4 5 2 7 0 Classe: 0
+Linha: 4 9 4 6 1 11 1 10 3 7 0 Classe: 0
+Linha: 4 9 1 6 1 13 2 5 2 4 0 Classe: 0
+
+Bucket 29 (Suporte: 1):
+Linha: 3 11 1 4 2 11 2 4 4 6 2 Classe: 2
+Linha: 1 11 1 8 3 5 4 4 2 6 0 Classe: 0
+Linha: 1 11 3 4 1 10 3 11 4 6 1 Classe: 1
+Linha: 2 1 4 4 4 12 1 4 3 6 1 Classe: 1
+Linha: 1 11 2 1 3 2 1 4 1 6 0 Classe: 0
+Linha: 2 2 3 1 3 2 2 4 3 6 1 Classe: 1
+
+Bucket 30 (Suporte: 0):
+Linha: 2 10 1 3 2 13 3 12 2 7 0 Classe: 0
+Linha: 1 10 4 6 3 13 1 12 2 1 0 Classe: 0
+Linha: 2 10 3 3 3 13 3 11 1 13 1 Classe: 1
+Linha: 1 10 1 11 4 13 2 8 4 1 0 Classe: 0
+
+Bucket 31 (Suporte: 1):
+Linha: 1 11 1 9 2 2 3 7 3 5 0 Classe: 0
+Linha: 4 11 3 9 2 9 3 4 1 5 1 Classe: 1
+Linha: 3 11 4 9 1 2 2 6 4 12 0 Classe: 0
+Linha: 1 11 2 9 4 6 3 3 3 1 0 Classe: 0
+
+Bucket 32 (Suporte: 1):
+Linha: 2 5 1 13 2 1 3 13 2 6 1 Classe: 1
+Linha: 1 9 2 13 2 8 4 13 4 6 1 Classe: 1
+Linha: 1 5 3 13 1 10 2 12 2 6 0 Classe: 0
+
+Bucket 33 (Suporte: 0):
+Linha: 2 8 3 7 3 9 1 10 3 10 1 Classe: 1
+Linha: 3 8 2 7 2 9 3 2 3 5 0 Classe: 0
+Linha: 4 8 2 11 3 9 4 2 2 5 0 Classe: 0
+Linha: 3 8 4 7 3 6 1 2 2 11 0 Classe: 0
+Linha: 1 8 2 12 1 3 1 2 1 5 0 Classe: 0
+Linha: 2 8 3 9 2 6 3 2 3 5 0 Classe: 0
+
+Bucket 34 (Suporte: 1):
+Linha: 2 13 1 2 3 2 1 5 4 13 2 Classe: 2
+Linha: 3 3 3 2 3 9 1 9 1 13 1 Classe: 1
+Linha: 1 13 2 10 4 2 4 10 3 13 2 Classe: 2
+Linha: 2 8 1 2 3 7 3 10 4 13 0 Classe: 0
+
+Bucket 35 (Suporte: 0):
+Linha: 4 5 3 13 3 11 2 7 4 13 1 Classe: 1
+Linha: 2 5 1 13 4 9 3 12 2 13 1 Classe: 1
+Linha: 4 5 3 7 2 11 3 6 3 13 0 Classe: 0
+Linha: 1 5 3 5 3 9 4 9 4 13 2 Classe: 2
+
+Bucket 36 (Suporte: 1):
+Linha: 2 10 2 8 1 5 1 1 2 11 0 Classe: 0
+Linha: 4 10 3 8 4 5 4 13 2 6 0 Classe: 0
+Linha: 4 9 3 8 4 8 2 1 4 11 1 Classe: 1
+
+Bucket 37 (Suporte: 0):
+Linha: 1 11 3 9 4 3 4 12 3 7 0 Classe: 0
+Linha: 4 11 1 9 1 3 3 3 1 8 1 Classe: 1
+Linha: 2 11 3 9 1 3 3 2 3 10 0 Classe: 0
+Linha: 3 11 2 4 1 3 4 2 3 7 0 Classe: 0
+
+Bucket 38 (Suporte: 1):
+Linha: 3 11 4 10 1 13 3 3 1 7 0 Classe: 0
+Linha: 2 8 4 5 3 13 1 3 2 7 0 Classe: 0
+Linha: 4 8 2 4 3 1 2 3 3 7 0 Classe: 0
+Linha: 4 8 2 5 2 7 3 3 3 5 1 Classe: 1
+
+Bucket 39 (Suporte: 1):
+Linha: 1 9 4 8 4 4 1 11 2 4 1 Classe: 1
+
+Bucket 40 (Suporte: 1):
+Linha: 3 4 3 13 1 9 3 7 2 9 1 Classe: 1
+Linha: 1 13 4 13 1 9 4 7 3 5 1 Classe: 1
+Linha: 2 3 1 13 4 9 3 10 2 5 0 Classe: 0
+
+Bucket 41 (Suporte: 0):
+Linha: 3 1 1 12 2 6 2 3 3 4 0 Classe: 0
+Linha: 2 7 3 12 2 3 1 3 2 4 1 Classe: 1
+Linha: 3 8 4 12 4 11 2 10 4 4 0 Classe: 0
+Linha: 3 1 1 12 2 9 3 12 1 4 1 Classe: 1
+Linha: 3 10 4 12 3 11 4 10 2 4 1 Classe: 1
+Linha: 2 1 1 12 3 2 1 13 3 4 0 Classe: 0
+
+Bucket 42 (Suporte: 0):
+Linha: 3 4 2 6 1 5 4 4 4 1 1 Classe: 1
+Linha: 3 3 1 6 4 2 1 4 1 1 0 Classe: 0
+Linha: 2 4 3 5 1 13 4 4 2 1 1 Classe: 1
+Linha: 4 3 1 6 2 2 1 4 2 8 0 Classe: 0
+
+Bucket 43 (Suporte: 1):
+Linha: 4 8 1 12 2 4 3 12 1 11 1 Classe: 1
+Linha: 3 8 1 7 4 8 1 12 1 13 1 Classe: 1
+Linha: 1 6 3 7 4 8 4 12 2 7 1 Classe: 1
+Linha: 4 8 1 7 3 5 2 12 2 13 0 Classe: 0
+
+Bucket 44 (Suporte: 1):
+Linha: 3 6 1 11 1 3 2 8 1 6 1 Classe: 1
+Linha: 2 6 2 4 1 3 3 10 4 6 1 Classe: 1
+Linha: 2 9 4 10 2 3 1 3 4 6 1 Classe: 1
+Linha: 1 12 1 4 3 3 1 2 3 6 0 Classe: 0
+
+Bucket 45 (Suporte: 0):
+Linha: 2 12 2 10 4 13 2 4 4 10 1 Classe: 1
+Linha: 1 3 2 5 2 11 1 4 3 10 0 Classe: 0
+Linha: 3 9 4 7 4 1 4 4 4 10 0 Classe: 0
+Linha: 3 2 1 10 2 4 3 4 4 10 2 Classe: 2
+
+Bucket 46 (Suporte: 1):
+Linha: 4 5 1 5 2 8 3 5 3 1 3 Classe: 3
+Linha: 3 9 1 5 3 2 2 5 2 1 1 Classe: 1
+Linha: 2 9 2 5 3 8 1 5 4 7 1 Classe: 1
+Linha: 1 2 1 5 2 8 3 10 2 1 0 Classe: 0
+
+Bucket 47 (Suporte: 1):
+Linha: 3 8 2 6 4 9 4 6 4 8 2 Classe: 2
+Linha: 2 11 4 7 3 9 2 6 2 8 0 Classe: 0
+Linha: 4 9 4 7 4 10 3 6 1 8 4 Classe: 4
+Linha: 1 3 1 7 1 4 3 6 1 8 0 Classe: 0
+
+Bucket 48 (Suporte: 0):
+Linha: 1 4 2 11 3 9 2 1 4 7 0 Classe: 0
+Linha: 1 4 2 12 3 9 1 5 1 7 0 Classe: 0
+Linha: 2 11 4 5 1 9 1 5 4 7 1 Classe: 1
+Linha: 3 4 2 2 3 9 4 11 2 7 0 Classe: 0
+Linha: 3 8 4 13 1 9 4 1 4 7 0 Classe: 0
+Linha: 4 3 3 5 2 9 2 11 4 7 0 Classe: 0
+
+Bucket 49 (Suporte: 0):
+Linha: 4 13 2 13 2 8 1 4 1 12 1 Classe: 1
+Linha: 1 7 2 13 1 8 3 1 3 12 0 Classe: 0
+Linha: 1 7 4 13 3 8 1 13 3 3 1 Classe: 1
+
+Bucket 50 (Suporte: 1):
+Linha: 3 12 2 13 2 2 3 8 2 7 0 Classe: 0
+Linha: 3 12 4 13 2 12 2 8 4 10 1 Classe: 1
+
+Bucket 51 (Suporte: 0):
+Linha: 2 6 1 4 3 1 3 9 4 13 0 Classe: 0
+Linha: 4 11 4 4 4 13 2 9 1 1 0 Classe: 0
+Linha: 4 1 2 4 1 1 2 9 3 11 1 Classe: 1
+
+Bucket 52 (Suporte: 0):
+Linha: 3 9 1 10 3 2 2 11 2 12 0 Classe: 0
+Linha: 2 9 1 2 1 12 1 6 2 12 1 Classe: 1
+Linha: 4 9 4 10 4 1 2 8 2 12 0 Classe: 0
+Linha: 3 9 1 4 2 3 1 9 4 12 1 Classe: 1
+
+Bucket 53 (Suporte: 1):
+Linha: 1 2 1 11 4 9 2 4 3 4 1 Classe: 1
+Linha: 4 2 3 6 3 9 3 12 2 4 0 Classe: 0
+Linha: 2 7 2 11 4 9 3 4 2 8 0 Classe: 0
+
+Bucket 54 (Suporte: 0):
+Linha: 2 7 1 2 3 6 1 3 3 8 0 Classe: 0
+Linha: 1 9 3 7 1 6 4 3 3 8 0 Classe: 0
+Linha: 1 9 2 6 4 1 3 3 1 8 0 Classe: 0
+Linha: 4 9 4 11 1 1 3 3 3 11 1 Classe: 1
+Linha: 2 9 4 2 1 6 1 3 2 8 0 Classe: 0
+Linha: 1 7 3 1 1 4 4 3 4 8 0 Classe: 0
+Linha: 1 9 3 7 4 1 4 3 2 1 1 Classe: 1
+
+Bucket 55 (Suporte: 0):
+Linha: 1 10 1 12 1 8 2 9 4 2 0 Classe: 0
+Linha: 2 4 4 12 1 7 2 9 3 2 0 Classe: 0
+Linha: 2 4 3 12 3 13 1 9 3 11 0 Classe: 0
+Linha: 1 4 3 12 4 7 1 9 2 7 1 Classe: 1
+Linha: 2 6 3 12 4 12 2 9 2 2 1 Classe: 1
+
+Bucket 56 (Suporte: 1):
+Linha: 4 1 2 10 1 6 3 2 3 8 0 Classe: 0
+Linha: 1 1 1 10 4 3 3 12 3 11 0 Classe: 0
+Linha: 4 1 1 10 2 5 1 8 3 5 1 Classe: 1
+Linha: 1 1 1 10 1 3 4 2 4 8 0 Classe: 0
+
+Bucket 57 (Suporte: 1):
+Linha: 1 10 1 7 1 5 3 10 2 11 1 Classe: 1
+Linha: 4 13 4 7 2 5 3 2 3 1 0 Classe: 0
+
+Bucket 58 (Suporte: 1):
+Linha: 3 1 2 10 3 10 1 13 1 11 1 Classe: 1
+Linha: 2 8 4 5 2 10 2 13 3 5 1 Classe: 1
+Linha: 2 4 4 5 4 10 2 13 3 8 0 Classe: 0
+Linha: 1 8 2 5 3 10 3 4 3 8 1 Classe: 1
+Linha: 2 8 4 5 2 10 3 5 3 13 1 Classe: 1
+
+Bucket 127 (Suporte: 0):
+Linha: 3 4 2 7 1 9 1 8 4 2 0 Classe: 0
+Linha: 4 4 4 7 1 1 1 12 4 2 0 Classe: 0
+Linha: 4 3 3 7 2 1 3 9 1 2 0 Classe: 0
+
+Bucket 128 (Suporte: 1):
+Linha: 2 7 2 3 3 8 3 11 1 3 1 Classe: 1
+Linha: 2 12 1 3 4 2 1 11 4 3 1 Classe: 1
+Linha: 4 6 2 2 1 8 1 11 3 3 0 Classe: 0
+Linha: 1 6 4 11 1 8 3 11 3 3 1 Classe: 1
+Linha: 3 7 3 11 4 1 2 11 2 3 1 Classe: 1
+
+Bucket 129 (Suporte: 1):
+Linha: 2 11 4 1 2 1 4 12 2 8 1 Classe: 1
+Linha: 4 7 3 1 1 1 2 11 1 8 1 Classe: 1
+Linha: 4 11 3 1 4 1 2 13 2 7 1 Classe: 1
+
+Bucket 130 (Suporte: 1):
+Linha: 3 6 4 13 4 1 1 12 1 2 0 Classe: 0
+Linha: 2 6 2 3 3 11 3 12 1 2 0 Classe: 0
+Linha: 4 6 2 13 2 11 2 8 4 2 0 Classe: 0
+Linha: 2 8 2 13 1 11 1 12 2 12 1 Classe: 1
+
+Bucket 131 (Suporte: 0):
+Linha: 4 5 4 9 3 1 1 4 1 3 0 Classe: 0
+Linha: 3 5 2 9 3 11 1 4 3 3 0 Classe: 0
+Linha: 2 6 3 9 3 5 4 4 1 3 0 Classe: 0
+Linha: 1 8 3 9 1 10 2 5 3 3 0 Classe: 0
+
+Bucket 132 (Suporte: 0):
+Linha: 1 8 1 1 3 13 4 7 2 7 1 Classe: 1
+Linha: 1 8 1 9 3 8 4 7 4 10 1 Classe: 1
+
+Bucket 133 (Suporte: 1):
+Linha: 2 5 4 2 3 6 3 1 1 11 0 Classe: 0
+Linha: 1 5 2 11 4 6 4 5 4 11 2 Classe: 2
+Linha: 4 11 1 11 4 6 3 12 2 11 3 Classe: 3
+
+Bucket 134 (Suporte: 1):
+Linha: 4 3 4 8 2 4 3 2 1 6 0 Classe: 0
+Linha: 4 3 1 11 1 4 4 5 1 6 0 Classe: 0
+Linha: 2 11 3 6 3 4 1 12 2 6 1 Classe: 1
+Linha: 3 10 3 6 1 4 2 13 4 6 1 Classe: 1
+
+Bucket 135 (Suporte: 0):
+Linha: 3 11 3 1 2 5 2 13 2 9 0 Classe: 0
+Linha: 2 11 1 1 4 5 3 1 2 9 1 Classe: 1
+Linha: 1 10 2 1 1 2 4 13 1 9 0 Classe: 0
+
+Bucket 136 (Suporte: 0):
+Linha: 2 11 2 5 4 4 4 13 4 3 0 Classe: 0
+Linha: 1 7 4 5 1 12 4 13 3 3 0 Classe: 0
+Linha: 3 6 2 5 4 12 2 11 3 3 0 Classe: 0
+Linha: 4 8 4 5 1 10 1 3 3 3 1 Classe: 1
+
+Bucket 137 (Suporte: 1):
+Linha: 1 7 4 4 2 2 3 4 2 5 1 Classe: 1
+Linha: 4 9 4 4 1 2 4 11 2 5 0 Classe: 0
+Linha: 4 9 4 4 4 2 1 1 3 9 1 Classe: 1
+Linha: 3 3 4 4 3 2 2 4 4 13 1 Classe: 1
+
+Bucket 138 (Suporte: 0):
+Linha: 2 6 4 3 1 2 3 10 2 5 0 Classe: 0
+Linha: 1 6 1 3 2 12 2 10 1 13 0 Classe: 0
+Linha: 3 6 1 3 3 2 3 7 4 6 1 Classe: 1
+Linha: 3 6 2 3 4 5 4 10 2 13 0 Classe: 0
+
+Bucket 139 (Suporte: 0):
+Linha: 2 12 3 12 4 2 3 3 4 4 1 Classe: 1
+Linha: 4 12 3 3 1 2 1 3 4 10 1 Classe: 1
+Linha: 2 5 4 12 2 2 4 3 3 3 1 Classe: 1
+Linha: 3 12 3 4 1 2 4 3 2 8 0 Classe: 0
+Linha: 3 5 3 13 1 2 4 3 3 3 1 Classe: 1
+Linha: 4 12 4 7 3 2 3 3 1 13 0 Classe: 0
+
+Bucket 140 (Suporte: 0):
+Linha: 1 13 4 6 2 1 1 2 1 5 0 Classe: 0
+Linha: 1 13 2 5 3 1 3 2 1 12 0 Classe: 0
+Linha: 3 4 4 6 3 1 1 5 1 12 0 Classe: 0
+
+Bucket 141 (Suporte: 1):
+Linha: 2 10 4 8 2 11 3 12 3 2 0 Classe: 0
+Linha: 3 10 2 7 4 11 4 13 2 2 0 Classe: 0
+
+Bucket 142 (Suporte: 0):
+Linha: 2 7 3 8 4 13 1 3 2 6 0 Classe: 0
+Linha: 2 7 3 8 4 1 1 8 3 6 1 Classe: 1
+
+Bucket 143 (Suporte: 0):
+Linha: 2 7 4 12 4 2 2 8 1 9 0 Classe: 0
+Linha: 3 4 4 12 3 2 3 5 2 9 0 Classe: 0
+Linha: 3 9 1 12 4 2 2 5 4 1 0 Classe: 0
+Linha: 2 12 4 12 1 2 4 5 4 1 1 Classe: 1
+Linha: 2 4 1 12 2 2 4 12 3 5 1 Classe: 1
+
+Bucket 144 (Suporte: 0):
+Linha: 2 13 1 7 3 5 4 5 4 6 1 Classe: 1
+Linha: 2 13 1 12 3 12 3 5 2 6 1 Classe: 1
+Linha: 4 7 2 3 2 5 1 5 3 6 1 Classe: 1
+
+Bucket 145 (Suporte: 1):
+Linha: 4 5 3 2 1 2 3 6 2 11 1 Classe: 1
+Linha: 4 5 2 6 3 2 2 12 3 7 0 Classe: 0
+Linha: 1 5 4 2 3 2 2 13 2 3 1 Classe: 1
+
+Bucket 146 (Suporte: 0):
+Linha: 2 6 3 3 2 9 3 12 1 13 0 Classe: 0
+Linha: 1 11 3 11 3 9 1 12 2 13 1 Classe: 1
+
+Bucket 147 (Suporte: 0):
+Linha: 1 13 2 12 3 9 1 3 4 12 1 Classe: 1
+Linha: 4 13 2 12 2 9 3 11 4 12 1 Classe: 1
+Linha: 3 2 3 12 1 9 3 11 1 12 1 Classe: 1
+
+Bucket 148 (Suporte: 1):
+Linha: 2 13 1 10 1 1 3 13 1 6 1 Classe: 1
+
+Bucket 149 (Suporte: 0):
+Linha: 3 10 3 8 1 12 4 7 3 5 0 Classe: 0
+Linha: 3 10 2 13 4 12 1 7 3 5 0 Classe: 0
+Linha: 3 6 1 11 3 2 2 7 3 5 0 Classe: 0
+
+Bucket 150 (Suporte: 1):
+Linha: 1 6 1 11 2 3 3 11 4 7 1 Classe: 1
+
+Bucket 151 (Suporte: 0):
+Linha: 3 8 2 13 1 13 3 5 3 12 1 Classe: 1
+Linha: 3 10 2 13 3 3 2 5 2 9 0 Classe: 0
+Linha: 1 8 1 13 4 7 4 5 1 7 1 Classe: 1
+Linha: 4 13 3 13 1 6 4 5 4 3 1 Classe: 1
+
+Bucket 152 (Suporte: 0):
+Linha: 2 13 1 4 3 8 4 1 2 5 0 Classe: 0
+Linha: 4 13 3 11 2 8 2 1 3 7 0 Classe: 0
+Linha: 2 13 4 4 1 9 3 1 1 3 0 Classe: 0
+Linha: 3 13 3 4 4 6 1 6 2 3 1 Classe: 1
+
+Bucket 153 (Suporte: 1):
+Linha: 3 8 1 3 4 6 1 11 1 10 0 Classe: 0
+Linha: 4 8 2 3 1 8 2 11 2 2 1 Classe: 1
+Linha: 2 8 4 3 3 7 1 5 4 10 0 Classe: 0
+Linha: 1 8 3 4 2 6 4 5 3 2 0 Classe: 0
+
+Bucket 154 (Suporte: 0):
+Linha: 3 12 3 3 1 12 4 6 3 9 1 Classe: 1
+Linha: 1 10 1 3 2 11 3 6 1 9 0 Classe: 0
+Linha: 2 12 2 5 3 11 1 6 1 11 1 Classe: 1
+
+Bucket 155 (Suporte: 0):
+Linha: 2 13 3 10 2 4 2 7 1 5 0 Classe: 0
+Linha: 4 13 4 11 3 4 2 7 3 10 0 Classe: 0
+Linha: 1 13 2 6 3 10 3 7 4 8 0 Classe: 0
+Linha: 3 4 4 5 2 4 1 7 4 10 1 Classe: 1
+
+Bucket 156 (Suporte: 1):
+Linha: 3 9 2 10 4 13 1 12 2 13 1 Classe: 1
+Linha: 2 4 2 10 1 8 4 12 4 13 0 Classe: 0
+Linha: 2 11 1 10 2 8 2 12 1 4 0 Classe: 0
+Linha: 4 11 3 10 2 9 2 12 1 4 0 Classe: 0
+Linha: 1 4 2 10 3 13 4 12 2 8 0 Classe: 0
+Linha: 3 7 1 10 3 1 4 12 3 4 0 Classe: 0
+
+Bucket 157 (Suporte: 0):
+Linha: 1 11 3 3 4 9 3 8 4 4 0 Classe: 0
+Linha: 4 2 1 3 4 10 4 8 3 4 0 Classe: 0
+Linha: 3 9 1 3 1 9 4 8 2 12 1 Classe: 1
+Linha: 2 11 2 3 4 4 3 8 1 3 1 Classe: 1
+
+Bucket 158 (Suporte: 1):
+Linha: 2 2 2 1 4 1 4 9 2 12 1 Classe: 1
+Linha: 3 2 3 8 2 1 3 9 1 2 1 Classe: 1
+Linha: 3 2 1 1 3 3 4 9 1 6 0 Classe: 0
+
+Bucket 159 (Suporte: 0):
+Linha: 3 3 1 11 1 12 1 5 4 3 1 Classe: 1
+Linha: 1 8 1 11 2 11 1 5 4 5 2 Classe: 2
+
+Bucket 160 (Suporte: 1):
+Linha: 1 3 4 12 2 8 2 12 1 8 2 Classe: 2
+Linha: 3 1 4 3 2 8 1 12 4 8 1 Classe: 1
+Linha: 1 3 4 7 1 11 2 12 4 8 0 Classe: 0
+
+Bucket 161 (Suporte: 0):
+Linha: 1 6 2 1 4 10 1 7 2 9 0 Classe: 0
+Linha: 2 6 4 10 2 13 2 7 1 9 0 Classe: 0
+Linha: 4 6 3 2 4 8 3 8 1 9 1 Classe: 1
+Linha: 2 6 4 11 1 7 2 5 4 9 0 Classe: 0
+Linha: 2 6 4 5 1 9 2 8 4 9 1 Classe: 1
+
+Bucket 162 (Suporte: 1):
+Linha: 1 12 1 11 2 5 2 11 4 5 2 Classe: 2
+Linha: 4 12 2 9 1 9 3 11 1 5 1 Classe: 1
+Linha: 1 12 2 11 1 2 1 13 2 5 0 Classe: 0
+Linha: 2 12 3 5 3 2 2 2 2 5 2 Classe: 2
+Linha: 2 9 4 5 3 2 3 11 3 5 1 Classe: 1
+Linha: 1 12 3 5 3 2 3 4 2 5 1 Classe: 1
+Linha: 1 9 3 5 3 3 3 13 2 5 1 Classe: 1
+
+Bucket 163 (Suporte: 1):
+Linha: 4 2 2 10 4 13 1 1 2 2 1 Classe: 1
+Linha: 4 2 3 1 4 13 1 1 1 9 1 Classe: 1
+Linha: 1 2 3 1 4 13 2 3 1 8 0 Classe: 0
+
+Bucket 164 (Suporte: 0):
+Linha: 2 2 2 1 4 5 2 4 4 9 0 Classe: 0
+Linha: 2 10 4 1 3 5 3 4 1 6 0 Classe: 0
+Linha: 2 3 3 1 4 5 1 4 2 9 0 Classe: 0
+Linha: 2 10 4 1 3 5 4 11 1 2 0 Classe: 0
+Linha: 3 3 4 1 1 5 1 4 1 6 0 Classe: 0
+Linha: 3 10 3 1 3 5 1 4 3 13 0 Classe: 0
+Linha: 3 3 2 3 2 5 3 4 4 8 1 Classe: 1
+
+Bucket 165 (Suporte: 0):
+Linha: 1 6 1 13 2 1 1 5 3 13 1 Classe: 1
+Linha: 4 6 2 9 3 13 1 5 1 13 1 Classe: 1
+Linha: 4 6 4 12 4 1 1 5 2 13 0 Classe: 0
+Linha: 4 6 1 11 2 12 2 3 3 13 0 Classe: 0
+
+Bucket 166 (Suporte: 0):
+Linha: 2 8 2 5 1 11 4 7 1 1 0 Classe: 0
+Linha: 1 8 1 3 2 11 2 7 3 12 0 Classe: 0
+Linha: 4 13 1 3 3 11 4 7 2 2 0 Classe: 0
+Linha: 4 8 4 4 4 7 1 7 2 2 1 Classe: 1
+
+Bucket 167 (Suporte: 1):
+Linha: 1 3 4 6 4 13 2 3 2 5 1 Classe: 1
+Linha: 4 3 4 11 2 13 3 10 4 5 0 Classe: 0
+
+Bucket 168 (Suporte: 1):
+Linha: 3 6 2 6 1 6 2 2 4 1 3 Classe: 3
+Linha: 2 6 2 1 1 6 1 4 3 1 2 Classe: 2
+Linha: 2 6 3 1 1 13 3 13 1 1 2 Classe: 2
+
+Bucket 169 (Suporte: 0):
+Linha: 4 12 4 5 1 13 4 10 1 7 0 Classe: 0
+Linha: 4 12 2 11 3 13 3 10 4 8 0 Classe: 0
+Linha: 2 12 1 8 3 8 3 10 3 7 1 Classe: 1
+Linha: 4 12 1 2 2 5 2 10 2 9 0 Classe: 0
+
+Bucket 170 (Suporte: 1):
+Linha: 1 2 1 9 4 4 3 8 3 4 1 Classe: 1
+Linha: 2 2 3 9 1 11 4 8 1 2 1 Classe: 1
+Linha: 4 2 4 9 4 4 4 10 1 11 0 Classe: 0
+Linha: 3 8 4 9 2 4 2 13 3 4 1 Classe: 1
+Linha: 3 2 4 9 2 7 1 7 4 4 1 Classe: 1
+
+Bucket 171 (Suporte: 0):
+Linha: 4 7 4 8 3 2 4 10 1 8 1 Classe: 1
+Linha: 4 4 2 8 3 2 1 12 1 8 1 Classe: 1
+Linha: 4 7 1 12 3 2 1 13 3 8 0 Classe: 0
+Linha: 2 11 3 2 1 2 4 1 2 8 1 Classe: 1
+
+Bucket 172 (Suporte: 1):
+Linha: 1 6 3 6 2 4 2 10 2 9 1 Classe: 1
+Linha: 2 2 3 6 3 4 2 5 4 9 0 Classe: 0
+
+Bucket 173 (Suporte: 0):
+Linha: 4 6 4 4 3 4 4 12 2 2 1 Classe: 1
+Linha: 1 6 2 5 3 4 1 12 1 1 0 Classe: 0
+Linha: 3 6 2 5 3 2 1 12 2 8 0 Classe: 0
+Linha: 1 4 4 5 2 9 4 12 1 1 0 Classe: 0
+Linha: 1 6 3 1 3 4 4 12 4 4 1 Classe: 1
+
+Bucket 174 (Suporte: 0):
+Linha: 3 4 1 10 1 13 4 13 4 6 1 Classe: 1
+Linha: 2 4 2 10 1 12 2 8 3 6 0 Classe: 0
+Linha: 4 4 1 8 2 10 2 13 1 6 0 Classe: 0
+
+Bucket 175 (Suporte: 0):
+Linha: 1 11 1 3 3 5 1 7 4 7 1 Classe: 1
+Linha: 3 9 1 3 4 5 3 10 2 7 0 Classe: 0
+Linha: 4 11 3 8 3 5 3 2 3 7 0 Classe: 0
+Linha: 3 3 1 5 3 5 2 9 4 7 1 Classe: 1
+
+Bucket 176 (Suporte: 0):
+Linha: 1 6 2 5 1 3 3 7 1 1 0 Classe: 0
+Linha: 4 11 3 13 3 3 3 7 4 1 0 Classe: 0
+Linha: 1 6 1 8 1 3 1 7 3 3 1 Classe: 1
+
+Bucket 177 (Suporte: 0):
+Linha: 1 6 3 6 4 2 1 1 3 1 2 Classe: 2
+
+Bucket 178 (Suporte: 1):
+Linha: 1 11 3 3 4 8 4 2 2 9 0 Classe: 0
+Linha: 4 13 1 2 4 8 3 2 3 9 1 Classe: 1
+Linha: 3 13 4 10 2 8 2 2 4 11 0 Classe: 0
+Linha: 2 8 1 10 4 8 3 2 4 9 1 Classe: 1
+
+Bucket 179 (Suporte: 0):
+Linha: 3 10 4 7 3 12 1 10 2 5 1 Classe: 1
+
+Bucket 180 (Suporte: 0):
+Linha: 2 6 2 11 3 8 1 2 4 1 0 Classe: 0
+Linha: 4 4 1 11 3 8 3 2 3 11 1 Classe: 1
+Linha: 1 10 3 12 1 8 1 2 4 1 0 Classe: 0
+Linha: 2 6 4 1 1 8 1 2 1 3 0 Classe: 0
+
+Bucket 181 (Suporte: 1):
+Linha: 3 2 1 13 1 11 4 10 2 10 1 Classe: 1
+Linha: 4 2 1 2 3 10 2 10 2 6 2 Classe: 2
+
+Bucket 182 (Suporte: 0):
+Linha: 2 1 3 12 2 8 2 3 2 11 0 Classe: 0
+Linha: 4 2 1 12 2 8 4 3 2 10 0 Classe: 0
+Linha: 4 7 3 12 2 8 4 3 1 7 1 Classe: 1
+Linha: 3 10 3 12 1 11 2 3 3 6 0 Classe: 0
+
+Bucket 183 (Suporte: 0):
+Linha: 3 7 2 10 1 5 4 13 4 8 0 Classe: 0
+Linha: 2 7 1 10 2 3 2 13 4 9 0 Classe: 0
+Linha: 3 7 4 10 3 3 3 8 1 13 0 Classe: 0
+Linha: 1 3 4 10 4 5 1 13 4 8 0 Classe: 0
+Linha: 2 7 1 10 2 3 3 9 4 8 0 Classe: 0
+Linha: 2 7 3 3 3 13 2 13 3 8 1 Classe: 1
+
+Bucket 184 (Suporte: 0):
+Linha: 4 11 2 12 3 6 1 8 1 5 0 Classe: 0
+Linha: 2 11 4 10 3 6 2 6 3 5 1 Classe: 1
+Linha: 2 10 3 1 1 6 3 6 3 5 1 Classe: 1
+Linha: 2 7 1 10 1 6 2 2 4 5 0 Classe: 0
+
+Bucket 185 (Suporte: 0):
+Linha: 1 7 2 7 2 10 1 4 3 11 1 Classe: 1
+Linha: 4 7 2 8 2 10 1 4 4 13 0 Classe: 0
+Linha: 3 7 1 7 3 10 3 12 3 13 1 Classe: 1
+Linha: 2 12 2 7 4 10 2 10 4 13 1 Classe: 1
+Linha: 1 7 2 8 2 10 4 10 4 11 1 Classe: 1
+
+Bucket 186 (Suporte: 0):
+Linha: 2 8 4 10 2 1 3 6 2 2 0 Classe: 0
+
+Bucket 187 (Suporte: 1):
+Linha: 4 9 2 7 3 9 1 7 1 3 2 Classe: 2
+Linha: 2 9 2 6 4 9 2 7 1 3 1 Classe: 1
+Linha: 3 9 1 13 4 9 1 7 4 13 2 Classe: 2
+
+Bucket 188 (Suporte: 0):
+Linha: 4 4 3 2 3 4 2 8 4 2 2 Classe: 2
+Linha: 4 12 1 2 3 4 3 8 3 5 0 Classe: 0
+Linha: 1 4 4 2 4 4 1 1 3 5 1 Classe: 1
+Linha: 2 4 4 2 4 7 1 1 1 5 0 Classe: 0
+Linha: 4 11 2 2 1 10 1 1 3 5 0 Classe: 0
+
+Bucket 189 (Suporte: 1):
+Linha: 3 10 2 1 2 7 1 12 2 12 1 Classe: 1
+Linha: 4 10 4 1 1 7 1 4 4 3 0 Classe: 0
+Linha: 4 10 1 6 4 7 1 2 1 10 1 Classe: 1
+Linha: 4 10 4 1 1 8 2 4 1 10 1 Classe: 1
+
+Bucket 190 (Suporte: 1):
+Linha: 3 3 1 9 4 3 3 1 1 2 1 Classe: 1
+Linha: 4 4 1 10 4 3 2 1 4 2 0 Classe: 0
+
+Bucket 191 (Suporte: 1):
+Linha: 2 10 2 9 1 11 1 6 2 11 1 Classe: 1
+Linha: 1 10 3 9 3 12 1 8 1 11 4 Classe: 4
+Linha: 2 11 2 9 1 12 1 13 4 11 1 Classe: 1
+Linha: 4 9 2 9 1 11 3 10 3 11 2 Classe: 2
+Linha: 3 13 4 9 4 13 3 9 3 11 2 Classe: 2
+
+Bucket 192 (Suporte: 0):
+Linha: 1 4 1 7 1 2 4 1 4 13 0 Classe: 0
+Linha: 2 4 1 10 4 2 2 1 4 12 0 Classe: 0
+Linha: 3 4 4 7 2 10 3 1 3 6 0 Classe: 0
+
+Bucket 193 (Suporte: 0):
+Linha: 1 12 2 2 1 3 1 5 1 6 0 Classe: 0
+Linha: 3 1 4 2 1 11 2 4 4 6 0 Classe: 0
+
+Bucket 194 (Suporte: 1):
+Linha: 2 13 1 3 4 9 4 5 2 9 1 Classe: 1
+Linha: 2 1 3 3 2 9 4 5 2 13 0 Classe: 0
+
+Bucket 195 (Suporte: 1):
+Linha: 3 10 4 13 1 11 3 11 2 8 1 Classe: 1
+Linha: 4 10 1 1 4 11 2 2 1 8 0 Classe: 0
+Linha: 1 10 2 1 2 9 3 8 2 8 1 Classe: 1
+Linha: 4 8 1 1 4 9 4 11 2 8 1 Classe: 1
+
+Bucket 196 (Suporte: 0):
+Linha: 1 1 3 4 4 8 1 8 3 1 2 Classe: 2
+Linha: 3 9 4 13 3 8 2 8 4 1 1 Classe: 1
+Linha: 1 10 1 2 4 8 2 8 3 1 1 Classe: 1
+
+Bucket 197 (Suporte: 1):
+Linha: 1 6 2 7 4 9 3 6 1 1 1 Classe: 1
+Linha: 4 6 4 7 1 13 2 6 2 9 1 Classe: 1
+Linha: 2 6 4 7 4 12 1 3 1 1 0 Classe: 0
+Linha: 4 6 4 7 2 10 4 9 4 10 1 Classe: 1
+
+Bucket 198 (Suporte: 0):
+Linha: 3 4 4 3 2 2 2 6 2 11 0 Classe: 0
+Linha: 1 6 3 3 1 1 4 6 2 11 1 Classe: 1
+Linha: 1 11 3 3 1 13 4 4 2 11 1 Classe: 1
+
+Bucket 199 (Suporte: 0):
+Linha: 3 13 3 5 2 12 2 7 1 11 0 Classe: 0
+Linha: 4 13 1 5 3 2 1 7 4 9 0 Classe: 0
+Linha: 3 13 2 5 3 12 2 1 1 6 0 Classe: 0
+
+Bucket 200 (Suporte: 1):
+Linha: 1 10 2 2 3 8 1 9 1 5 0 Classe: 0
+Linha: 2 10 2 2 4 3 4 9 2 13 0 Classe: 0
+Linha: 3 12 3 2 1 5 4 9 1 13 0 Classe: 0
+
+Bucket 201 (Suporte: 0):
+Linha: 3 5 4 13 1 7 4 3 1 12 0 Classe: 0
+Linha: 1 8 3 13 4 7 4 3 1 10 0 Classe: 0
+Linha: 1 5 1 13 1 9 2 3 4 11 0 Classe: 0
+Linha: 4 6 2 13 1 8 4 3 1 9 0 Classe: 0
+Linha: 3 8 2 13 2 9 4 3 4 2 0 Classe: 0
+
+Bucket 202 (Suporte: 1):
+Linha: 2 11 1 10 2 3 4 6 3 13 0 Classe: 0
+Linha: 4 11 2 9 3 11 1 6 1 13 1 Classe: 1
+
+Bucket 203 (Suporte: 1):
+Linha: 4 11 4 3 1 12 2 4 3 13 0 Classe: 0
+Linha: 4 2 4 3 4 12 3 4 1 10 0 Classe: 0
+Linha: 1 2 2 10 3 12 2 4 4 9 0 Classe: 0
+
+Bucket 204 (Suporte: 1):
+Linha: 4 11 3 3 1 3 1 10 4 3 3 Classe: 3
+Linha: 3 9 3 1 1 3 1 12 4 3 1 Classe: 1
+
+Bucket 205 (Suporte: 1):
+Linha: 3 11 2 2 3 7 3 13 1 4 0 Classe: 0
+Linha: 2 4 1 2 1 7 3 13 4 12 0 Classe: 0
+Linha: 3 8 3 2 4 2 2 13 4 12 1 Classe: 1
+Linha: 3 11 2 4 2 2 1 13 1 12 0 Classe: 0
+Linha: 3 10 1 2 1 10 2 13 1 12 1 Classe: 1
+Linha: 1 9 3 2 3 11 3 13 1 5 0 Classe: 0
+Linha: 1 4 3 2 4 3 3 13 4 12 0 Classe: 0
+
+Bucket 206 (Suporte: 0):
+Linha: 4 11 4 7 2 3 4 4 3 5 0 Classe: 0
+Linha: 1 11 4 7 3 11 1 1 2 5 1 Classe: 1
+Linha: 2 7 1 7 3 3 2 5 3 5 2 Classe: 2
+
+Bucket 207 (Suporte: 0):
+Linha: 3 6 2 6 1 1 2 8 4 3 1 Classe: 1
+Linha: 2 6 4 6 3 1 4 11 1 4 1 Classe: 1
+Linha: 4 6 4 1 1 1 2 11 4 10 1 Classe: 1
+
+Bucket 208 (Suporte: 0):
+Linha: 1 6 3 4 2 7 4 2 4 1 0 Classe: 0
+Linha: 3 13 3 4 4 7 3 2 1 3 0 Classe: 0
+
+Bucket 209 (Suporte: 0):
+Linha: 4 13 3 9 2 2 2 12 2 3 0 Classe: 0
+Linha: 1 5 3 7 1 2 4 12 4 3 0 Classe: 0
+Linha: 3 2 1 7 1 2 3 5 1 3 1 Classe: 1
+Linha: 3 2 3 7 1 3 1 8 4 3 1 Classe: 1
+
+Bucket 210 (Suporte: 0):
+Linha: 4 5 3 4 4 3 1 10 4 4 1 Classe: 1
+Linha: 2 5 3 9 3 3 1 5 4 4 1 Classe: 1
+
+Bucket 211 (Suporte: 1):
+Linha: 3 11 4 8 4 4 4 3 1 4 1 Classe: 1
+Linha: 1 11 2 11 4 4 3 3 1 9 1 Classe: 1
+
+Bucket 212 (Suporte: 1):
+Linha: 3 2 2 9 1 6 1 1 4 6 1 Classe: 1
+Linha: 2 11 4 9 4 12 2 1 1 6 0 Classe: 0
+Linha: 4 11 4 9 2 8 4 10 1 6 0 Classe: 0
+Linha: 3 10 1 9 3 9 2 9 2 6 3 Classe: 3
+Linha: 3 11 4 9 4 1 2 2 1 6 0 Classe: 0
+
+Bucket 213 (Suporte: 0):
+Linha: 3 10 1 7 1 9 4 5 3 12 0 Classe: 0
+Linha: 2 10 1 7 4 9 4 5 4 2 0 Classe: 0
+Linha: 2 10 1 7 4 4 4 13 3 12 0 Classe: 0
+Linha: 4 10 3 7 1 9 4 11 2 10 1 Classe: 1
+
+Bucket 214 (Suporte: 1):
+Linha: 3 2 1 4 1 11 4 11 3 9 1 Classe: 1
+Linha: 2 12 1 4 4 2 4 11 3 9 0 Classe: 0
+Linha: 3 5 2 4 2 11 1 5 3 9 1 Classe: 1
+Linha: 4 13 1 4 1 10 3 11 3 9 0 Classe: 0
+Linha: 4 12 2 1 3 10 4 11 3 9 0 Classe: 0
+Linha: 3 12 2 4 4 7 2 1 1 9 0 Classe: 0
+
+Bucket 215 (Suporte: 1):
+Linha: 2 2 1 10 1 13 2 11 3 2 1 Classe: 1
+Linha: 4 1 4 10 4 13 3 11 1 5 0 Classe: 0
+Linha: 3 4 2 10 3 13 2 11 3 12 0 Classe: 0
+Linha: 2 9 3 10 3 13 1 13 2 1 1 Classe: 1
+
+Bucket 216 (Suporte: 0):
+Linha: 2 10 2 7 1 7 1 9 2 4 1 Classe: 1
+Linha: 4 8 4 7 3 7 2 12 1 4 1 Classe: 1
+Linha: 3 8 4 7 3 13 1 1 2 4 0 Classe: 0
+Linha: 1 8 3 7 3 5 2 1 4 10 0 Classe: 0
+
+Bucket 217 (Suporte: 0):
+Linha: 1 7 2 4 3 8 3 12 3 6 0 Classe: 0
+Linha: 2 7 4 7 2 8 3 10 2 6 1 Classe: 1
+Linha: 4 7 3 11 3 8 3 6 1 6 1 Classe: 1
+
+Bucket 218 (Suporte: 1):
+Linha: 2 12 2 13 3 11 3 1 1 2 0 Classe: 0
+Linha: 4 1 2 13 2 11 4 7 2 2 0 Classe: 0
+Linha: 2 5 4 13 3 11 1 6 4 2 0 Classe: 0
+Linha: 3 10 3 13 4 7 2 13 3 2 1 Classe: 1
+
+Bucket 219 (Suporte: 0):
+Linha: 2 10 4 7 2 8 2 11 2 9 4 Classe: 4
+Linha: 1 10 2 6 3 1 4 11 1 9 0 Classe: 0
+Linha: 4 10 2 7 2 3 2 1 3 9 0 Classe: 0
+Linha: 1 10 3 7 1 2 4 6 1 9 0 Classe: 0
+
+Bucket 220 (Suporte: 0):
+Linha: 4 13 1 10 2 3 1 7 4 3 1 Classe: 1
+Linha: 1 13 2 10 3 3 4 7 3 4 0 Classe: 0
+Linha: 4 13 3 8 1 3 1 7 3 10 0 Classe: 0
+Linha: 1 13 3 3 4 6 4 7 4 2 0 Classe: 0
+
+Bucket 221 (Suporte: 1):
+Linha: 1 2 2 6 4 2 4 1 3 3 1 Classe: 1
+Linha: 1 1 2 6 3 12 4 1 1 3 1 Classe: 1
+Linha: 4 3 2 6 2 2 4 11 2 3 1 Classe: 1
+
+Bucket 222 (Suporte: 0):
+Linha: 4 8 2 2 3 13 4 1 1 10 0 Classe: 0
+Linha: 3 11 1 2 1 11 2 1 1 10 1 Classe: 1
+Linha: 1 7 2 2 4 11 1 5 1 10 0 Classe: 0
+
+Bucket 223 (Suporte: 1):
+Linha: 3 2 3 5 4 6 4 3 1 2 1 Classe: 1
+Linha: 1 2 3 5 3 1 2 3 3 12 0 Classe: 0
+Linha: 3 2 3 5 3 6 2 11 1 5 1 Classe: 1
+Linha: 2 2 1 5 4 11 2 4 2 1 0 Classe: 0
+
+Bucket 224 (Suporte: 0):
+Linha: 3 7 4 4 1 12 4 6 3 3 0 Classe: 0
+Linha: 4 7 4 4 3 12 3 1 4 12 1 Classe: 1
+Linha: 1 7 2 13 2 12 3 12 3 3 1 Classe: 1
+Linha: 4 6 1 10 1 12 3 6 2 3 1 Classe: 1
+
+Bucket 225 (Suporte: 0):
+Linha: 2 3 4 7 1 2 3 13 2 6 0 Classe: 0
+Linha: 2 3 1 7 4 7 2 13 3 10 1 Classe: 1
+
+Bucket 226 (Suporte: 0):
+Linha: 1 12 4 9 3 1 4 5 4 4 0 Classe: 0
+Linha: 1 13 4 9 3 8 2 5 2 4 0 Classe: 0
+Linha: 1 6 3 9 1 8 4 6 1 4 1 Classe: 1
+Linha: 4 12 1 9 3 5 1 5 1 4 1 Classe: 1
+
+Bucket 227 (Suporte: 0):
+Linha: 1 5 1 6 3 3 4 13 1 12 0 Classe: 0
+Linha: 3 5 3 3 4 8 3 13 1 12 0 Classe: 0
+Linha: 2 5 1 4 2 8 3 13 1 11 0 Classe: 0
+
+Bucket 228 (Suporte: 0):
+Linha: 4 12 4 6 4 5 4 9 2 11 0 Classe: 0
+Linha: 2 12 2 6 4 5 1 7 4 10 0 Classe: 0
+Linha: 2 12 2 6 1 10 4 9 3 6 1 Classe: 1
+
+Bucket 229 (Suporte: 1):
+Linha: 1 10 2 12 1 4 3 12 2 10 2 Classe: 2
+Linha: 3 10 4 9 1 9 2 12 1 10 2 Classe: 2
+Linha: 2 10 4 2 1 3 1 12 3 10 1 Classe: 1
+Linha: 2 10 3 5 1 3 4 12 3 12 1 Classe: 1
+
+Bucket 230 (Suporte: 0):
+Linha: 3 7 3 5 4 12 2 5 4 1 1 Classe: 1
+Linha: 1 4 3 5 1 12 4 5 1 2 1 Classe: 1
+
+Bucket 231 (Suporte: 1):
+Linha: 2 6 2 4 1 6 4 13 1 8 1 Classe: 1
+Linha: 4 6 4 7 4 12 1 13 4 8 0 Classe: 0
+Linha: 1 6 1 12 4 12 3 1 4 8 1 Classe: 1
+
+Bucket 232 (Suporte: 0):
+Linha: 1 7 3 6 3 8 1 11 1 2 0 Classe: 0
+
+Bucket 233 (Suporte: 0):
+Linha: 1 10 4 7 4 6 4 3 2 2 0 Classe: 0
+Linha: 1 11 1 7 1 10 1 3 3 2 0 Classe: 0
+Linha: 3 8 2 7 2 10 3 3 4 3 1 Classe: 1
+
+Bucket 234 (Suporte: 0):
+Linha: 1 4 1 11 4 13 4 10 4 11 1 Classe: 1
+Linha: 2 4 2 10 4 13 3 10 1 3 1 Classe: 1
+
+Bucket 235 (Suporte: 0):
+Linha: 1 11 4 9 3 7 4 1 3 3 0 Classe: 0
+Linha: 4 11 4 5 3 7 2 1 2 7 1 Classe: 1
+
+Bucket 236 (Suporte: 0):
+Linha: 1 9 4 11 4 13 1 1 4 10 0 Classe: 0
+Linha: 2 9 4 5 2 13 1 3 3 10 0 Classe: 0
+Linha: 2 9 2 12 1 11 1 1 3 10 0 Classe: 0
+Linha: 4 13 3 11 3 12 2 1 3 10 4 Classe: 4
+
+Bucket 237 (Suporte: 0):
+Linha: 3 13 2 5 2 13 1 8 3 2 1 Classe: 1
+Linha: 2 13 1 5 2 7 1 9 4 2 0 Classe: 0
+Linha: 1 4 3 5 1 7 4 13 3 2 0 Classe: 0
+
+Bucket 238 (Suporte: 0):
+Linha: 1 13 1 4 4 13 4 9 3 8 1 Classe: 1
+Linha: 3 13 3 4 1 5 2 9 2 8 0 Classe: 0
+Linha: 3 1 3 2 4 5 1 9 3 8 0 Classe: 0
+
+Bucket 239 (Suporte: 0):
+Linha: 1 5 2 11 1 10 2 1 3 7 0 Classe: 0
+
+Bucket 240 (Suporte: 0):
+Linha: 1 7 1 13 1 10 1 8 3 13 1 Classe: 1
+Linha: 3 7 2 3 1 10 3 8 1 3 1 Classe: 1
+Linha: 3 7 3 9 2 1 3 8 1 13 0 Classe: 0
+
+Bucket 241 (Suporte: 1):
+Linha: 2 5 2 9 1 10 2 11 3 13 0 Classe: 0
+Linha: 2 12 4 9 4 2 2 11 1 13 0 Classe: 0
+Linha: 3 12 4 12 2 10 2 11 1 13 1 Classe: 1
+Linha: 2 1 3 2 1 10 3 11 3 13 0 Classe: 0
+Linha: 1 12 2 7 1 9 3 11 1 13 0 Classe: 0
+Linha: 2 4 4 2 1 7 2 11 2 13 0 Classe: 0
+
+Bucket 242 (Suporte: 0):
+Linha: 2 10 4 10 2 9 3 7 2 2 1 Classe: 1
+Linha: 2 6 1 10 4 9 2 7 4 12 0 Classe: 0
+Linha: 2 7 2 10 3 11 1 7 2 2 1 Classe: 1
+
+Bucket 243 (Suporte: 1):
+Linha: 2 5 1 2 3 13 3 7 4 2 1 Classe: 1
+Linha: 3 5 2 2 4 1 2 7 4 9 0 Classe: 0
+Linha: 2 5 2 2 3 11 4 7 1 5 1 Classe: 1
+Linha: 4 5 1 2 1 5 2 10 2 9 1 Classe: 1
+
+Bucket 244 (Suporte: 0):
+Linha: 3 9 3 7 3 12 2 2 1 6 0 Classe: 0
+Linha: 4 9 2 6 1 12 4 2 2 7 0 Classe: 0
+
+Bucket 245 (Suporte: 0):
+Linha: 3 1 1 7 1 8 1 5 2 3 0 Classe: 0
+Linha: 4 4 4 2 1 8 2 5 2 3 0 Classe: 0
+Linha: 3 4 1 2 3 8 2 11 3 3 0 Classe: 0
+
+Bucket 246 (Suporte: 0):
+Linha: 1 6 1 2 3 4 1 3 4 5 4 Classe: 4
+Linha: 2 6 3 2 2 4 1 8 4 1 0 Classe: 0
+Linha: 2 8 2 2 4 4 1 12 3 5 0 Classe: 0
+
+Bucket 247 (Suporte: 0):
+Linha: 4 12 4 9 4 7 1 8 1 2 0 Classe: 0
+Linha: 4 12 2 9 4 7 3 9 1 10 1 Classe: 1
+Linha: 2 12 3 5 4 7 2 6 3 10 0 Classe: 0
+Linha: 3 4 2 9 2 7 3 6 2 12 0 Classe: 0
+Linha: 4 12 1 1 3 7 3 6 1 7 1 Classe: 1
+Linha: 1 4 4 1 1 7 1 6 4 7 1 Classe: 1
+
+Bucket 248 (Suporte: 1):
+Linha: 4 11 2 11 1 5 1 8 3 10 1 Classe: 1
+Linha: 1 7 4 11 2 5 3 13 3 10 0 Classe: 0
+
+Bucket 249 (Suporte: 1):
+Linha: 1 10 2 5 2 8 2 4 3 5 1 Classe: 1
+Linha: 4 13 3 5 3 8 1 4 1 13 1 Classe: 1
+Linha: 4 13 4 5 2 8 2 11 1 6 0 Classe: 0
+
+Bucket 250 (Suporte: 1):
+Linha: 4 7 2 8 2 3 4 2 1 4 0 Classe: 0
+Linha: 3 7 1 8 2 13 4 9 2 4 0 Classe: 0
+Linha: 1 7 1 8 4 8 3 2 3 11 1 Classe: 1
+Linha: 4 7 2 7 3 11 4 2 4 4 1 Classe: 1
+
+Bucket 251 (Suporte: 1):
+Linha: 1 12 4 8 3 11 2 8 2 10 1 Classe: 1
+
+Bucket 252 (Suporte: 0):
+Linha: 4 9 2 12 4 10 4 13 2 2 0 Classe: 0
+Linha: 1 9 3 6 4 9 2 13 3 2 1 Classe: 1
+Linha: 1 9 4 1 1 5 4 13 3 2 0 Classe: 0
+Linha: 1 11 4 8 3 13 1 13 4 2 1 Classe: 1
+
+Bucket 253 (Suporte: 1):
+Linha: 2 5 3 9 2 4 1 5 4 12 1 Classe: 1
+Linha: 4 8 4 4 4 5 3 5 1 12 1 Classe: 1
+
+Bucket 254 (Suporte: 1):
+Linha: 1 12 4 11 2 4 2 6 1 13 0 Classe: 0
+Linha: 1 7 4 11 2 4 1 9 1 13 0 Classe: 0
+
+Bucket 255 (Suporte: 1):
+Linha: 4 5 2 12 1 3 1 12 2 13 1 Classe: 1
+Linha: 1 5 1 12 2 5 2 2 1 13 1 Classe: 1
+Linha: 1 5 2 12 2 3 4 6 4 7 0 Classe: 0
+Linha: 1 5 3 1 2 3 2 2 1 10 0 Classe: 0
+
+Bucket 256 (Suporte: 0):
+Linha: 2 3 3 3 4 2 2 9 2 5 1 Classe: 1
+Linha: 1 3 3 3 3 7 1 10 2 5 1 Classe: 1
+
