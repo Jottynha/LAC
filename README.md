@@ -438,7 +438,9 @@ Esses arquivos são essenciais para a análise detalhada dos resultados e para o
 
 ## Conclusão
 
-O algoritmo evoluiu de uma implementação inicial básica para uma solução avançada e otimizada para análise de mãos de poker. O uso de técnicas como LSH melhorou significativamente a performance, permitindo uma análise precisa e eficiente de grandes volumes de dados.
+O algoritmo evoluiu de uma implementação inicial básica para uma solução avançada e otimizada para análise de mãos de poker. O uso de técnicas como LSH melhorou significativamente a performance, permitindo uma análise precisa e eficiente de grandes volumes de dados. Além disso, por meio dos diversos desafios enfrentados na tentativa de otimizar o LAC, foi possível desenvolver noções de otimização, principalmente a forma como a relação entre a acurácia e o tempo de execução afetam o desenvolvimento de um programa dentro dos padrões esperados.
+
+Dessa forma, baseado em todo o trabalho desenvolvido nestre projeto, a aplicação do algoritmo LAC em um contexto acadêmico, usando C++ como linguagem de implementação, a combinação de estruturas eficientes e, também, técnicas de otimização de tempo e intersecções de features resultou em um estudo aprofundado e completo, servindo como um exemplo de como conceitos fundamentais de estruturas de dados e algoritmos podem ser aplicados a problemas reais de machine learning, destacando a importância de uma boa compreensão teórica para a implementação prática.
 
 ---
 
@@ -451,6 +453,21 @@ http://hdl.handle.net/1843/SLSS-7WFMGG
 [2] Cattral,Robert and Oppacher,Franz. (2007). **Poker Hand**. UCI Machine Learning Repository. https://doi.org/10.24432/C5KW38.
 
 [3] Cambronero, Walinton. (2021) **Poker Hand Dataset: A Machine Learning Analysis and a Practical Linear Transformation**. https://walintonc.github.io/papers/ml_pokerhand.pdf
+
+
+## Compilação e Execução
+
+ Especificações da máquina em que o código foi rodado:
+  * Processador Intel Core i5, 10th Gen;
+  * Sistema Operacional Windows 11 Home;
+  * Terminal do WSL: Ubuntu 22.04.5;
+  * 16GB de RAM.
+* | Comando                |  Função                                                                                           |                     
+  | -----------------------| ------------------------------------------------------------------------------------------------- |
+  |  `make clean`          | Apaga a última compilação realizada contida na pasta build.                                       |
+  |  `make`                | Executa a compilação do programa utilizando o g++, e o resultado vai para a pasta build.          |
+  |  `make run`            | Executa o programa da pasta build após a realização da compilação.                                |
+
 
 ## Integrantes:
 
