@@ -20,7 +20,7 @@
 using namespace std;
 
 const double THRESHOLD_SIMILARIDADE = 0.95;
-const int maxComb = 5;
+const int maxComb = 3;
 
 mutex mutexArquivo;  // Mutex para proteger o acesso ao arquivo de saída
 mutex mutexContadores;  // Mutex para proteger os contadores de acertos e erros
@@ -139,6 +139,23 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
     unordered_map<int, double> relevanciaClasse;
     vector<set<int>> linhas;
 
+    
+
+    cout << "Linha sendo processada: " << endl;
+    for (const auto& tupla : featuresLinha) {
+        cout << get<1>(tupla) << " ";
+    }
+
+    for (const auto& tupla : featuresLinha) {
+        int coluna = get<0>(tupla);
+        int valor = get<1>(tupla);
+        set<int> linhasFeature = buscarFeature(tabelaHash, coluna, valor);
+
+        if (!linhasFeature.empty()) {
+            linhas.push_back(linhasFeature);
+        }
+    }
+
     for (const auto& tupla : featuresLinha) {
         int coluna = get<0>(tupla);
         int valor = get<1>(tupla);
@@ -199,11 +216,13 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
         diferencaPercentual = -1;
     }
 
-    if (diferencaPercentual <= -0.5) {
+    if (diferencaPercentual <= -0.4) {
+        cout << "A diferença percentual é menor ou igual a 15%. Retornando 1. :" << diferencaPercentual << endl;
         return 1;
     }
 
     if (!suporteClasses.empty()) {
+        cout << "Classe com maior suporte: " << suporteClasses.front().first << " com suporte " << suporteClasses.front().second << "Diferença percentual: " << diferencaPercentual << endl;
         return suporteClasses.front().first;
     } else {
         return 0;
@@ -358,6 +377,20 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
         bucket.second.second = suporte;
         suportesExistentes[bucket.first] = suporte;
     }
+
+    ofstream arquivoBuckets("buckets_output.txt");
+    for (const auto& bucket : buckets) {
+        arquivoBuckets << "Bucket " << bucket.first << " (Suporte: " << bucket.second.second << "):\n";
+        for (const auto& linhaBucket : bucket.second.first) {
+            arquivoBuckets << "Linha: ";
+            for (const auto& valor : linhaBucket.first) {
+                arquivoBuckets << valor << " ";
+            }
+            arquivoBuckets << "Classe: " << linhaBucket.second << "\n";
+        }
+        arquivoBuckets << "\n";
+    }
+
 
     return buckets;
 }
