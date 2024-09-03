@@ -139,11 +139,6 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
     unordered_map<int, double> relevanciaClasse;
     vector<set<int>> linhas;
 
-    cout << "Linha sendo processada: " << endl;
-    for (const auto& tupla : featuresLinha) {
-        cout << get<1>(tupla) << " ";
-    }
-
     for (const auto& tupla : featuresLinha) {
         int coluna = get<0>(tupla);
         int valor = get<1>(tupla);
@@ -204,13 +199,11 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
         diferencaPercentual = -1;
     }
 
-    if (diferencaPercentual <= 0.15) {
-        cout << "A diferença percentual é menor ou igual a 15%. Retornando 1. :" << diferencaPercentual << endl;
+    if (diferencaPercentual <= -1.5) {
         return 1;
     }
 
     if (!suporteClasses.empty()) {
-        cout << "Classe com maior suporte: " << suporteClasses.front().first << " com suporte " << suporteClasses.front().second << "Diferença percentual: " << diferencaPercentual << endl;
         return suporteClasses.front().first;
     } else {
         return 0;
@@ -222,7 +215,7 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
                              const unordered_map<tuple<int, int>, set<int>>& tabelaHash,
                              const unordered_map<int, set<int>>& tabelaHashClasses) {
     double somaClasses = 0.0;
-    size_t numLinhas = min(bucket.size(), size_t(3)); // Limita o número de linhas analisadas a 3;
+    size_t numLinhas = min(bucket.size(), size_t(1)); // Limita o número de linhas analisadas a 3;
 
     for (size_t j = 0; j < numLinhas; ++j) {
         const vector<int>& linha = bucket[j].first;
@@ -233,7 +226,6 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
             featuresLinha.push_back(make_tuple(i + 1, linha[i]));
         }
         int classe = avaliarClasseCombinatoria(tabelaHash, tabelaHashClasses, featuresLinha, totalLinhas);
-        cout << classe;
 
         // Soma a classe atribuída
         somaClasses += classe;
@@ -262,7 +254,7 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsPor
 
     unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> buckets;
     unordered_map<int, double> suportesExistentes;
-    int numBuckets = linhas.size()/5 + 9;
+    int numBuckets = linhas.size()/6 + 100;
 
     for (int i = 0; i < numBuckets; ++i) {
         buckets[i] = make_pair(vector<pair<vector<int>, int>>(), 0.0);
