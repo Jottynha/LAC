@@ -199,7 +199,7 @@ int avaliarClasseCombinatoria(const unordered_map<tuple<int, int>, set<int>>& ta
         diferencaPercentual = -1;
     }
 
-    if (diferencaPercentual <= -1.5) {
+    if (diferencaPercentual <= -0.5) {
         return 1;
     }
 
@@ -235,7 +235,7 @@ double calcularSuporteBucket(const vector<pair<vector<int>, int>>& bucket,
     double suporteMedio = (numLinhas > 0) ? (somaClasses / numLinhas) : 0.0;
 
     // Arredondamento do suporte total
-    if (suporteMedio - floor(suporteMedio) > 0.5) {
+    if (suporteMedio - floor(suporteMedio) > 0.51) {
         suporteMedio = ceil(suporteMedio);
     } else {
         suporteMedio = floor(suporteMedio);
