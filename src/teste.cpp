@@ -20,7 +20,7 @@
 using namespace std;
 
 const double THRESHOLD_SIMILARIDADE = 0.95;
-const int maxComb = 3;
+const int maxComb = 5;
 
 mutex mutexArquivo;  // Mutex para proteger o acesso ao arquivo de saída
 mutex mutexContadores;  // Mutex para proteger os contadores de acertos e erros
@@ -359,19 +359,6 @@ unordered_map<int, pair<vector<pair<vector<int>, int>>, double>> criarBucketsCom
         suportesExistentes[bucket.first] = suporte;
     }
 
-    ofstream arquivoBuckets("buckets_output.txt");
-    for (const auto& bucket : buckets) {
-        arquivoBuckets << "Bucket " << bucket.first << " (Suporte: " << bucket.second.second << "):\n";
-        for (const auto& linhaBucket : bucket.second.first) {
-            arquivoBuckets << "Linha: ";
-            for (const auto& valor : linhaBucket.first) {
-                arquivoBuckets << valor << " ";
-            }
-            arquivoBuckets << "Classe: " << linhaBucket.second << "\n";
-        }
-        arquivoBuckets << "\n";
-    }
-
     return buckets;
 }
 
@@ -429,7 +416,7 @@ void processarLinhas(int threadId, vector<string>& linhas, int inicio, int fim,
             {
                 lock_guard<mutex> lock(mutexArquivo);
                 // Escreve o resultado da linha processada no arquivo de saída
-                arquivoSaida << "Linha " << (i + 1) << ": Classe Original = " << classeOriginal << ", Classe Atribuída = " << classeAtribuida << endl;
+                arquivoSaida << "Linha " << (i + 1) << ", Classe = " << classeAtribuida << endl;
             }
 
             // Bloqueia o mutex para garantir acesso exclusivo aos contadores de acertos e erros
