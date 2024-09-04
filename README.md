@@ -893,37 +893,57 @@ http://hdl.handle.net/1843/SLSS-7WFMGG
 
 ---
 Esse README oferece uma visão geral da evolução do algoritmo, as bibliotecas utilizadas e o código relevante, proporcionando uma base clara para entender e utilizar o projeto.
+
 ## Referências Bibliográficas:
+
 [1] Veloso, A. A. (2009). **Classificação associativa sob demanda**. 
 http://hdl.handle.net/1843/SLSS-7WFMGG
+
 [2] Cattral,Robert and Oppacher,Franz. (2007). **Poker Hand**. UCI Machine Learning Repository. https://doi.org/10.24432/C5KW38.
+
 [3] Cambronero, Walinton. (2021) **Poker Hand Dataset: A Machine Learning Analysis and a Practical Linear Transformation**. https://walintonc.github.io/papers/ml_pokerhand.pdf
+
 ## Integrantes:
+
 **João Pedro Rodrigues Silva**  
 [![Static Badge](https://img.shields.io/badge/%7C%20Jottynha-black?style=flat-square&logo=github)](https://github.com/Jottynha)
 [![Static Badge](https://img.shields.io/badge/%7C%20jprs1308%40gmail.com%20-black?style=flat-square&logo=gmail)](mailto:jprs1308@gmail.com)
+
+
 **Jader Oliveira Silva**  
 [![Static Badge](https://img.shields.io/badge/%7C%200livas-black?style=flat-square&logo=github)](https://github.com/0livas)
 [![Static Badge](https://img.shields.io/badge/%7C%20jaderoliveira28%40gmail.com%20%20-black?style=flat-square&logo=gmail)](mailto:jaderoliveira28@gmail.com)
+
 **Pedro Augusto Moura**  
 [![Static Badge](https://img.shields.io/badge/%7C%20PedroAugusto08-black?style=flat-square&logo=github)](https://github.com/PedroAugusto08)
 [![Static Badge](https://img.shields.io/badge/%7C%20pedroaugustomoura70927%40gmail.com-black?style=flat-square&logo=gmail)](mailto:pedroaugustomoura70927@gmail.com)
+
 **Henrique de Freitas Araujo**  
 [![Static Badge](https://img.shields.io/badge/%7C%20Ak4ai-black?style=flat-square&logo=github)
 ](https://github.com/Ak4ai)
 [![Static Badge](https://img.shields.io/badge/%7C%20ricosgames.henrique%40gmail.com%20-black?style=flat-square&logo=gmail)](mailto:ricosgames.henrique@gmail.com )
+
 **Rafael Adolfo Silva Ferreira**  
 [![Static Badge](https://img.shields.io/badge/%7C%20Radsfer-black?style=flat-square&logo=github)](https://github.com/Radsfer)
 [![Static Badge](https://img.shields.io/badge/%7C%20rafael.ferreira11.98%40gmail.com%20-black?style=flat-square&logo=gmail)](mailto:rafael.ferreira11.98@gmail.com )
+
 **Samuel Silva Gomes**  
 [![Static Badge](https://img.shields.io/badge/%7C%20samuelsilvg-black?style=flat-square&logo=github)](https://github.com/samuelsilvg)
 [![Static Badge](https://img.shields.io/badge/%7C%20silvagomes881%40gmail.com%20-black?style=flat-square&logo=gmail)](mailto:silvagomes881@gmail.com)
+
 ___
+
+
 <!---
 ✉️ jprs1308@gmail.com (**João Pedro Rodrigues Silva**)
+
 ✉️ jaderoliveira28@gmail.com (**Jader Oliveira Silva**)
+
 ✉️ pedroaugustomoura70927@gmail.com (**Pedro Augusto Moura**)
+
 ✉️ ricosgames.henrique@gmail.com (**Henrique de Freitas Araujo**)
+
 ✉️ rafael.ferreira11.98@gmail.com (**Rafael Adolfo Silva Ferreira**)  
+
 ✉️ silvagomes881@gmail.com (**Samuel Silva Gomes**)
----> 
+--->
